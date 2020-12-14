@@ -1,0 +1,18 @@
+<app-base-card [width]='width' [shadow]='false'>
+    <div class='content'>
+        <div class='owner'>
+            <img [src]='stack.owner.avatar'>
+            <div class='owner-title'>
+                <span class='name'>{{stack.owner.name}}</span>
+                <span class='title'>{{stack.owner.title}}</span>    
+            </div>
+        </div>
+        <div class='message'>
+            <span [innerHtml]='stack.goodbye'></span>
+        </div>
+        <div class='buttons'>
+            <span class='button' (click)='close()'>הכל ברור, תודה!</span>
+            <span class='button' (click)='openChat()'>יש לי עוד שאלה</span>
+        </div>
+    </div>
+</app-base-card>

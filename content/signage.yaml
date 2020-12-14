@@ -1,0 +1,31 @@
+- name: signage
+  steps:
+    - switch:
+        arg: סוג_עסק
+        cases:
+        - undefined: true
+          steps:
+            - pop: default
+        - default: true
+    - do:
+        variable: _needs_signage
+        cmd: check_needs_signage
+        params:
+          - record
+    - switch:
+        arg: _needs_signage
+        cases:
+        - match: true
+          steps:
+            - say:  בכל אופן, כיוון שמדובר על {{סוג_עסק}}, הייתי רוצה לדבר איתך על שילוט 
+        - match: false
+          steps:
+            - say: רוב בעלי {{סוג_עסק}} לא מתקינים שלט לעסק
+            - wait:
+                options:
+                  - show: גם לי אין כוונה כזו
+                    steps:
+                      - pop: default
+                  - show: שילוט דווקא כן מעניין אותי
+    - cards:
+        stack: signage

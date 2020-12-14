@@ -1,0 +1,121 @@
+- name: outro
+  steps:
+    - say: זהו זה
+    - say: >
+        באמת לפתוח עסק זה לא משחק ילדים, אבל אנחנו בסיפור הזה ביחד!
+    - say: >
+        לפני שנפרד, אני אשמח להעביר הודעה בשמך ל{דקלה מיעדים}
+    - say: >
+        {היא ה-מומחית / הוא המומחה} לפתיחת עסקים בעיר ו{היא תוכל / הוא יוכל} ללוות אותך יותר טוב מכל אחד אחר
+    - say: >
+        מעבר לזה, נשמח לשמוע איך היה לך לדבר איתי היום, כי כמו כל בוט אני תמיד רוצה להשתפר
+    - say: מתאים?
+    - wait:
+        options:
+          - show: אכתוב כמה מילים
+            echo: false
+            steps:
+              - wait:
+                  variable: _feedback
+                  long: true
+                  placeholder: איך היה לך לדבר איתי היום?
+              - say: >
+                  מצויין, אני אעביר את זה ואבקש שיצרו איתך בקשר במייל בימים הקרובים
+          - show: פשוט שתהיה איתי בקשר
+            steps:
+              - say: >
+                  מצויין, אני אעביר בקשה ליצור איתך קשר במייל בימים הקרובים
+          - show: אין צורך בשלב זה
+            class: grayed
+            steps:
+              - say: בסדר גמור
+    - say: מפה לשם אספנו {{stack_count}} כרטיסים במיוחד עבור העסק שלך…
+    - say: >
+        אני אשלח לך גם קישור אישי, כדי שהכרטיסים והשיחה שלנו יהיו זמינים לך גם אחר כך	
+    - switch:
+        arg: email_address
+        cases:
+          - default: true
+          - undefined: true
+            steps:
+              - wait:
+                  options:
+                    - show: רשמו את האימייל שלי
+                      echo: false
+                      steps:
+                        - goto: outro-get-email
+                    - show: ביטול
+                      class: grayed
+                      steps:
+                        - say: >
+                            ללא כתובת אימייל לא נוכל לשלוח לך את הקישור או לשמור איתך על קשר…
+                        - wait:
+                            options:
+                              - show: אופס, רישמו את האימייל
+                                echo: false
+                                steps:
+                                  - goto: outro-get-email
+                              - show: אני לא רוצה לקבל אימייל 
+                                class: grayed
+                                steps:
+                                  - say: בסדר, לא נעלבתי. בכל מקרה, הנה הקישור האישי שלך שיהיה לך…
+    - switch:
+        arg: email_address
+        cases:
+          - default: true
+            steps:
+              - say: תודה, הנה הקישור והוא כבר בדרך אליך
+              - switch:
+                  arg: _client_response_email_receipt
+                  cases:
+                    - undefined: true
+                      steps:
+                        - do:
+                            cmd: send_client_response_email
+                            variable: _client_response_email_receipt
+                            params:
+                              - record
+                    - default: true
+          - undefined: true
+    - copy-link:
+    - say: דבר אחרון, אנחנו נשמח לעזור לעוד אנשים שרוצים לפתוח עסקים בעיר שלנו
+    - say: אפשר אולי לבקש איזה שיתוף קטן של האתר עם איזו מילה טובה?
+    - wait:
+        options:
+          - show: בשמחה רבה
+            echo: no
+            steps:
+              - share-dialog:
+              - say: תודה ענקית מכולנו וממני במיוחד!
+          - show: לא כרגע
+            class: grayed
+            steps:
+              - say: אין בעיה
+    - say: אשמח מאוד שנשמור על קשר
+    - say: והכי חשוב, שיהיה המון בהצלחה!
+    - img:
+        mobile:
+          asset: assets/img/bot-bye.png
+          justify_content: flex-start
+          width: '40%'
+        desktop:
+          asset: assets/img/bye-desktop.png
+          justify_content: flex-start
+          width: '40%'
+    - do:
+        cmd: save
+    - wait:
+        options:
+          - show: שיחה חדשה
+            class: grayed
+            steps:
+              - do:
+                  cmd: new_chat
+
+
+- name: outro-get-email
+  steps:
+    - wait:
+        variable: email_address
+        input-kind: email
+        placeholder: כתובת המייל שלך

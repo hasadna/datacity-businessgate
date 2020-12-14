@@ -1,0 +1,50 @@
+- name: arnona
+  steps:
+    - switch:
+        arg: סוג_עסק
+        cases:
+        - undefined: true
+          steps:
+            - pop: default
+        - default: true
+    - switch:
+        arg: מיקום
+        cases:
+        - undefined: true
+          steps:
+            - pop: default
+        - default: true
+    - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} ב{{מיקום.שם}}, ננסה עכשיו להבין כמה תעלה הארנונה
+    - say: האם כבר ידוע לך גודל הנכס?
+    - wait:
+        options:
+        - show: כן, יש לי גודל מדוייק
+          echo: no
+          steps:
+            - wait:
+                variable: גודל_נכס
+                input-kind: number
+                input-min: 1
+                input-max: 100000
+                placeholder: גודל הנכס במ״ר
+            - say: אוקיי, אם כך אציג לך ארנונה ל{{סוג_עסק}} לפי {{גודל_נכס}} מ״ר
+        - show: לא, אבל אתן גודל משוער
+          echo: no
+          steps:
+            - wait:
+                variable: גודל_נכס
+                input-kind: number
+                input-min: 1
+                input-max: 100000
+                placeholder: גודל הנכס המשוער במ״ר
+            - say: אוקיי, אם כך אציג לך ארנונה ל{{סוג_עסק}} לפי {{גודל_נכס}} מ״ר בערך
+        - show: אין לי מושג
+          class: grayed
+          steps:
+            - say: אוקיי, אם כך אציג לך ארנונה ל{{סוג_עסק}} לפי מחיר למ״ר
+    - do:
+        cmd: calculate_arnona
+        params:
+          - record
+    - cards:
+        stack: arnona

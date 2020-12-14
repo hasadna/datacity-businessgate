@@ -1,0 +1,34 @@
+@import '../../../common.less';
+
+:host {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    z-index: 10;
+
+    .chat-container {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+        pointer-events: all;
+        
+        &.open {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;    
+            background: @background-image;
+        }
+
+        .chat {
+            width: 100%;
+            max-width: @chat-width;
+            height: ~'calc(100% - max(0px, (100vw - 600px) / 10))';
+            border: 1px solid @black-700;
+        }
+    }
+}

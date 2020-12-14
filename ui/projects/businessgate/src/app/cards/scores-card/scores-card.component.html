@@ -1,0 +1,12 @@
+<app-base-card [width]='width' [active]='active' *ngIf='card'>
+    <div [class]='"content scheme-secondary-bg scheme-" + scheme'>
+        <h1 [innerHtml]='params.__runner.fillIn(card.title)'></h1>
+        <p [innerHtml]='params.__runner.fillIn(card.content)' *ngIf='card.content'></p>
+        <div class='score' *ngFor='let score of card.scores; let i=index' [class.selected]='score.title === current'>
+            <div class='background' [style.right]='bar_position(score)'></div>
+            <div class='number'>{{i+1}}</div>
+            <div class='title'>{{score.title}}</div>
+            <div class='value'>{{score.score_display}}</div>
+        </div>
+    </div>
+</app-base-card>

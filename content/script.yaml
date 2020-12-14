@@ -1,0 +1,87 @@
+- description: Main Script
+  name: main
+  snippets:
+    - include: intro.yaml
+    - include: business-licensing.yaml
+    - include: arnona.yaml
+    - include: signage.yaml
+    - include: demand.yaml
+    - include: geo-insights.yaml
+    - include: tips.yaml
+    - include: outro.yaml
+
+
+    - name: default
+      steps:
+      - goto: intro
+      - goto: business-licensing
+      - goto: demand
+      - goto: geo-insights
+      - goto: arnona
+      - goto: signage
+      - goto: tips
+      - goto: outro
+
+
+- description: More Info Script
+  name: more-info
+  snippets:
+    - name: default
+      steps:
+        - say: בשמחה, במה אוכל לעזור?
+        - wait:
+            long: true
+            placeholder: אפשר לכתוב כאן בכמה מילים…
+            variable: question
+        - do:
+            cmd: process_question
+            params:
+              - record
+        - say: >
+            בהחלט. אשמח לברר ולחזור אליך
+            לגבי זה באימייל.
+        - switch:
+            arg: email_address
+            cases:
+              - default: true
+              - undefined: true
+                steps:
+                  - goto: get-email
+        - say: >
+            מצויין, תודה. אני אהיה איתך בקשר
+            באימייל לגבי זה תוך כמה ימים, 
+            בכתובת {{email_address}}.
+        - goto: finalize
+    
+    - name: finalize
+      steps:
+        - say: יש עוד משהו שרצית לשאול בנושא?
+        - wait:
+            options:
+              - show: לא, זהו בינתיים
+              - show: אה, כן… יש לי עוד שאלה
+                steps:
+                  - goto: default
+              - show: תיקון כתובת האימייל
+                steps:
+                  - goto: get-email
+                  - goto: finalize
+
+    - name: get-email
+      steps:
+        - say: באיזו כתובת אוכל ליצור איתך קשר?
+        - wait:
+            variable: email_address
+            placeholder: כתובת האימייל שלך
+            input-kind: email
+        - say: אוקיי, אשלח ל-{{email_address}}
+  
+- name: config
+  keys:
+    - name: siteTitle
+      show: שער לעסקים
+    - name: inputPlaceholder
+      show:
+        .tx:
+          en: Type Here
+          _: הקלידו כאן

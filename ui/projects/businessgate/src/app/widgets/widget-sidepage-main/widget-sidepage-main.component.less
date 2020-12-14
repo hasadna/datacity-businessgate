@@ -1,0 +1,74 @@
+@import '../../../common.less';
+
+app-widget-sidepage-base {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    z-index: 20;
+
+    ::ng-deep {
+        .content {
+            display: flex;
+            flex-flow: column;
+            align-items: flex-start;
+        }
+        .page-container {
+            transform: translateX(-100%);
+            transition-property: transform;
+            transition-duration: 500ms;
+            display: flex !important;
+            &.open {
+                transform: translateX(0);
+            }
+        }
+    }
+}
+
+h1 {
+    .font2;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 64px;
+    color: @accent-text;
+    margin: 0px;
+}
+
+h2 {
+    .font2;
+    font-weight: 300;
+    font-size: 50px;
+    line-height: 72px;
+    border-bottom: 1px solid @black-200;
+    margin: 0;
+    color: @accent-text;
+    width: 100%;
+    cursor: pointer;
+
+    &:last-of-type {
+        border: none;
+    }
+}
+
+img.logo-full {
+    width: 100%;
+    max-width: 160px;
+    margin-bottom: 32px;
+}
+
+.logos {
+    margin-top: auto;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    img {
+        height: 38px;
+        max-width: 120px;
+    }
+}

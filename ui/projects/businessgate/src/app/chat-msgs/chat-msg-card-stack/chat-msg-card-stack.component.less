@@ -1,0 +1,75 @@
+@import '../../../common.less';
+@import '../../../stacks.less';
+
+:host {
+    width: ~'calc(100vw - 16px)';
+    padding: 20px 0;
+
+    .bot-option {
+        cursor: pointer;
+        width: 180px;
+        text-align: center;
+        font-size: 0px;
+        padding: 8px 16px;
+        img {
+            width: 15px;
+            height: 18px;
+        }
+
+        &.open {
+            z-index: 10;
+        }
+    }
+
+    .stack-selectors {
+        min-width: ~'calc(min(100%, @chat-width))';
+        max-width: 100%;
+        align-self: center;
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-start;
+        padding: 20px;
+        padding-bottom: 0;
+        overflow-x: scroll;
+        .no-scrollbars;
+        min-height: 160px;
+        z-index: 1;
+        opacity: 1;
+        transition-property: opacity;
+        transition-duration: 500ms;
+
+        &.slidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .post-content, .pre-content {
+        display: flex;
+        flex-flow: column;
+    }
+
+    .post-content {
+        align-items: center;
+    }
+
+    .pre-content {
+        align-items: flex-start;
+    }
+}
+
+// .stack-wrapper {
+//     width: 100%;
+//     // display: block;
+//     display: flex;
+//     flex-flow: column;
+//     align-items: center;
+//     margin-bottom: 20px;
+//     position: relative;
+//     transition-property: transform;
+//     transition-duration: 500ms;
+
+//     &.open {
+//         z-index: 10;
+//     }
+// }

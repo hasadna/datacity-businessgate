@@ -1,0 +1,111 @@
+- name: intro
+  steps: 
+    - goto: introduction
+    - goto: select-business-kind
+    - goto: select-location
+    - do:
+        cmd: stacks_button_visible
+
+- name: introduction
+  steps:
+    - img:
+        mobile:
+          asset: assets/img/bot-hi.png
+          justify_content: flex-start
+          width: '40%'
+        desktop:
+          asset: assets/img/hi-desktop.png
+          justify_content: flex-start
+          width: '40%'
+    - say: קוראים לי BR7, אני בוט קטן שמתמחה בעסקים קטנים בעיריית באר שבע
+    - say: >
+        עשרות מומחים בעירייה עבדו איתי במשך חודשים
+        ויצרנו יחד מאות כרטיסים שונים שנוגעים בכל היבט של פתיחת עסק:
+        רישוי, ארנונה, שילוט, תכנון, חניה, ביקושים, מה לא…
+    - say: אז שנתחיל?
+    - wait:
+        options:
+          - show: בטח
+    - say: >
+        אני אשאל אותך כמה שאלות בסיסיות ואציג לך
+        כרטיסים שממוקדים במיוחד בסיפור הפתיחה של העסק שלך	
+    - say: >
+        תוך 10 דקות בערך כל התהליך של פתיחת עסק יהפוך לברור הרבה יותר	&#x1F3C7;
+    - say: >
+        בהתאם ל<a href='http://example.com'>תנאי השימוש</a>
+        לא אלאה אותך עכשיו בכל הפרטים,
+        אתן לך מידע ראשוני ואת התהליך המלא מומלץ להמשיך
+        אחר כך עם אנשי מקצוע שינחו אותך בניואנסים הקטנים
+    - say:
+        בהמשך גם אכיר לך את {דקלה מיעדים שתוכל} ללוות אותך הלאה
+
+- name: select-business-kind
+  steps:
+    - say:
+        אבל קודם כל אצטרך שנזהה יחד את סוג העסק שלך מתוך הרשימה
+    - wait:
+        options:
+          - show: יאללה
+            echo: no
+            steps:
+              - select-from-list:
+                  source: business_kinds
+                  variable: business_kind
+                  variable2: סוג_עסק
+                  placeholder: סוג עסק (מסעדה, מוסך, משרד…)
+                  response: בחרתי {{סוג_עסק}}
+              - say: נהדר!
+              - do:
+                  cmd: check_for_opportunity
+                  variable: _has_opportunity
+              - switch:
+                  arg: _has_opportunity
+                  cases:
+                    - match: true
+                      steps:
+                        - say: למעשה יש כרגע כמה מקומות בעיר שבהם כדאי במיוחד להקים {{סוג_עסק}} וגם כמה הזדמנויות שהעירייה מקדמת
+                        - say: האם יעניין אותך לשמוע על הזדמנויות או שכבר בחרת מיקום?
+                    - default: true
+                      steps:
+                        - say: האם יעניין אותך לשמוע על מתחמים עסקיים או שכבר בחרת מיקום?
+
+          - show: עוד לא החלטתי מה לפתוח
+            class: grayed
+            steps:
+              - say: בסדר גמור
+              - say: יש לי כבר לא מעט מה לספר לך גם ככה
+              - say: ואם ישארו לך שאלות בסוף, {דקלה} תשמח לעזור
+              - say: האם יעניין אותך לשמוע על מתחמים עסקיים או שכבר בחרת מיקום?
+
+- name: select-location
+  steps:
+    - wait:
+        options:
+          - show: אשמח לשמוע
+            echo: false
+            do:
+              cmd: select_commercial_area
+            # steps:
+            #   - cards:
+            #       stack: commercial-areas
+            #       variable: location
+            #       variable2: מיקום
+            #       response: בחרתי {{location.title}}
+          - show: כבר בחרתי מקום
+            echo: false
+            steps:
+              - select-from-list:
+                  source: locations
+                  variable: location
+                  variable2: מיקום
+                  placeholder: כתובת העסק או שם מתחם עסקי…
+                  response: בחרתי {{מיקום.שם}}
+              - say: נהדר!
+          - show: אבחר אחר כך
+            class: grayed
+            steps:
+              - say: אין בעיה
+    - do:
+        cmd: calculate_locations
+        params:
+          - record

@@ -1,0 +1,47 @@
+@import '../../common.less';
+
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;    
+    background: @background-color;
+    border: 8px solid @black-100;
+    
+    .chat {
+        display: flex;
+        flex-flow: row;
+        justify-content: stretch;
+        width: 100%;
+        position: relative;
+        .bott {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: ~'calc(50% - 300px)';
+            display: flex;
+            height: 100%;
+            flex: 1 1 0px;
+            flex-flow: column;
+            align-items: center;
+            justify-content: center;
+            img {
+                width: 170px;
+                height: 200px;
+            }
+            pointer-events: none;
+        }
+        htl-hatool {
+            // flex: 0 1000000000000 @chat-width;
+            // max-width: @chat-width;
+            width: 100%;
+        }
+        height: 100%;
+    }
+
+    app-widget-map {
+        z-index: 5;
+    }
+}

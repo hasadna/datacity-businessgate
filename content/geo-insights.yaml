@@ -1,0 +1,39 @@
+- name: geo-insights
+  steps:
+    - switch:
+        arg: מיקום
+        cases:
+        - undefined: true
+          steps:
+            - pop: default
+        - default: true
+    - say: >
+        אני רוצה עכשיו להציע לך כמה
+        תובנות שמבוססות על המידע
+        הגיאוגרפי שקיים אצלנו בעירייה
+    - do:
+        cmd: prepare_geo_insights
+        variable: show_institutions
+        params:
+          - record
+    - switch:
+        arg: show_institutions
+        cases:
+          - match: true
+            steps:
+              - say: >
+                  גורמים שונים משפיעים על תנועת
+                  אנשים ברחוב. מבני ציבור, מרכזי קניות, תחב״צ, חניה… שנפתח מפה?
+              - cards:
+                  stack: institutions
+    - say: >
+        צעירים? מבוגרים? עולים חדשים? הנתונים שיש לנו עוזרים ללמוד קצת על אופי השכונה ביחס לאחרות.
+    - cards:
+        stack: demographics
+    - say: >
+        העיר שלנו משתנה כל הזמן. וחשוב לתכנן לא רק להווה, אלא גם לעתיד.
+    - say: >
+        במחלקת התכנון הכנו לך סיור קצר בעתיד של האיזור. רוצה להציץ?
+    - cards:
+        stack: future_plans
+        

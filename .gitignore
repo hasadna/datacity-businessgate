@@ -1,0 +1,7 @@
+.ipynb_checkpoints
+.DS_Store
+__pycache__
+_cache*/
+.vscode/
+secrets.sh
+.checkpoints

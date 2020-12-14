@@ -1,0 +1,6 @@
+<app-base-card [width]='width' [active]='active' *ngIf='card'>
+    <div class='content scheme-secondary-bg'>
+        <h1 [innerHtml]='params.__runner.fillIn(card.title || "EMPTY")'></h1>
+        <p [innerHtml]='params.__runner.fillIn(card.content || "EMPTY")'></p>    
+    </div>
+</app-base-card>

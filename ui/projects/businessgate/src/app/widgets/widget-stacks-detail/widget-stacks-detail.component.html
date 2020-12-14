@@ -1,0 +1,14 @@
+<div class='page-container' *ngIf='open'>
+
+    <app-card-stack
+        [params]='params'
+        [stack]='stacks.stack_cache[stack_name]'
+        [goodbye]='false'
+        [class]='stacks.colorSchemeClass(stacks.stack_cache[stack_name])'
+    >
+    </app-card-stack>
+
+    <div class='close' (click)='close()'>
+        <img src='assets/img/close.svg'>
+    </div>
+</div>

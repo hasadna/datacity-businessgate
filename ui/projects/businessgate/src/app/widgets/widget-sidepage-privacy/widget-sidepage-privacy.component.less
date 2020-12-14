@@ -1,0 +1,28 @@
+@import '../../../common.less';
+
+app-widget-sidepage-base {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    z-index: 20;
+
+    ::ng-deep .content {
+        display: flex;
+        flex-flow: column;
+        align-items: flex-start;
+    }
+}
+
+h1 {
+    .font2;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 64px;
+    color: @accent-text;
+    margin: 0px;
+    margin-top: 40px;
+}

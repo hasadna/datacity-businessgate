@@ -1,0 +1,33 @@
+- name: demand
+  steps:
+    - do:
+        variable: _needs_demand
+        cmd: check_needs_demand
+        params:
+          - record
+    - say: מדי פעם העירייה עורכת סקר ביקושים בעיר
+    - switch:
+        arg: סוג_עסק
+        cases:
+        - undefined: true
+          steps:
+            - say: >
+                אם מעניין אותך ללמוד על הביקוש לבתי קפה, מכוני כושר, חנויות פארם וכדו׳ אשמח להציג לך את המידע
+            - say: איזו קטגוריה מעניינת אותך?
+        - default: true
+          steps:
+            - switch:
+                arg: _needs_demand
+                cases:
+                - match: false
+                  steps:
+                    - say: >
+                        האמת שלא שאלנו על {{סוג_עסק}} אבל אם בכל זאת מעניין אותך ללמוד על
+                        הביקוש לבתי קפה, מכוני כושר, חנויות פארם וכדו׳ אשמח להציג לך את המידע
+                    - say: איזו קטגוריה מעניינת אותך?
+                - match: true
+                  steps:
+                    - say: >
+                        בטח יעניין אותך ללמוד על הביקוש ל{{סוג_עסק}} ב{{מיקום.שם}} ביחס למקומות אחרים בעיר 
+    - cards:
+        stacksFrom: demand-stacks   

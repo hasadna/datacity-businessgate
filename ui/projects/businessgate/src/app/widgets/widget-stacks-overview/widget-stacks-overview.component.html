@@ -1,0 +1,35 @@
+<div class='page-container' [class.open]='open'>
+    <ng-container *ngIf='open'>
+        <h1>{{ stacks.stack_count }} החפיסות שלך</h1>
+
+        <h2>
+            סיפרת לנו שברצונך לפתוח
+            <b>{{ business_name() }}</b>
+            באיזור
+            <b>{{ location() }}</b>.
+            בהתאם יצרנו עבורך
+            {{ stacks.stack_count }}
+            חפיסות כרטיסים עם טיפים, מדריכים והנחיות:
+        </h2>
+
+        <ng-container *ngFor='let module of stacks.stack_modules'>
+            <h3>{{ module.module }} ({{module.stacks.length}}):</h3>
+
+            <div class='headers'>
+                <div class='scroller'>
+                    <app-stack-header-card *ngFor='let stack of module.stacks'
+                        [class]='stacks.colorSchemeClass(stacks.stack_cache[stack])'
+                        [params]='params()' [stack]='stacks.stack_cache[stack]'
+                        (click)='selectStack(stack)'
+                    ></app-stack-header-card>
+                    <div class='filler'></div>
+                </div>
+                <img src='assets/img/card-counter.svg' (click)='scroll($event)' *ngIf='module.stacks.length > 4'>
+            </div>
+        </ng-container>
+
+        <div class='close' (click)='open=false'>
+            <img src='assets/img/close.svg'>
+        </div>
+    </ng-container>
+</div>

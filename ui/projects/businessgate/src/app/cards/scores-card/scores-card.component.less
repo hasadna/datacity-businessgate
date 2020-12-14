@@ -1,0 +1,108 @@
+@import '../../../common.less';
+
+.content {
+    width: 100%;
+    height: 100%;
+    padding: 20px 16px;
+    overflow-y: scroll;
+    .no-scrollbars;
+
+    h1 {
+        .card-title;
+        font-size: 24px;
+        margin: 0;
+    }
+
+    p {
+        .card-text;
+        font-size: 16px;
+        margin: 8px 0;
+    }
+
+    .score {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        padding: 0 8px;
+        border-radius: 4px;
+        background: rgba(44, 60, 59, 0.05);
+        margin-bottom: 4px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid transparent;
+
+        > * {
+            .font2;
+            font-weight: normal;
+            font-size: 22px;  
+            z-index: 2;  
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(../../../assets/img/bar-pattern-red.png);
+            background-repeat: repeat;
+            z-index: 1;
+            opacity: 0.75;
+        }
+
+        .number {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            justify-content: center;
+            background: rgba(44, 60, 59, 0.05);
+            border-radius: 12px;
+            color: @black-700;
+            width: 24px;
+            height: 24px;
+        }
+
+        .title {
+            color: @black-700;
+            margin: 0 8px;
+        }
+        .value {
+            margin-right: auto;
+            color: @black-500;
+            direction: ltr;
+        }
+        &.selected {
+            border-color: @orange-700;
+
+            .number {
+                background: @orange-700;
+                color: #ffffff;
+            }
+
+            .title {
+                font-weight: bold;
+            }
+            .value {
+                color: @black-700;
+            }
+        }
+    }
+
+    &.scheme-green {
+
+        .score {
+            .background {
+                background-image: url(../../../assets/img/bar-pattern-green.png);
+            }
+    
+            &.selected {
+                border-color: @demographics-700;
+    
+                .number {
+                    background: @demographics-700;
+                }
+            }    
+        }
+    }
+}

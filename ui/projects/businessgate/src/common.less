@@ -1,0 +1,165 @@
+@import (css) 'https://fonts.googleapis.com/earlyaccess/opensanshebrew.css';
+
+/* container */
+@background-image: url(assets/img/background.png);
+@background-color: #fafafa;
+@container-padding: 20px;
+@chat-width: 600px;
+
+/* colors */
+@white: #fff;
+@accent-text: #360627;
+@black-900: #101717;
+@black-700: #2C3C3B;
+@black-500: #737373;
+@black-400: #979797;
+@black-200: #D8D8D8;
+@black-100: #E5E5E5;
+@gray-f6: #f6f6f6;
+@white: #ffffff;
+@accent-100: #F9F7F7;
+@orange-700: #9F0909;
+@demographics-700: #0F8042;
+
+/* fonts */
+.font1 {
+    font-family: 'Open Sans Hebrew', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+} 
+
+@font-face {
+    font-family: Narkiss;
+    font-weight: normal;
+    src: url("assets/fonts/NarkissBlockCondensed-Regular-TRIAL.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Narkiss;
+    font-weight: bold;
+    src: url("assets/fonts/NarkissBlockCondensed-Bold-TRIAL.otf") format("opentype");
+}
+
+.font2 {
+    font-family: Narkiss, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* to text */
+.to-text {
+    font-size: 16px;
+    .font1;
+    color: @accent-text;
+}
+
+/* options text */
+.options-text {
+    font-size: 22px;
+    .font2;
+    color: @black-700;
+}
+
+/* from text */
+.from-text {
+    font-size: 24px;
+    .font2;
+    color: @white;
+}
+
+.card-title {
+    .font2;
+    color: @accent-text;
+}
+
+.card-text {
+    .font1;
+    color: @accent-text;
+}
+
+.gallery-title {
+    .font2;
+    font-weight: 700;
+    font-size: 24px;
+    color: @accent-text;
+}
+
+.gallery-text {
+    .font2;
+    font-weight: 300;
+    font-size: 24px;
+    color: @accent-text;
+}
+
+/* bubbles */
+.bot-message {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 0px #CBD6D9;
+    border-radius: 12px 1px 12px 12px;
+
+    padding: 6px 16px;
+    line-height: 24px;
+
+    .to-text;
+}
+
+.bot-option {
+    background: #FFFFFF;
+    border: 1px solid @black-700;
+    box-shadow: 0px 2px 0px @black-700;
+    border-radius: 24px;
+
+    padding: 4px 16px;
+    margin: 0 4px;
+    white-space: nowrap;
+    cursor: pointer;
+
+    .options-text;
+}
+
+/* widgets */
+.topleft-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 0px 0px 16px 0px;
+    background: @black-100;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: @accent-text;
+    cursor: pointer;
+
+    img {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+
+/* utilities */
+.no-scrollbars {
+    /*FireFox*/
+    scrollbar-width: none;
+    /*IE10+*/
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    &::-webkit-scrollbar {
+    /*Chrome, Safari, Edge*/
+        display: none;
+    } 
+}
+
+@media only screen and (max-width: 999px) {
+    ::ng-deep .layout-desktop {
+        display: none !important;
+    }    
+}
+
+@media only screen and (min-width: 1000px) {
+    ::ng-deep .layout-mobile {
+        display: none !important;
+    }    
+}

@@ -1,0 +1,6 @@
+<div class='message' (click)='clipboardCopy()'>
+    <span>{{link}}</span>
+    <ng-container *ngIf='clipboardSupported'>
+        <img src='assets/img/copy-icon.svg' [class.copied]='copied'>
+    </ng-container>
+</div>

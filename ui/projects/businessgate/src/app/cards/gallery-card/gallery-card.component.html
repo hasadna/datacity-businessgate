@@ -1,0 +1,8 @@
+<app-base-card [width]='width' [active]='active' *ngIf='card'>
+    <div class='img' [style.background-image]='"url(" + image() + ")"'></div>
+    <div class='content scheme-secondary-bg'>
+        <h1 [innerHtml]='card.title'></h1>
+        <p [innerHtml]='params.__runner.fillIn(card.content || "")'></p>    
+        <div class='bot-option' [innerHtml]='card.selectButtonText' (click)='select(card)' *ngIf='card.selectButtonText'></div>
+    </div>
+</app-base-card>

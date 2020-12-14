@@ -1,0 +1,125 @@
+@import '../../../common.less';
+@import '../../../stacks.less';
+
+:host {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+    max-width: @chat-width;
+    display: block;
+}
+
+.page-container {
+    width: 100%;
+    height: 100%;
+
+    transform: translateX(100%);
+    pointer-events: none;
+    transition-property: transform;
+    transition-duration: 500ms;
+    display: block;
+
+    &.open {
+        pointer-events: all;
+        transform: translateX(0);
+    }
+    overflow-y: scroll;
+    .no-scrollbars;
+
+    background: @black-900;
+    border: 8px solid @black-100;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.12), inset 0px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -1px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+
+    padding: 24px;
+    padding-left: 0;
+
+    h1 {
+        .font2;
+        font-weight: 500;
+        font-size: 48px;
+        color: @black-200;
+        margin: 0;
+    }
+
+    h2 {
+        .font2;
+        font-weight: 300;
+        font-size: 24px;
+        color: @black-200;
+        padding-left: 40px;
+        margin: 40px 0;
+
+        b {
+            font-weight: 700;
+        }
+    }
+
+    h3 {
+        .font2;
+        font-weight: 300;
+        font-size: 24px;
+        color: @black-200;
+        padding-left: 40px;
+        margin: 0;
+    }
+
+    .headers {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        width: 100%;
+        .scroller {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            width: 100%;
+            overflow-x: scroll;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            scroll-snap-stop: always;
+            .no-scrollbars;
+            & > * {
+                scroll-snap-align: start;
+            }
+            .filler {
+                display: block;
+                min-width: 140px;
+                height: 100px;
+            }
+        }
+        margin-top: 24px;
+        margin-bottom: 64px;
+        position: relative;
+        img {
+            position: absolute;
+            left: 0;
+            cursor: pointer;
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 56px;
+        height: 56px;
+        border-radius: 0px 0px 16px 0px;
+        background: @black-100;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: @accent-text;
+        cursor: pointer;
+
+        img {
+            width: 12px;
+            height: 12px;    
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<div class='selector' *ngIf='!done'>
+    <div class='input'>
+        <input type='text' (keyup)='search($event.target.value)' [placeholder]='args.placeholder' #input>
+    </div>
+    <div class='options'>
+        <ng-container *ngFor='let item of items' >
+            <div class='option' (click)='selected(item)' *ngIf='visible(item.display)'>
+                <span [innerHtml]='highlight(item.display)'></span>
+            </div>   
+        </ng-container>
+    </div>
+</div>

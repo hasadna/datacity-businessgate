@@ -1,0 +1,12 @@
+<app-base-card [width]='width' *ngFor='let transform of transforms' [style.transform]='transform'>
+    <div class='content scheme-secondary-bg'>
+    </div>
+</app-base-card>
+<app-base-card [width]='width' *ngIf='stack'>
+    <div class='content scheme-primary-bg'>
+        <div class='title'>
+            <h1 [innerHtml]='params.__runner.fillIn(stack.title)'></h1>
+            <h2 [innerHtml]='params.__runner.fillIn(stack.subtitle)'></h2>
+        </div>
+    </div>
+</app-base-card>

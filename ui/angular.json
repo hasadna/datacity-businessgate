@@ -1,0 +1,144 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "businessgate": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less",
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/businessgate",
+      "sourceRoot": "projects/businessgate/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/businessgate",
+            "index": "projects/businessgate/src/index.html",
+            "main": "projects/businessgate/src/main.ts",
+            "polyfills": "projects/businessgate/src/polyfills.ts",
+            "tsConfig": "projects/businessgate/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/businessgate/src/assets",
+              "projects/businessgate/src/favicons",
+              "projects/businessgate/src/site.webmanifest",
+              "projects/businessgate/src/favicon.ico"
+            ],
+            "styles": [
+              "projects/businessgate/src/styles.less",
+              "projects/businessgate/src/theme.less"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/businessgate/src/environments/environment.ts",
+                  "with": "projects/businessgate/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "businessgate:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "businessgate:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "businessgate:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/businessgate/src/test.ts",
+            "polyfills": "projects/businessgate/src/polyfills.ts",
+            "tsConfig": "projects/businessgate/tsconfig.spec.json",
+            "karmaConfig": "projects/businessgate/karma.conf.js",
+            "assets": [
+              "projects/businessgate/src/favicon.ico",
+              "projects/businessgate/src/assets"
+            ],
+            "styles": [
+              "projects/businessgate/src/styles.less",
+              "projects/businessgate/src/theme.less"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/businessgate/tsconfig.app.json",
+              "projects/businessgate/tsconfig.spec.json",
+              "projects/businessgate/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/businessgate/e2e/protractor.conf.js",
+            "devServerTarget": "businessgate:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "businessgate:serve:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  },
+  "defaultProject": "businessgate"
+}
