@@ -11,7 +11,7 @@ import geojson
 from fetch_utils import fetch_airtable, fetch_ckan, to_data_url, _cache
 from geo_utils import contains, to_point
 from addresses import prepare_addresses, prepare_locations
-from neighborhoods import prepare_neighborhoods_geojson
+from neighborhoods import prepare_neighborhoods_geojson, get_neighborhood_features
 
 def crossref_commercial_area(geometry):
     if not os.path.exists('_cache_addresses'):
@@ -31,7 +31,6 @@ def crossref_commercial_area(geometry):
         crossref()
     ).process()
 
-    print(arnona_zones)
     return dict(arnona_zones=arnona_zones)
 
 def process_stack_commercial_areas(stack):
@@ -48,7 +47,6 @@ def process_stack_commercial_areas(stack):
             if card['name'] not in geo_features:
                 print('MISSING COMMERCIAL AREA GEO', card['name'])
                 continue
-            print('PROCESSING COMMERCIAL AREA GEO', card['name'])
             card['geometry'] = geo_features[card['name']]
             card.update(crossref_commercial_area(card['geometry']['geometry']))
             card.pop('cards', None)
@@ -207,10 +205,9 @@ def process_demographics(stack):
             return f
 
         s2n = dict(
-            (r['stat_area'], r['neighborhoods'][0])
-            for r in DF.Flow(
-                DF.load('geo/stat-areas/stat-areas/datapackage.json'),
-            ).results()[0][0]
+            (int(stat_area), f['properties']['title'])
+            for f in get_neighborhood_features()
+            for stat_area in f['properties']['stat_areas']
         )
 
         MAP2 = dict(
@@ -319,7 +316,7 @@ def process_institutions(stack):
         institutions_cards = DF.Flow(
             *[
                 DF.load(f)
-                for f in glob.glob('geo/institutions/*xlsx')
+                for f in glob.glob('institutions/*xlsx')
             ],
             DF.concatenate(dict(
                 kind=['סוג המוסד'],

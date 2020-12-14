@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '10'
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Python Requirements
+        run: pip install -r requirements.txt
+      - name: npm requirements
+        run: (cd ui && npm install)
+      - name: git identity
+        run: |
+          git config user.email "adam.kariv@gmail.com"
+          git config user.name "Adam Kariv"
+      - name: Deploy
+        env:
+          CKAN_API_KEY: ${{ secrets.CKAN_API_KEY }}
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+        run: ./deploy.sh
+

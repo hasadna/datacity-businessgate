@@ -25,8 +25,8 @@ def unite_geometries(geometries):
     u = unary_union(polygons)
     return mapping(u)
 
-def prepare_neighborhoods_geojson():
-    features = DF.Flow(
+def get_neighborhood_features():
+    return DF.Flow(
         DF.load('neighborhoods.xlsx', name='stat-areas', deduplicate_headers=True),
         DF.add_field('neighborhoods', 'array', lambda r: [v for k, v in r.items() if v and k.startswith('neighborhood')]),
         DF.add_field('geometry', 'object', lambda r: geometries[r['stat-area']]),
@@ -46,12 +46,15 @@ def prepare_neighborhoods_geojson():
         DF.update_resource(-1, name='neighborhoods'),
         DF.add_field('properties', 'object', lambda r: dict(
             x=3,
-            title=r['neighborhood']
+            title=r['neighborhood'],
+            stat_areas=r['stat_areas']
         )),
         DF.delete_fields(['neighborhood', 'stat_areas']),
+        DF.checkpoint('_cache_neighborhoods')
     ).results()[0][0]
 
-    features = [geojson.Feature(**f) for f in features]
+def prepare_neighborhoods_geojson():
+    features = [geojson.Feature(**f) for f in get_neighborhood_features()]
     return geojson.dumps(geojson.FeatureCollection(features=features), 
                          ensure_ascii=False, indent=2, sort_keys=True)
                 #   open('../../ui/projects/businessgate/src/assets/neighborhoods.geojson', 'w'),

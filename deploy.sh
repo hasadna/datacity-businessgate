@@ -1,9 +1,10 @@
-#!/bin/zsh -l
+#!/bin/sh
 git checkout master && \
 (git branch -D dist || true) && \
 git checkout -b dist && \
+(cd data && python prepare_stacks.py) && \
 rm ui/.gitignore && \
-(cd ui && ng build --prod --base-href=/) && \
+(cd ui && npm run prod) && \
 cp ui/dist/businessgate/index.html ui/dist/businessgate/404.html && \
 cp CNAME ui/dist/businessgate/ && \
 git add ui/dist/businessgate && \

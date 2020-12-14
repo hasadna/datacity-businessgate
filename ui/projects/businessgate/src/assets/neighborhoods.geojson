@@ -693,6 +693,11 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          521,
+          522,
+          523
+        ],
         "title": "א",
         "x": 3
       },
@@ -2039,6 +2044,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          621
+        ],
         "title": "א תעשייה",
         "x": 3
       },
@@ -2849,6 +2857,11 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          511,
+          512,
+          513
+        ],
         "title": "ב",
         "x": 3
       },
@@ -3683,6 +3696,11 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          631,
+          632,
+          633
+        ],
         "title": "ג",
         "x": 3
       },
@@ -4953,6 +4971,17 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          111,
+          112,
+          113,
+          121,
+          122,
+          123,
+          131,
+          132,
+          133
+        ],
         "title": "ד",
         "x": 3
       },
@@ -5815,6 +5844,12 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          431,
+          432,
+          433,
+          434
+        ],
         "title": "ה",
         "x": 3
       },
@@ -6745,6 +6780,14 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          211,
+          212,
+          213,
+          214,
+          215,
+          216
+        ],
         "title": "ו",
         "x": 3
       },
@@ -7507,6 +7550,10 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          422,
+          423
+        ],
         "title": "ט",
         "x": 3
       },
@@ -8373,6 +8420,14 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          221,
+          222,
+          223,
+          224,
+          225,
+          226
+        ],
         "title": "יא",
         "x": 3
       },
@@ -10303,6 +10358,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          314
+        ],
         "title": "כלניות",
         "x": 3
       },
@@ -11197,6 +11255,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          624
+        ],
         "title": "מ אזרחי",
         "x": 3
       },
@@ -12115,6 +12176,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          421
+        ],
         "title": "נאות לון",
         "x": 3
       },
@@ -13217,6 +13281,12 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          412,
+          413,
+          414,
+          415
+        ],
         "title": "נווה זאב",
         "x": 3
       },
@@ -14103,6 +14173,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          613
+        ],
         "title": "נווה נוי",
         "x": 3
       },
@@ -14653,6 +14726,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          614
+        ],
         "title": "נחל בקע",
         "x": 3
       },
@@ -15835,6 +15911,12 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          234,
+          311,
+          312,
+          313
+        ],
         "title": "נחל עשן",
         "x": 3
       },
@@ -17521,6 +17603,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          411
+        ],
         "title": "סיגליות",
         "x": 3
       },
@@ -18499,6 +18584,10 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          611,
+          612
+        ],
         "title": "עיר עתיקה",
         "x": 3
       },
@@ -19845,6 +19934,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          621
+        ],
         "title": "עמק שרה",
         "x": 3
       },
@@ -21191,6 +21283,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          621
+        ],
         "title": "קריית יהודית",
         "x": 3
       },
@@ -23045,6 +23140,15 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          634,
+          641,
+          643,
+          644,
+          645,
+          646,
+          647
+        ],
         "title": "רמות",
         "x": 3
       },
@@ -23911,6 +24015,9 @@
         "type": "Polygon"
       },
       "properties": {
+        "stat_areas": [
+          642
+        ],
         "title": "רמות - קריית הייטק",
         "x": 3
       },
