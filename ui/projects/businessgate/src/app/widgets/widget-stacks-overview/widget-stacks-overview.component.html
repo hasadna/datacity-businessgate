@@ -28,8 +28,8 @@
             </div>
         </ng-container>
 
-        <div class='close' (click)='open=false'>
-            <img src='assets/img/close.svg'>
-        </div>
     </ng-container>
+</div>
+<div class='close' (click)='open=false' [class.open]='open'>
+    <img src='assets/img/close.svg'>
 </div>
