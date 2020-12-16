@@ -1,13 +1,14 @@
 import os
 import requests
 import base64
+import math
 from io import BytesIO
 
 from PIL import Image
 from kvfile import KVFile
 
 _cache = KVFile(filename='_cache_airtable')
-override = set([])
+override = set(['commercial-areas/None', 'stack:commercial_areas'])
 for key in override:
     try:
         _cache.get(key)
@@ -49,15 +50,16 @@ def fetch_ckan(dataset, resource_name):
             return requests.get(resource['url'], headers=headers, stream=True).raw
     print('Failed to find resource', resource)
 
-def to_data_url(url):
+def to_data_url(url, width=96):
     key = 'data-url:' + url
     try:
         return _cache.get(key)
     except KeyError:
         im = Image.open(requests.get(url, stream=True).raw)
-        im = im.resize((96, 96))
+        ratio = width/im.width
+        im = im.resize((width, math.floor(im.height*ratio)))
         out = BytesIO()
-        im.save(out, 'jpeg')
+        im.save(out, 'jpeg', quality=50, optimize=True)
         ret = 'data:image/jpeg;base64,{}'.format(base64.encodebytes(out.getbuffer()).decode('ascii').replace('\n', ''))
         _cache.set(key, ret)
         return ret

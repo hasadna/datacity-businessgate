@@ -50,6 +50,8 @@ def process_stack_commercial_areas(stack):
             card['geometry'] = geo_features[card['name']]
             card.update(crossref_commercial_area(card['geometry']['geometry']))
             card.pop('cards', None)
+            if 'photo' in card:
+                card['image'] = to_data_url(card.pop('photo')[0]['url'], width=680)
             card['שם'] = card['title']
             cards.append(card)
         _cache.set(key, cards)
@@ -194,6 +196,9 @@ def process_demographics(stack):
                 ("דו''ח אג''ס לפי קבוצות גיל",
                         ('60-64', '65-69', '70-74', '75-120')
                 ): 'elderly',
+                ("דו''ח אג''ס לפי קבוצות גיל",
+                        ('18-21','22-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59')
+                ): 'adults',
             }
             
             def f(rows):
@@ -211,10 +216,11 @@ def process_demographics(stack):
         )
 
         MAP2 = dict(
-            kids=('ילדים', 'תינוקות וילדים עד גיל 12', 0),
-            teenagers=('בני נוער', 'נערים ונערות עד גיל 18', 1),
-            elderly=('אוכלוסיה מבוגרת', 'גברים ונשים מעל גיל 60', 2),
-            immigrants=('עולים לישראל', 'תושבים שאינם ילידי ישראל', 3),
+            adults=('אוכלוסיה בוגרת', 'גברים ונשים בין גיל 18 ל-60', 0),
+            kids=('ילדים', 'תינוקות וילדים עד גיל 12', 1),
+            teenagers=('בני נוער', 'נערים ונערות עד גיל 18', 2),
+            elderly=('הגיל השלישי', 'גברים ונשים מעל גיל 60', 3),
+            immigrants=('עולים לישראל', 'תושבים שאינם ילידי ישראל', 4),
         )
 
         demographics_cards = DF.Flow(
@@ -316,7 +322,7 @@ def process_institutions(stack):
         institutions_cards = DF.Flow(
             *[
                 DF.load(f)
-                for f in sorted(glob.glob('institutions/*xlsx'))
+                for f in glob.glob('institutions/*xlsx')
             ],
             DF.concatenate(dict(
                 kind=['סוג המוסד'],
@@ -335,6 +341,7 @@ def process_institutions(stack):
                 title=dict(name='kind'),
                 features=dict(name='feature', aggregate='array')
             )),
+            DF.sort_rows('{kind}', reverse=True),
             DF.add_field('pointGeometry', 'object', lambda r: geojson.FeatureCollection(features=r['features'])),
             DF.add_field('content', 'string', '&nbsp;'),
             DF.delete_fields(['features']),

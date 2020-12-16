@@ -113,7 +113,12 @@ export class ChatMsgSelectFromListComponent implements OnInit {
 
   highlight(item) {
     if (this.typed) {
-      return item.replace(this.typed, `<b>${this.typed}</b>`)
+      const parts = this.typed.split(/\s+/);
+      let ret = item
+      for (const part of parts) {
+        ret = ret.replace(part, `<b>${part}</b>`)
+      }
+      return ret;
     }
     return item
   }
@@ -125,17 +130,31 @@ export class ChatMsgSelectFromListComponent implements OnInit {
       this.items = p.items;
     }
     for (const i of this.items) {
-      if (x === i.display && i.items) {
+      x = x.split(/\s+/).sort().join(' ');
+      const display = i.display.split(/\s+/).sort().join(' ');
+      if (x === display && i.items) {
         this.selected(i);
       }
     }
   }
 
-  visible(item) {
-    if (this.typed && this.typed.length) {
-      return item.indexOf(this.typed) >= 0; 
+  matches(str, sub, def) {
+    if (sub && sub.length) {
+      const parts = sub.split(/\s+/);
+      for (const part of parts) {
+        if (part.length === 0) {
+          continue;
+        }
+        if (str.indexOf(part) < 0) {
+          return false;
+        }
+      }
     }
-    return true;
+    return def;
+  }
+
+  visible(item) {
+    return this.matches(item, this.typed, true);
   } 
 
 }
