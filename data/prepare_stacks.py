@@ -341,7 +341,7 @@ def process_institutions(stack):
                 title=dict(name='kind'),
                 features=dict(name='feature', aggregate='array')
             )),
-            DF.sort_rows('{kind}', reverse=True),
+            DF.sort_rows('{title}', reverse=True),
             DF.add_field('pointGeometry', 'object', lambda r: geojson.FeatureCollection(features=r['features'])),
             DF.add_field('content', 'string', '&nbsp;'),
             DF.delete_fields(['features']),
