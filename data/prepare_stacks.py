@@ -316,7 +316,7 @@ def process_institutions(stack):
         institutions_cards = DF.Flow(
             *[
                 DF.load(f)
-                for f in glob.glob('institutions/*xlsx')
+                for f in sorted(glob.glob('institutions/*xlsx'))
             ],
             DF.concatenate(dict(
                 kind=['סוג המוסד'],
