@@ -334,7 +334,11 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     this.content.reportUpdated(null);
     this.content.queueFunction(async () => {
       this.content.setQueueTimeout(environment.timeout);
+      if (this.runner.runFast) {
+          this.widgets.stacksPage.next('overview');
+      }
       this.runner.runFast = false;
+      this.stacksSvc.discovery = false;
       this.content.messages.forEach((m) => { if (m.params) { m.params.fixme = null; } });
     });
     return this.backend.doUpdate(this.record);

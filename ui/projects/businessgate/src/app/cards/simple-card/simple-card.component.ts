@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import * as marked from 'marked';
+
 @Component({
   selector: 'app-simple-card',
   templateUrl: './simple-card.component.html',
@@ -11,8 +13,11 @@ export class SimpleCardComponent implements OnInit {
   @Input() card;
   @Input() params;
   @Input() active;
+  marked: any;
 
-  constructor() { }
+  constructor() {
+    this.marked = marked;
+  }
 
   ngOnInit(): void {
   }

@@ -15,6 +15,7 @@ export class WidgetStacksButtonComponent implements OnInit {
   }
 
   openOverview() {
+    this.stacks.discovery = false;
     this.widgets.stacksPage.next('overview');
   }
 }

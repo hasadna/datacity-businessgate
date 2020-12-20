@@ -11,6 +11,7 @@ export class StacksService {
   width = 0;
   visible = false;
   runner = null;
+  discovery = true;
 
   constructor() { }
 
