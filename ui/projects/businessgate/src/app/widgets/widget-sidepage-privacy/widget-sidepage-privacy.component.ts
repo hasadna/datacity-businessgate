@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DataService } from '../../data.service';
+import { first } from 'rxjs/operators';
 
 import * as marked from 'marked';
 
@@ -11,11 +11,14 @@ import * as marked from 'marked';
 })
 export class WidgetSidepagePrivacyComponent implements OnInit {
 
-  content: Observable<any>;
+  content: any = {content: ''};
   marked = marked;
 
   constructor(private data: DataService) {
-    this.content = this.data.content;
+    this.data.content.pipe(first())
+    .subscribe((content) => {
+      this.content = content.privacy;
+    });
   }
 
   ngOnInit(): void {

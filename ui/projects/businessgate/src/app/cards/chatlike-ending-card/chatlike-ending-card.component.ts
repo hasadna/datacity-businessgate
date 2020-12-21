@@ -28,6 +28,7 @@ export class ChatlikeEndingCardComponent implements OnInit {
     const record = this.params.__runner.record;
     this.widget.moreInfoChat.next({
       goodbyeMessage: this.stack.goodbye,
+      owner: this.stack.owner,
       email_address: record.email_address
     });
     this.widget.moreInfoChatDone.pipe(
@@ -36,7 +37,7 @@ export class ChatlikeEndingCardComponent implements OnInit {
       record.email_address = record.email_address || result.email_address;
       record.questions = record.questions || {};
       record.questions[this.stack.name] = record.questions[this.stack.name] || [];
-      record.questions[this.stack.name].push(...result.questions);
+      record.questions[this.stack.name].push(...(result.questions || []));
       this.close();
     })
   }

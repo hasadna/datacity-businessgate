@@ -6,6 +6,7 @@ import { ConfigService } from '../../config.service';
 import { WidgetsService } from '../../widgets.service';
 
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-widget-more-info-chat',
@@ -19,6 +20,8 @@ export class WidgetMoreInfoChatComponent implements OnInit {
   config = null;
   open = false;
   record: any = {};
+  owner: any = {};
+  chatSub: Subscription = null;
 
   constructor(private widget: WidgetsService, private http: HttpClient, private configSvc: ConfigService) {
     this.configSvc.config.pipe(
@@ -26,9 +29,14 @@ export class WidgetMoreInfoChatComponent implements OnInit {
     ).subscribe((config) => {
       this.config = config;
     });
+    this.subscribe();
+  }
+
+  subscribe() {
     this.widget.moreInfoChat.pipe(
       switchMap((params) => {
         this.open = true;
+        this.owner = params.owner;
         this.content = new ContentManager();
         this.runner = new ScriptRunnerImpl(this.http, this.content, this.config.locale);
         this.runner.timeout = environment.timeout;
@@ -64,4 +72,12 @@ export class WidgetMoreInfoChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  close() {
+    if (this.chatSub) {
+      this.chatSub.unsubscribe();
+      this.subscribe();
+    }
+    this.open = false;
+    this.widget.moreInfoChatDone.next(this.record);
+  }
 }

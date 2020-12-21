@@ -1,4 +1,10 @@
 <div class='chat-container' [class.open]='open'>
+    <div class='header'>
+        <img class='back' src='assets/img/chevron-right.svg' (click)='close()'>
+        <img class='avatar' [src]='owner.avatar'>
+        <div class='name'>{{ owner.name }}</div>
+        <div class='title'>{{ owner.title }}</div>
+    </div>
     <div class='chat'>
         <htl-hatool [content]='content' *ngIf='content' appLtr></htl-hatool>
     </div>

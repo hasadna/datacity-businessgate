@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DataService } from '../../data.service';
+import { first } from 'rxjs/operators';
 
 import * as marked from 'marked';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-widget-sidepage-about',
@@ -12,13 +11,14 @@ import { map } from 'rxjs/operators';
 })
 export class WidgetSidepageAboutComponent implements OnInit {
   
-  content: Observable<any>;
+  content: any = {content: '', credits: []};
   marked = marked;
 
   constructor(private data: DataService) {
-    this.content = this.data.content.pipe(
-      map((content) => content.about)
-    );
+    this.data.content.pipe(first())
+    .subscribe((content) => {
+      this.content = content.about;
+    });
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 <app-widget-sidepage-base page='about'>
-    <div [innerHtml]='marked((content | async).content)'></div>
-    <div class='credit' *ngFor='let credit of (content | async).credits'>
+    <div [innerHtml]='marked(content.content)'></div>
+    <div class='credit' *ngFor='let credit of content.credits'>
         <img class='avatar' [src]='credit.avatar'>
         <div class='identity'>
             <div class='name'>{{credit.name}}</div>
