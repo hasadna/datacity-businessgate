@@ -8,7 +8,7 @@ from PIL import Image
 from kvfile import KVFile
 
 _cache = KVFile(filename='_cache_airtable')
-override = set(['commercial-areas/None', 'stack:commercial_areas'])
+override = set([])
 for key in override:
     try:
         _cache.get(key)
@@ -19,7 +19,7 @@ for key in override:
         print('no such key', key)
         pass
 
-def fetch_airtable(kind, rid=None):
+def fetch_airtable(kind, rid=None, view='Grid%20view'):
     API_KEY = os.environ.get('AIRTABLE_API_KEY')
     key = '%s/%s' % (kind, rid)
     try:
@@ -33,7 +33,7 @@ def fetch_airtable(kind, rid=None):
             URL +=  '/' + rid
             ret = requests.get(URL, headers=HEADERS).json()['fields']
         else:
-            URL += '?view=Grid%20view&maxRecords=1000'
+            URL += f'?view={view}&maxRecords=1000'
             ret = [x['fields'] for x in requests.get(URL, headers=HEADERS).json()['records']]
         _cache.set(key, ret)
         return ret

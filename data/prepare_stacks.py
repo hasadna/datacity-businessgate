@@ -354,16 +354,20 @@ def process_institutions(stack):
     ))
     stack.setdefault('cards', []).extend(institutions_cards)
 
+def get_owner(rid):
+    o = fetch_airtable('owners', rid)
+    if 'avatar' in o:
+        o['avatar'] = to_data_url(o['avatar'][0]['thumbnails']['large']['url'])
+    return o
 
 def fetch_static_stacks():
     stacks = fetch_airtable('stacks')
     for stack in stacks:
         if 'owner' in stack:
-            owners = [fetch_airtable('owners', x) for x in stack['owner']]
+            owners = [get_owner(x) for x in stack['owner']]
             stack['owner'] = None
             for o in owners:
                 if 'avatar' in o:
-                    o['avatar'] = to_data_url(o['avatar'][0]['thumbnails']['large']['url'])
                     stack['owner'] = o
                     break
         if not stack.get('owner'):
@@ -380,6 +384,16 @@ def fetch_static_stacks():
             
 
     return stacks
+
+def get_content():
+    content = fetch_airtable('content', view='website')
+    content = dict((x.get('key'), x) for x in content)
+    for item in content.values():
+        item['credits'] = [
+            get_owner(x)
+            for x in (item.get('credits') or [])
+        ]
+    return content
 
 processors = {
     'commercial-areas': process_stack_commercial_areas,
@@ -407,3 +421,7 @@ if __name__ == "__main__":
     with open('../ui/projects/businessgate/src/assets/neighborhoods.geojson', 'w') as f:
         neighborhoods_geojson = prepare_neighborhoods_geojson()
         f.write(neighborhoods_geojson)
+
+    with open('../ui/projects/businessgate/src/assets/content.json', 'w') as f:
+        content = get_content()
+        json.dump(content, f, ensure_ascii=False, indent=2)

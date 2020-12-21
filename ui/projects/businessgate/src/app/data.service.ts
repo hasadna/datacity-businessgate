@@ -8,6 +8,8 @@ import { first, switchMap } from 'rxjs/operators';
 })
 export class DataService {
 
+  CONTENT_DATA_URL = 'assets/content.json';
+
   BUSINESS_DATA_URL = 'assets/businesses.json';
   LOCATIONS_DATA_URL = 'assets/locations.json';
   
@@ -21,8 +23,12 @@ export class DataService {
   public neighborhods = new ReplaySubject<any>(1);
   public demand_categories = new ReplaySubject<any>(1);
   public stacks = new ReplaySubject<any>(1);
+  public content = new ReplaySubject<any>(1);
 
   constructor(private http: HttpClient) {
+    this.http.get(this.CONTENT_DATA_URL).subscribe((response) => {
+      this.content.next(response);
+    });
     this.http.get(this.BUSINESS_DATA_URL).subscribe((response) => {
       this.businesses.next(response);
     });

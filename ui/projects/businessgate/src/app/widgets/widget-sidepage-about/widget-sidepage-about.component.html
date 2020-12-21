@@ -1,3 +1,10 @@
 <app-widget-sidepage-base page='about'>
-    <h1>אודות שער לעסקים</h1>
+    <div [innerHtml]='marked((content | async).content)'></div>
+    <div class='credit' *ngFor='let credit of (content | async).credits'>
+        <img class='avatar' [src]='credit.avatar'>
+        <div class='identity'>
+            <div class='name'>{{credit.name}}</div>
+            <div class='title'>{{credit.title}}</div>
+        </div>
+    </div>
 </app-widget-sidepage-base>

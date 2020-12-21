@@ -1,3 +1,3 @@
 <app-widget-sidepage-base page='privacy'>
-    <h1>מדיניות פרטיות</h1>
+    <div [innerHtml]='marked((content | async).privacy.content)'></div>
 </app-widget-sidepage-base>

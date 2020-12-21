@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DataService } from '../../data.service';
+
+import * as marked from 'marked';
 
 @Component({
   selector: 'app-widget-sidepage-privacy',
@@ -7,7 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WidgetSidepagePrivacyComponent implements OnInit {
 
-  constructor() { }
+  content: Observable<any>;
+  marked = marked;
+
+  constructor(private data: DataService) {
+    this.content = this.data.content;
+  }
 
   ngOnInit(): void {
   }
