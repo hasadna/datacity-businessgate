@@ -377,6 +377,8 @@ def fetch_static_stacks():
         stack['cards'] = [fetch_airtable('cards', x) for x in stack['cards']] if 'cards' in stack else []
         for card in stack['cards']:
             del card['stack']
+            if card.get('content'):
+                card['content'] = card['content'].replace(r'\_', '_')
             for k in ('business-kinds', 'commercial-areas'):
                 if k in card:
                     card[k.replace('-', '_')] = [fetch_airtable(k, x)['name'] for x in card[k]]

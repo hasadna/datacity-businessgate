@@ -351,7 +351,7 @@ export class CardStackComponent implements OnInit, OnChanges {
         }
         const el = this.el.nativeElement as HTMLDivElement;
         this.mapPadding = {
-          top: 10, left: 10, right: 10, bottom: window.innerHeight - el.getBoundingClientRect().height 
+          top: 10, left: 10, right: 10, bottom: el.getBoundingClientRect().height 
         };
         this.fitMap(1, 2, 0);
         this.stackState.next('map-opened');
@@ -408,7 +408,7 @@ export class CardStackComponent implements OnInit, OnChanges {
       const bbox = el.getBoundingClientRect();
       const bottom = bbox.top + bbox.height;
       const height = window.innerHeight;
-      this.positionTransform = 'translateY(' + (height - bottom - 40) + 'px)';
+      this.positionTransform = 'translateY(' + (height - bottom) + 'px)';
       return true;
     } else {
       this.positionTransform = 'translateY(0px)';
