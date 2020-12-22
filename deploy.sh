@@ -3,6 +3,7 @@ git checkout master && \
 (git branch -D dist || true) && \
 git checkout -b dist && \
 (cd data && python prepare_stacks.py) && \
+hatool content/script.yaml ui/projects/businessgate/src/assets/script.json && \
 rm ui/.gitignore && \
 (cd ui && npm run prod) && \
 cp ui/dist/businessgate/index.html ui/dist/businessgate/404.html && \

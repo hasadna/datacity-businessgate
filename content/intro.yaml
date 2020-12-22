@@ -52,7 +52,7 @@
                   source: business_kinds
                   variable: business_kind
                   variable2: סוג_עסק
-                  placeholder: סוג עסק (מסעדה, מוסך, משרד…)
+                  placeholder: חיפוש (מסעדה, מוסך, משרד…)
                   response: בחרתי {{סוג_עסק}}
               - say: נהדר!
               - do:
@@ -98,7 +98,7 @@
                   source: locations
                   variable: location
                   variable2: מיקום
-                  placeholder: כתובת העסק או שם מתחם עסקי…
+                  placeholder: חיפוש (כתובת העסק או שם מתחם עסקי…)
                   response: בחרתי {{מיקום.שם}}
               - say: נהדר!
           - show: אבחר אחר כך

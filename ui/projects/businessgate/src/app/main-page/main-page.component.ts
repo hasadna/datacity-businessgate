@@ -181,6 +181,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       map((businesses) => {
         const business_record = businesses.filter((b) => b.business_kind_name === business_kind)[0];
         console.log('_business_record', business_record);
+        console.log('record', record);
         record._business_record = business_record;
         record._num_licensing_agencies = business_record.licensing_agency.length;
         record._licensing_agencies_stacks = business_record.licensing_agency.map((l) => l.value_id);

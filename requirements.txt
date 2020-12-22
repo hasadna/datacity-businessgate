@@ -4,4 +4,4 @@ geojson
 requests
 Pillow
 pyproj
-
+hatool-compiler
