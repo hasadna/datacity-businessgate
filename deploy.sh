@@ -16,5 +16,4 @@ git push -f origin gh-pages:gh-pages && \
 git checkout master && \
 git branch -D gh-pages && \
 git branch -D dist && \
-git checkout . && \
-git push
+git checkout . 
