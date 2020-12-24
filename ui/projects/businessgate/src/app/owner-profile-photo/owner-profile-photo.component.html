@@ -1,0 +1,4 @@
+<div class='wrapper scheme-primary-fg' [style]='style'>
+    <img *ngIf='owner.avatar' [src]='owner.avatar'>
+    <span *ngIf='!owner.avatar'>{{initials}}</span>
+</div>

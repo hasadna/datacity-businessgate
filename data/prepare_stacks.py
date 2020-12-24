@@ -367,7 +367,7 @@ def fetch_static_stacks():
             owners = [get_owner(x) for x in stack['owner']]
             stack['owner'] = None
             for o in owners:
-                if 'avatar' in o:
+                if 'name' in o:
                     stack['owner'] = o
                     break
         if not stack.get('owner'):

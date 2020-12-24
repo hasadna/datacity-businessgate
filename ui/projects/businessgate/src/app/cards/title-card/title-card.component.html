@@ -1,7 +1,7 @@
 <app-base-card [width]='width'>
     <div class='content scheme-primary-bg'>
         <div class='owner'>
-            <img [src]='stack.owner.avatar'>
+            <app-owner-profile-photo [owner]='stack.owner' [size]='48' [borderWidth]='2' borderColor='#2C3C3B'></app-owner-profile-photo>
             <div class='deets'>
                 <span class='name'>{{stack.owner.name}}</span>
                 <span class='title'>{{stack.owner.title}}</span>

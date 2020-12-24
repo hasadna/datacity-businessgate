@@ -38,6 +38,7 @@ import { CardStackComponent } from './card-stack/card-stack.component';
 import { WidgetStacksDetailComponent } from './widgets/widget-stacks-detail/widget-stacks-detail.component';
 import { ChatMsgShareDialogComponent } from './chat-msgs/chat-msg-share-dialog/chat-msg-share-dialog.component';
 import { ChatMsgCopyLinkComponent } from './chat-msgs/chat-msg-copy-link/chat-msg-copy-link.component';
+import { OwnerProfilePhotoComponent } from './owner-profile-photo/owner-profile-photo.component';
 
 const appRoutes: Routes = [
   { path: 'r/:id', component: MainPageComponent },
@@ -75,7 +76,8 @@ const appRoutes: Routes = [
     CardStackComponent,
     WidgetStacksDetailComponent,
     ChatMsgShareDialogComponent,
-    ChatMsgCopyLinkComponent
+    ChatMsgCopyLinkComponent,
+    OwnerProfilePhotoComponent
   ],
   imports: [
     BrowserModule,

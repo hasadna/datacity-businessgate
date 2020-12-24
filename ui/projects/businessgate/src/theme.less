@@ -127,6 +127,10 @@ htl-hatool {
                                 margin-left: auto;
                             }
 
+                            &:hover {
+                                box-shadow: 0px 4px 0px @black-700;
+                            }
+                        
                         }
 
                         .fixme {
@@ -136,8 +140,11 @@ htl-hatool {
                         &:not(.selected) {
                             button.grayed {
                                 border: 1px solid @black-200;
-                                box-shadow: 0px 0px 0px @black-500;
+                                box-shadow: 0px 2px 0px @black-500;
                                 color: @black-400;
+                                &:hover {
+                                    box-shadow: 0px 4px 0px @black-500;
+                                }
                             }
                         }
 
@@ -160,7 +167,7 @@ htl-hatool {
                                 flex: 0 0 auto;
                                 margin-left: 0;
                                 margin-right: 0;
-            
+                                
                                 .from-text;
     
                                 &.not-selected {

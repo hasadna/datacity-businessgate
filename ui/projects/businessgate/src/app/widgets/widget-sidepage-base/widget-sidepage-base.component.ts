@@ -11,6 +11,7 @@ import { filter, tap } from 'rxjs/operators';
 export class WidgetSidepageBaseComponent implements OnInit {
 
   @Input() page;
+  @Input() limitWidth = false;
   open = false;
 
   constructor(private widgets: WidgetsService) {

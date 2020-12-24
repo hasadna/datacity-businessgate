@@ -1,7 +1,7 @@
 <div class='chat-container' [class.open]='open'>
     <div class='header'>
         <img class='back' src='assets/img/chevron-right.svg' (click)='close()'>
-        <img class='avatar' [src]='owner.avatar'>
+        <app-owner-profile-photo [owner]='owner' [size]='32' [borderWidth]='2' borderColor='#360627'></app-owner-profile-photo>
         <div class='name'>{{ owner.name }}</div>
         <div class='title'>{{ owner.title }}</div>
     </div>
