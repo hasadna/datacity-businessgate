@@ -84,7 +84,7 @@ export class WidgetMapComponent implements OnInit {
       distinctUntilChanged((a, b) => {
         return (
           (a === b) ||
-          (!!a && !!b && 
+          (!!a && !!b && a.bounds && b.bounds &&
             (a.padding === b.padding) &&
             ((a.bounds === b.bounds) ||
              (a.bounds.toString() === b.bounds.toString())) 
