@@ -13,10 +13,6 @@
           asset: assets/img/bot-hi.png
           justify_content: flex-start
           width: '40%'
-        desktop:
-          asset: assets/img/hi-desktop.png
-          justify_content: flex-start
-          width: '40%'
     - say: קוראים לי BR7, אני בוט קטן שמתמחה בעסקים קטנים בעיריית באר שבע
     - say: >
         עשרות מומחים בעירייה עבדו איתי במשך חודשים

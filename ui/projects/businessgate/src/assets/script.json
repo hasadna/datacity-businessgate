@@ -33,11 +33,6 @@
           "steps": [
             {
               "img": {
-                "desktop": {
-                  "asset": "assets/img/hi-desktop.png",
-                  "justify_content": "flex-start",
-                  "width": "40%"
-                },
                 "mobile": {
                   "asset": "assets/img/bot-hi.png",
                   "justify_content": "flex-start",
