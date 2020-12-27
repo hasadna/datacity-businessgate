@@ -4,6 +4,7 @@ git checkout master && \
 git checkout -b dist && \
 (cd data && python prepare_stacks.py) && \
 hatool content/script.yaml ui/projects/businessgate/src/assets/script.json && \
+git show --pretty="format:export const VERSION='%aI.%h';" -s > ui/projects/businessgate/src/app/version.ts && \
 rm ui/.gitignore && \
 (cd ui && npm run prod) && \
 cp ui/dist/businessgate/index.html ui/dist/businessgate/404.html && \
