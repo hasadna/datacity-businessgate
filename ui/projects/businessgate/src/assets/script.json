@@ -952,6 +952,16 @@
                                     "variable": "_client_response_email_receipt"
                                   },
                                   "uid": "74274eb473"
+                                },
+                                {
+                                  "do": {
+                                    "cmd": "send_crm_email",
+                                    "params": [
+                                      "record"
+                                    ],
+                                    "variable": "_crm_email_receipt"
+                                  },
+                                  "uid": "d4c8bab599"
                                 }
                               ],
                               "uid": "82395455aa",

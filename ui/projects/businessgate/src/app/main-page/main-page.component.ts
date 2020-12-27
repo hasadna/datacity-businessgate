@@ -285,6 +285,10 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     return this.backend.sendClientEmail(address, record);
   }
 
+  async send_crm_email(record) {
+    return this.backend.sendCRMEmail(record);
+  }
+
   async select_commercial_area() {
     const responseTemplate = 'בחרתי {{location.title}}';
     if (this.runner.runFast) {
@@ -366,6 +370,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         calculate_locations: async (record) => { return await this.calculate_locations(record); },
         prepare_geo_insights: async (record) => { return await this.prepare_geo_insights(record); },
         send_client_response_email: async (record) => { return await this.send_client_response_email(record); },
+        send_crm_email: async (record) => { return await this.send_crm_email(record); },
         select_commercial_area: async () => { return await this.select_commercial_area(); },
         stacks_button_visible: async () => { return await this.stacks_button_visible(); },
         new_chat: async () => { return await this.new_chat(); },

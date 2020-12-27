@@ -45,6 +45,7 @@ export class BackendService {
           this.state = (doc.data() as any).data;
           console.log('Document was retrieved with content', this.state.length);
           const record = JSON.parse(this.state);
+          record.self_link = window.location.href;
           this.record.next(record);
         }
       });
@@ -73,6 +74,34 @@ export class BackendService {
         name: 'client-response',
         data: {
           self_link: record.self_link
+        }
+      }
+    };
+    return this.firestore.collection('mail').add(item).then((docref) => docref.id);
+  }
+
+  async sendCRMEmail(record) {
+    const questions = [];
+    if (record._feedback && record._feedback.length) {
+      questions.push({
+        name: 'הערות כלליות',
+        questions: [record._feedback]
+      })
+    }
+    if (record.questions) {
+      for (const name of Object.keys(record.questions)) {
+        questions.push({name, questions: record.questions[name]})
+      }
+    }
+    const item = {
+      to: 'emrib@br7.org.il',
+      template: {
+        name: 'crm',
+        data: {
+          business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
+          location: (record.location ? record.location.שם : null) || '-',
+          email_address: record.email_address,
+          questions: questions
         }
       }
     };
