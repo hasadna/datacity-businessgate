@@ -7,7 +7,6 @@
           steps:
             - pop: default
         - default: true
-    - say: פתיחת {{סוג_עסק}} דורשת אישור ממספר גופים שונים
     - do:
         variable: _needs_licensing
         cmd: check_needs_licensing
@@ -18,14 +17,18 @@
         cases:
         - match: true
           steps:
-            - say: בנוסף קרוב לוודאי שידרש רשיון עבור העסק 
+            - say: פתיחת {{סוג_עסק}} דורשת אישור ממספר גופים שונים
+            - say: בנוסף, קרוב לוודאי שידרש רשיון עבור העסק 
+            - say: נושא הרישוי עלול להרגיש קצת מאיים, אבל יש אנשי מקצוע שיוכלו לעזור עם זה, הכנו לך מדריך קצר.
+            - cards:
+                stack: business-licensing-tutorial
+            - say: ריכזנו עבורך {{_num_licensing_agencies}} כרטיסים - אחד לכל גוף רישוי
+            - say: אפשר להציץ בפרטים של כל כרטיס גם עכשיו וגם אחר כך, אנחנו אוספים ושומרים לך את כולם 
+            - cards:
+                stacksFrom: _licensing_agencies_stacks            
         - match: false
           steps:
-            - say: בנוסף, במידה ושטח העסק מעל 800 מ״ר קרוב לוודאי שידרש רשיון עבור העסק 
-    - say: נושא הרישוי עלול להרגיש קצת מאיים, אבל יש אנשי מקצוע שיוכלו לעזור עם זה, הכנו לך מדריך קצר.
-    - cards:
-        stack: business-licensing-tutorial
-    - say: ריכזנו עבורך {{_num_licensing_agencies}} כרטיסים - אחד לכל גוף רישוי
-    - say: אפשר להציץ בפרטים של כל כרטיס גם עכשיו וגם אחר כך, אנחנו אוספים ושומרים לך את כולם 
-    - cards:
-        stacksFrom: _licensing_agencies_stacks
+            - say: פתיחת {{סוג_עסק}} לרוב אינה דורשת רישוי עסקים 
+            - say: למרות זאת, ייתכן ותצטרך לעמוד בתנאים נוספים בהתאם לתקנות העירוניות 
+            - cards:
+                stack: common
