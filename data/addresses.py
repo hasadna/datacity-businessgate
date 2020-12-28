@@ -2,6 +2,7 @@ import geojson
 import dataflows as DF
 import tempfile
 import shutil
+import re
 
 from fetch_utils import fetch_ckan
 from geo_utils import contains, to_point
@@ -48,6 +49,12 @@ def prepare_addresses():
             DF.checkpoint('_cache_addresses')
         ).process()
 
+def sort_street_address(street_name):
+    if re.match('^[0-9]+$', street_name):
+        return 'XXXX ' + street_name
+    else:
+        return street_name
+
 def prepare_locations():
     prepare_addresses()
     return DF.Flow(
@@ -62,10 +69,14 @@ def prepare_locations():
             display=r['address']
         )),
         DF.delete_fields(['house_number', 'letter', 'lat', 'lon', 'arnona_zones', 'address']),
+        DF.sort_rows('{house_number}'),
         DF.join_with_self('concat', ['street_name'], dict(
             display=dict(name='street_name'),
             items=dict(name='item', aggregate='array')
         )),
+        DF.add_field('sort_street_address', 'string', lambda r: sort_street_address(r['display']['name'])),
+        DF.sort_rows('{sort_street_address}'),
+        DF.delete_fields(['sort_street_address']),
         DF.printer(),
         DF.dump_to_path('_cache_locations'),
         DF.checkpoint('_cache_locations')
