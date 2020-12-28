@@ -33,7 +33,6 @@
                     [style.transform]='transform(cards.length+1)'></app-chatlike-ending-card>
             <div class='filler' [style.min-width]='scrollPadding + "px"'></div>                
         </div>
-        <div class='gradient layout-desktop'></div>
         <img src='assets/img/card-counter.svg' (click)='scroll($event)' class='scroller layout-desktop'>
     </div>
     <ng-content select='.post-content'></ng-content>
