@@ -51,7 +51,7 @@ def prepare_addresses():
 
 def sort_street_address(street_name):
     if re.match('^[0-9]+$', street_name):
-        return 'XXXX ' + street_name
+        return 'תתתתתתת ' + street_name
     else:
         return street_name
 
