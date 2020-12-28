@@ -68,8 +68,8 @@ def prepare_locations():
             ),
             display=r['address']
         )),
-        DF.delete_fields(['house_number', 'letter', 'lat', 'lon', 'arnona_zones', 'address']),
         DF.sort_rows('{house_number}'),
+        DF.delete_fields(['house_number', 'letter', 'lat', 'lon', 'arnona_zones', 'address']),
         DF.join_with_self('concat', ['street_name'], dict(
             display=dict(name='street_name'),
             items=dict(name='item', aggregate='array')
