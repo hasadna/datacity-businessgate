@@ -74,7 +74,7 @@ def prepare_locations():
             display=dict(name='street_name'),
             items=dict(name='item', aggregate='array')
         )),
-        DF.add_field('sort_street_address', 'string', lambda r: sort_street_address(r['display']['name'])),
+        DF.add_field('sort_street_address', 'string', lambda r: sort_street_address(r['display'])),
         DF.sort_rows('{sort_street_address}'),
         DF.delete_fields(['sort_street_address']),
         DF.printer(),
