@@ -1,5 +1,4 @@
 <div class='wrapper' [style.transform]='positionTransform' [class.open]='open'>
-    <ng-content select='.pre-content'></ng-content>
     <div class='stack' *ngIf='stack'>
         <div class='cards' #stackEl>
             <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
@@ -35,6 +34,7 @@
         </div>
         <img src='assets/img/card-counter.svg' (click)='scroll($event)' class='scroller layout-desktop'>
     </div>
+    <ng-content select='.pre-content'></ng-content>
     <ng-content select='.post-content'></ng-content>
 </div>
 

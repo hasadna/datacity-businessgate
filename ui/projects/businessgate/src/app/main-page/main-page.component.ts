@@ -275,9 +275,9 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
                 show_institutions = true;
                 return;
               }
-            }  
+            }
+            card.test = '__non_existent__';
           }
-          card.test = '__non_existent__';
         });
         return show_institutions;
       })

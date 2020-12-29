@@ -352,7 +352,20 @@ def process_institutions(stack):
     stack.update(dict(
         map=True,
     ))
-    stack.setdefault('cards', []).extend(institutions_cards)
+    stack.setdefault('cards', [])
+    current_cards = dict(
+        (c['title'], c) for c in stack['cards']
+    )
+    for card in institutions_cards:
+        current_card = current_cards.pop(card['title'], None)
+        if current_card is not None:
+            card['content'] = current_card['content']
+        else:
+            print('SPURIOUS CARD for INSTITUTIONS', card['title'])
+    stack['cards'] = [
+        c for c in stack['cards']
+        if c['title'] in current_cards
+    ] + institutions_cards
 
 def get_owner(rid):
     o = fetch_airtable('owners', rid)
