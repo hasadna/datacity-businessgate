@@ -62,7 +62,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       first(),
       tap((record) => {
         this.record = record;        
-      })
+      }),
+      delay(0),
     ).subscribe(() => {
       this.content = new ContentManager();
       this.content.fixmeMessage = (this.fixMe.nativeElement as HTMLElement).innerHTML;
