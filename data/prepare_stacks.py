@@ -319,6 +319,22 @@ def process_institutions(stack):
                 DF.delete_fields(['X', 'Y'])
             )
 
+        def translate_kind():
+            translations = {
+                'מרפאה': 'מרפאות',
+                'איצטדיון': 'איצטדיון',
+                'ספרייה': 'ספריות',
+                'בית ספר': 'בתי ספר',
+                'מועדון קהילתי כולל מרכז צעירים': 'מועדון קהילתי',
+                'בית כנסת': 'בתי כנסת',
+                'מועדון נוער': 'מועדון נוער',
+                'אולם מופעים, היכל תרבות': 'מוסדות תרבות',
+                'מועדון קשישים, מרכז לאזרחים ותיקים,מרכז יום לקשישים': 'מרכזי פעילות לקשישים',
+            }
+            def func(row):
+                row['kind'] = translations[row['kind']]
+            return func
+
         institutions_cards = DF.Flow(
             *[
                 DF.load(f)
@@ -330,6 +346,7 @@ def process_institutions(stack):
                 address=['כתובת'],
                 X=[], Y=[]
             )),
+            translate_kind(),
             proj(),
             DF.add_field('feature', 'object', 
                         lambda r: geojson.Feature(

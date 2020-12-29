@@ -21,6 +21,7 @@ import { StateService } from '../state.service';
 import { MainScrollService } from '../main-scroll.service';
 import { ChatMsgShareDialogComponent } from '../chat-msgs/chat-msg-share-dialog/chat-msg-share-dialog.component';
 import { ChatMsgCopyLinkComponent } from '../chat-msgs/chat-msg-copy-link/chat-msg-copy-link.component';
+import { ChatMsgHtmlSayComponent } from '../chat-msgs/html-say/chat-msg-html-say.component';
 
 @Component({
   selector: 'app-main-page',
@@ -87,9 +88,14 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         {
           keyword: 'share-dialog',
           cls: ChatMsgShareDialogComponent
-        },        {
+        },
+        {
           keyword: 'copy-link',
           cls: ChatMsgCopyLinkComponent
+        },
+        {
+          keyword: 'html-say',
+          cls: ChatMsgHtmlSayComponent
         },
       ]);
       this.stacksSvc.runner = this.runner;
