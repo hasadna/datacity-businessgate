@@ -1,6 +1,7 @@
 #!/bin/bash
 git checkout master && \
-export VERSION=${git show --pretty="format:%aI.%h" -s} && \
+export VERSION=`git show --pretty="format:%aI.%h" -s` && \
+echo VERSION: $VERSION && \
 echo "export const VERSION='$VERSION';" > ui/projects/businessgate/src/app/version.ts && \
 hatool content/script.yaml ui/projects/businessgate/src/assets/script.$VERSION.json && \
 git add ui/projects/businessgate/src/assets/script.$VERSION.json && \
