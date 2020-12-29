@@ -36,10 +36,12 @@ export class BackendService {
           console.log('Document was written with id', docRef.id);
           this.location.replaceState('/r/' + docRef.id);
           this.itemId = docRef.id;
-          this.record.next({
+          const newRec = {
             self_link: window.location.href,
             script_version
-          });
+          };
+          this.record.next(newRec);
+          this.update(newRec);
         });
     } else {
       this.itemId = itemId;
@@ -50,6 +52,7 @@ export class BackendService {
           console.log('Document was retrieved with content', this.state.length);
           const record = JSON.parse(this.state);
           record.self_link = window.location.href;
+          record.script_version = record.script_version || script_version;
           script_version = record.script_version;
           this.record.next(record);
         }
