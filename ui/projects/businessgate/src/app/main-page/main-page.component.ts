@@ -8,7 +8,7 @@ import { ChatMsgImageComponent } from '../chat-msgs/chat-msg-image/chat-msg-imag
 import { ChatMsgSelectFromListComponent } from '../chat-msgs/chat-msg-select-from-list/chat-msg-select-from-list.component';
 import { ChatMsgCardStackComponent } from '../chat-msgs/chat-msg-card-stack/chat-msg-card-stack.component';
 import { DataService } from '../data.service';
-import { first, map, switchMap, tap, timestamp, windowWhen } from 'rxjs/operators';
+import { delay, first, map, switchMap, tap, timestamp, windowWhen } from 'rxjs/operators';
 import * as turf from '@turf/turf';
 import { forkJoin, fromEvent, of, Subscription } from 'rxjs';
 import { MapService } from '../map.service';
