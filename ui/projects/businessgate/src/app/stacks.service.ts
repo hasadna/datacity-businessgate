@@ -48,4 +48,11 @@ export class StacksService {
     }
   }
 
+  clear() {
+    this.stack_cache = {};
+    this.stack_count = 0;
+    this.visible = false;
+    this.stack_modules = [];
+  }
+
 }

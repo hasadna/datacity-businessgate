@@ -332,6 +332,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       this.runnerSub.unsubscribe();
       this.runnerSub = null;
     }
+    this.stacksSvc.clear();
     this.initChat();
   }
 
