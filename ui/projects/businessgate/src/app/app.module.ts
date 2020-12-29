@@ -40,6 +40,7 @@ import { ChatMsgShareDialogComponent } from './chat-msgs/chat-msg-share-dialog/c
 import { ChatMsgCopyLinkComponent } from './chat-msgs/chat-msg-copy-link/chat-msg-copy-link.component';
 import { ChatMsgHtmlSayComponent } from './chat-msgs/html-say/chat-msg-html-say.component';
 import { OwnerProfilePhotoComponent } from './owner-profile-photo/owner-profile-photo.component';
+import { CopyLinkComponent } from './copy-link/copy-link.component';
 
 const appRoutes: Routes = [
   { path: 'r/:id', component: MainPageComponent },
@@ -78,7 +79,8 @@ const appRoutes: Routes = [
     ChatMsgShareDialogComponent,
     ChatMsgCopyLinkComponent,
     OwnerProfilePhotoComponent,
-    ChatMsgHtmlSayComponent
+    ChatMsgHtmlSayComponent,
+    CopyLinkComponent
   ],
   imports: [
     BrowserModule,

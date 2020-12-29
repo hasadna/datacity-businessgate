@@ -2,5 +2,10 @@
     <div class='content scheme-secondary-bg'>
         <h1 [innerHtml]='params.__runner.fillIn(card.title || "EMPTY")'></h1>
         <p [innerHtml]='marked(params.__runner.fillIn(card.content || "EMPTY"))'></p>    
+        <a class='link' [href]='card["extra-info-link"]' *ngIf='card["extra-info-link"]' target="_blank">
+            <img src='assets/img/external-link-icon.svg'>
+            <span>{{ card["extra-info-link-title"] || card["extra-info-link"]}}</span>
+            <img src='assets/img/chevron-left.svg'>
+        </a>
     </div>
 </app-base-card>
