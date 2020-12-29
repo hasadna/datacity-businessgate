@@ -57,8 +57,8 @@ export class BackendService {
           this.record.next(record);
         }
       });
-      this.config.getScript(script_version);
     }
+    this.config.getScript(script_version);
   }
 
   update(item) {

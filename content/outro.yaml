@@ -83,6 +83,26 @@
                     - default: true
           - undefined: true
     - copy-link:
+
+    - cards:
+        stack: links.קישורים
+
+    - say: אנחנו נשמח להיות איתך בקשר טלפוני, זה לפעמים הרבה יותר פשוט מאימייל. רוצה?
+    - wait:
+        options:
+          - show: כן, תודה
+            steps:
+              - wait:
+                  variable: phone_number
+                  placeholder: מספר הטלפון שלך
+                  validation: '[-+0-9]+'
+              - say: מעולה ממש!
+          - show: לא תודה
+            class: grayed
+            steps:
+              - say: בסדר גמור :)
+        
+
     - say: דבר אחרון, אנחנו נשמח לעזור לעוד אנשים שרוצים לפתוח עסקים בעיר שלנו
     - say: אפשר אולי לבקש איזה שיתוף קטן של האתר עם איזו מילה טובה?
     - wait:

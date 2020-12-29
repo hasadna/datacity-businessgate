@@ -9,6 +9,10 @@
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "אסכם לך את זה ב-56 מילים",
         "word-count": 56
       },
@@ -20,28 +24,40 @@
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "מי נותן לי את האישור?",
         "word-count": 43
       },
       {
-        "content": "קודם נקבע פגישה עם אחד מנציגי אגף רישוי עסקים, אפשר לקבוע גם פגישת וידאו\\*. בפגישה נעבור יחד על ההנחיות להגשת הבקשה לרישיון עסק.\n\nלאחר שהבקשה מוגשת (בעותק קשיח), לעיתים קרובות יש דרישות להשלמה, ולכן הזמן לקבלת הרישיון משתנה מעסק לעסק. לרוב בעלי העסקים מדובר בפרק זמן של מספר חודשים, אבל זה בהחלט יכול להיות קצר יותר. \n\n\\*בסוף הצ׳אט אנחה אותך כיצד ניתן לתאם שיחה כזו\n",
+        "content": "קודם נקבע פגישה עם אחד מנציגי אגף רישוי עסקים, אפשר לקבוע גם פגישת וידאו\\*. בפגישה נעבור יחד על ההנחיות להגשת הבקשה לרישיון עסק.\nלאחר שהבקשה מוגשת (בעותק קשיח), לעיתים קרובות יש דרישות להשלמה, ולכן הזמן לקבלת הרישיון משתנה מעסק לעסק. לרוב בעלי העסקים מדובר בפרק זמן של מספר חודשים, אבל זה בהחלט יכול להיות קצר יותר. \n\\*בסוף הצ׳אט אנחה אותך כיצד ניתן לתאם שיחה כזו.\n",
         "module": [
           "רישוי עסק"
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "איך נעשה את זה?",
         "word-count": 64
       },
       {
-        "content": "לפני שמתחייבים בהסכם שכירות, רכישת נכס או הוצאות כספיות כדאי לבדוק את התאמתו לסוג העסק ותנאי הרישיון הדרושים. כדאי לבדוק, לפעמים שינוי קטן בפעילות העסק או בגודלו משפיעים על דרישות הרישוי בצורה משמעותית.\n\nמעבר לזה, חשוב שהבקשה לקבלת רישיון עסק תוגש בהקדם האפשרי כדי למנוע פתיחת עסק ללא רישיון. \n",
+        "content": "לפני שמתחייבים בהסכם שכירות, רכישת נכס או הוצאות כספיות כדאי לבדוק את התאמתו לסוג העסק ותנאי הרישיון הדרושים. כדאי לבדוק, לפעמים שינוי קטן בפעילות העסק או בגודלו משפיעים על דרישות הרישוי בצורה משמעותית.\nמעבר לזה, חשוב שהבקשה לקבלת רישיון עסק תוגש בהקדם האפשרי כדי למנוע פתיחת עסק ללא רישיון. \n",
         "module": [
           "רישוי עסק"
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "מה כדאי לקדם כבר בשלב ראשוני?",
         "word-count": 49
       },
@@ -59,6 +75,9 @@
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "עסק עתיר קהל/סיכון",
@@ -79,6 +98,9 @@
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "האם העסק שלי הוא כזה?",
         "word-count": 41
@@ -97,6 +119,10 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "מתי מסעדה מוגדרת כעסק עתיר סיכון/קהל?",
         "word-count": 15
@@ -115,6 +141,10 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "מתי פאב/בר/מועדון נחשב עסק עתיק סיכון/קהל?",
         "word-count": 14
@@ -123,15 +153,19 @@
         "business_kinds": [
           "טעוני רישוי"
         ],
-        "content": "לפעמים להעביר רישיון של בית עסק קיים הרבה יותר קל ומהיר מליצור רישיון עסק חדש.\n",
+        "content": "לפעמים להעביר רישיון של בית עסק קיים הרבה יותר קל ומהיר מליצור רישיון עסק חדש. פרט זה יכול להפוך לשיקול של ממש בבחירת המקום שבו תבקשו לפתוח את העסק.\n",
         "module": [
           "רישוי עסק"
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "טיפ של אלופים",
-        "word-count": 15
+        "word-count": 29
       }
     ],
     "goodbye": "נושא הרישוי הוא בהחלט מורכב וזה רק הבסיס - אני זמינה כאן לכל שאלה!",
@@ -168,6 +202,9 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אגף רישוי עסקים - מחלקת תכנון ובנייה",
         "word-count": 48
@@ -180,6 +217,9 @@
         "owner": [
           "recH8jVnhdWnrd9cy"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לב העניין ",
         "word-count": 27
@@ -191,6 +231,9 @@
         ],
         "owner": [
           "recH8jVnhdWnrd9cy"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "ז'רגון מקצועי ששווה להכיר",
@@ -205,6 +248,9 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "איך נכון לגשת לזה?",
         "word-count": 57
@@ -224,6 +270,9 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "כדאי לשים לב",
         "word-count": 8
@@ -246,6 +295,10 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "הגבלת שילוט על מבנים לשימור",
         "word-count": 9
@@ -258,18 +311,22 @@
           "בית משחקים/באולינג/סנוקר/חשמל",
           "פאב, בר או מועדון"
         ],
-        "content": ".יידרש ממך להביא מראש אישור קונסטרוקציה לאלמנטים במבנה\n",
+        "content": "יידרש ממך להביא מראש אישור קונסטרוקציה לאלמנטים במבנה.\n",
         "module": [
           "רישוי עסק"
         ],
         "owner": [
           "recH8jVnhdWnrd9cy"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "במידה ואני עסק עתיר סיכון, מה נדרש ממני?",
         "word-count": 8
       },
       {
-        "content": "מזון מן החי בצורתו הגולמית \\*או\\* טיפול בבע\"ח כמו שיש בעסקים מסוג איטליז, חנות חיות, מספרת לבע\"ח, בית קירור, בית מטבחיים, מפעל מזון וכדומה מצריך אישור מיוחד. על פי רוב אישור זה מחליף את אישור משרד הבריאות, אבל שווה לבדוק.\n",
+        "content": "יש לקבל אישור מיוחד עבור מזון מן החי בצורתו הגולמית **או** טיפול בבע\"ח כמו שיש בעסקים מסוג איטליז, חנות חיות, מספרת לבע\"ח, בית קירור, בית מטבחיים, מפעל מזון וכדומה. על פי רוב אישור זה מחליף את אישור משרד הבריאות, אבל שווה לבדוק.\n",
         "module": [
           "רישוי עסק",
           "טיפים עסקיים",
@@ -279,8 +336,14 @@
           "recm1HrAXlQgKXQ5N",
           "recH8jVnhdWnrd9cy"
         ],
+        "stack-status": [
+          "done",
+          "in work",
+          "done"
+        ],
+        "status": true,
         "title": "אסכם לך את זה ב-40 מילים",
-        "word-count": 40
+        "word-count": 42
       },
       {
         "content": "מרבית העסקים מסוג {{סוג_עסק}} פועלים בנכסים מסוג {{ארנונה.סיווג_נכס}}.\n",
@@ -291,6 +354,10 @@
         "owner": [
           "recTVbfml3Ct7IvW3",
           "recH8jVnhdWnrd9cy"
+        ],
+        "stack-status": [
+          "done",
+          "done"
         ],
         "status": true,
         "title": "מה קורה עם עסקים דומים לשלי?",
@@ -312,8 +379,8 @@
     },
     "scheme": "yellow",
     "status": "done",
-    "title": "תכנון ובנייה",
-    "מאגר תובנות והזדמנויות": "נגישות, נגישות, נגישות, נגישות, כדאי לדעת, כדאי לדעת"
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
+    "title": "תכנון ובנייה"
   },
   {
     "cards": [
@@ -326,6 +393,9 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "נגישות",
         "word-count": 37
@@ -343,6 +413,9 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "איך זה מתבצע",
         "word-count": 42
@@ -361,6 +434,9 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "הצהרת נגישות במסעדות ובתי קפה",
         "word-count": 42
@@ -381,6 +457,7 @@
     },
     "scheme": "yellow",
     "status": "done",
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
     "title": "נגישות"
   },
   {
@@ -392,6 +469,9 @@
         ],
         "owner": [
           "recqt7iYGQh95YHiX"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "אסכם לך את זה ב-38 מילים",
@@ -405,6 +485,9 @@
         "owner": [
           "recqt7iYGQh95YHiX"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "מי נותן את האישור?",
         "word-count": 24
@@ -416,6 +499,9 @@
         ],
         "owner": [
           "recqt7iYGQh95YHiX"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "מה בודקים?",
@@ -432,6 +518,10 @@
         "owner": [
           "recqt7iYGQh95YHiX"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "חשוב לדעת",
         "word-count": 14
       }
@@ -450,6 +540,7 @@
     },
     "scheme": "yellow",
     "status": "done",
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
     "title": "בריאות ותברואה"
   },
   {
@@ -462,6 +553,9 @@
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "הרשות הארצית לכבאות והצלה",
         "word-count": 40
@@ -473,6 +567,9 @@
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "הצהרה",
@@ -491,6 +588,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 9
@@ -508,6 +608,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 8
@@ -525,6 +628,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 8
@@ -542,6 +648,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 8
@@ -559,6 +668,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 8
@@ -576,6 +688,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 8
@@ -593,6 +708,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 5
@@ -610,6 +728,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 5
@@ -627,6 +748,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 8
@@ -644,6 +768,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לתשומת לבך",
         "word-count": 23
@@ -656,15 +783,19 @@
           "מסעדה",
           "בית משחקים/באולינג/סנוקר/חשמל"
         ],
-        "content": "במידה והעסק מוגדרכעסק עתיר סיכון/קהל אישור הכבאות יהווה תנאי סף לפתיחת העסק\n",
+        "content": "במידה והעסק מוגדר כעסק עתיר סיכון/קהל אישור הכבאות יהווה תנאי סף לפתיחת העסק.\n",
         "module": [
           "רישוי עסק"
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "חשוב לדעת",
-        "word-count": 12
+        "word-count": 13
       }
     ],
     "goodbye": "נשמח לענות על שאלות נוספות",
@@ -687,8 +818,8 @@
     },
     "scheme": "yellow",
     "status": "done",
-    "title": "בטיחות אש",
-    "מאגר תובנות והזדמנויות": "שים לב, שים לב, שים לב, שים לב, שים לב, שים לב, שים לב, שים לב, שים לב, שים לב"
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
+    "title": "בטיחות אש"
   },
   {
     "cards": [
@@ -701,6 +832,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-30 מילים",
         "word-count": 30
@@ -714,6 +848,9 @@
           "recm1HrAXlQgKXQ5N"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "מי נותן את האישור?",
         "word-count": 16
@@ -739,6 +876,7 @@
     },
     "scheme": "yellow",
     "status": "done",
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
     "title": "איכות הסביבה"
   },
   {
@@ -750,6 +888,9 @@
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "אסכם לך את זה ב-28 מילים",
@@ -776,12 +917,13 @@
     },
     "scheme": "yellow",
     "status": "done",
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
     "title": "בטיחות בעבודה"
   },
   {
     "cards": [
       {
-        "content": "מזון מן החי בצורתו הגולמית \\*או\\* טיפול בבע\"ח כמו שיש בעסקים מסוג איטליז, חנות חיות, מספרת לבע\"ח, בית קירור, בית מטבחיים, מפעל מזון וכדומה מצריך אישור מיוחד. על פי רוב אישור זה מחליף את אישור משרד הבריאות, אבל שווה לבדוק.\n",
+        "content": "יש לקבל אישור מיוחד עבור מזון מן החי בצורתו הגולמית **או** טיפול בבע\"ח כמו שיש בעסקים מסוג איטליז, חנות חיות, מספרת לבע\"ח, בית קירור, בית מטבחיים, מפעל מזון וכדומה. על פי רוב אישור זה מחליף את אישור משרד הבריאות, אבל שווה לבדוק.\n",
         "module": [
           "רישוי עסק",
           "טיפים עסקיים",
@@ -791,8 +933,14 @@
           "recm1HrAXlQgKXQ5N",
           "recH8jVnhdWnrd9cy"
         ],
+        "stack-status": [
+          "done",
+          "in work",
+          "done"
+        ],
+        "status": true,
         "title": "אסכם לך את זה ב-40 מילים",
-        "word-count": 40
+        "word-count": 42
       },
       {
         "content": "האישורים ניתנים על ידי היחידה הוטרינרית בעירייה ומשרד החקלאות. בעת הפגישה במחלקת רישוי עסקים יוסבר לך מה נדרש בדיוק ומי נותן את האישור הסופי.\n",
@@ -801,6 +949,9 @@
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "מי נותן את האישור?",
@@ -827,6 +978,7 @@
     },
     "scheme": "yellow",
     "status": "done",
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
     "title": "בע\"ח ובשר גולמי"
   },
   {
@@ -838,6 +990,9 @@
         ],
         "owner": [
           "recm1HrAXlQgKXQ5N"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "אסכם לך את זה ב-32 מילים",
@@ -864,6 +1019,7 @@
     },
     "scheme": "yellow",
     "status": "done",
+    "subtitle": "דרישות עבור {{סוג_עסק}}",
     "title": "ביטחון"
   },
   {
@@ -878,6 +1034,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "אסכם לך את זה ב -51 מילים",
@@ -894,6 +1053,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "חוק התכנון והבנייה",
         "word-count": 63
@@ -909,6 +1071,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "נגישות",
         "word-count": 56
@@ -923,6 +1088,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "איכות הסביבה",
@@ -941,6 +1109,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "שימור",
@@ -996,6 +1167,9 @@
         "owner": [
           "rec1i9j91QPYoKcX3"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-39 מילים",
         "word-count": 39
@@ -1010,6 +1184,9 @@
         ],
         "owner": [
           "rec1i9j91QPYoKcX3"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "מה בודקים פקחי השטח?",
@@ -1036,6 +1213,9 @@
           "rec1i9j91QPYoKcX3"
         ],
         "responsible": "אגף פיקוח",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "סמיכות למבני מגורים",
         "word-count": 20
@@ -1061,6 +1241,9 @@
           "rec1i9j91QPYoKcX3"
         ],
         "responsible": "אגף פיקוח",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "מתחם מנוהל",
         "word-count": 26
@@ -1081,8 +1264,7 @@
     "scheme": "blue",
     "status": "done",
     "subtitle": "מה נדרש מ{{סוג_עסק}} ?",
-    "title": "הפעלת העסק:",
-    "מאגר תובנות והזדמנויות": "סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, סמיכות למבני מגורים, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל, מתחם מנוהל"
+    "title": "הפעלת העסק:"
   },
   {
     "cards": [
@@ -1094,6 +1276,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "איך להסתכל על מידע דמוגרפי?",
@@ -1785,6 +1970,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-25 מילים",
         "word-count": 25
@@ -1841,7 +2029,7 @@
         "title": "ספריות"
       },
       {
-        "content": "מוקדים פעילים שניתן למצוא בשכונות ובמקומות מרכזיים בעיר. לעיתים קרובות כבר נמצאות בקרבת מרכזי מסחר.\n",
+        "content": "מרפאות הינן מוקדים פעילים שניתן למצוא בשכונות ובמקומות מרכזיים בעיר, לעיתים קרובות הן נמצאות בקרבת מרכזי מסחר.\n",
         "pointGeometry": {
           "features": [
             {
@@ -2172,7 +2360,7 @@
         "title": "מרפאות"
       },
       {
-        "content": "מועדון קשישים, מרכז לאזרחים ותיקים,מרכז יום לקשישים. לעיתים נוח יותר לאוכלוסייה זו לרכוש מצרכים ושירותים קרובים.\n",
+        "content": "מועדון קשישים, מרכז לאזרחים ותיקים, מרכז יום לקשישים. לעיתים נוח יותר לאוכלוסייה זו לרכוש מצרכים ושירותים קרובים.\n",
         "pointGeometry": {
           "features": [
             {
@@ -2419,7 +2607,7 @@
         "title": "מרכזי פעילות לקשישים"
       },
       {
-        "content": "קהל היעד צעיר בגילאי נוער וילדים. מעודני פיס, תנועות נוער ומוקדי פעילות מאורגנים לגילאים אלו.\n",
+        "content": "&nbsp;",
         "pointGeometry": {
           "features": [
             {
@@ -3205,7 +3393,16 @@
                 "title": "תאובל אומניות יהודי אתיופיה"
               },
               "type": "Feature"
-            },
+            }
+          ],
+          "type": "FeatureCollection"
+        },
+        "title": "מועדון קהילתי"
+      },
+      {
+        "content": "קהל היעד צעיר בגילאי נוער וילדים. מעודני פיס, תנועות נוער ומוקדי פעילות מאורגנים לגילאים אלו.\n",
+        "pointGeometry": {
+          "features": [
             {
               "geometry": {
                 "coordinates": [
@@ -3809,7 +4006,7 @@
         "title": "מוסדות תרבות"
       },
       {
-        "content": "בתי ספר הם מוקד פעילות למאות אנשים שפוקדים את האזור כל יום. בהתאם למאפיניי הבית ספר, חלקם מגיעים ברכב וחלקם ברגל. סביר להניח שבשעות שלאחר הלימודים יש יותר פנאי להורים ותלמידים לרכוש בחנויות.\n",
+        "content": "בתי ספר הם מוקד פעילות למאות אנשים שפוקדים את האזור כל יום. בהתאם למאפיניי בית הספר, חלקם מגיעים ברכב וחלקם ברגל. סביר להניח שבשעות שלאחר הלימודים יש יותר פנאי להורים ותלמידים לרכוש בחנויות.\n",
         "pointGeometry": {
           "features": [
             {
@@ -8741,6 +8938,9 @@
         "owner": [
           "recTVbfml3Ct7IvW3"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "מה זה ארנונה?",
         "word-count": 35
@@ -8752,6 +8952,9 @@
         ],
         "owner": [
           "recTVbfml3Ct7IvW3"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "test": "ארנונה.עלות_כוללת",
@@ -8766,6 +8969,9 @@
         "owner": [
           "recTVbfml3Ct7IvW3"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "תעריף שונים לאיזורים שונים",
         "word-count": 41
@@ -8777,6 +8983,9 @@
         ],
         "owner": [
           "recTVbfml3Ct7IvW3"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "test": "ארנונה.אזור",
@@ -8790,6 +8999,9 @@
         ],
         "owner": [
           "recTVbfml3Ct7IvW3"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "test": "ארנונה.תעריף",
@@ -8806,6 +9018,10 @@
           "recTVbfml3Ct7IvW3",
           "recH8jVnhdWnrd9cy"
         ],
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "מה קורה עם עסקים דומים לשלי?",
         "word-count": 8
@@ -8817,6 +9033,9 @@
         ],
         "owner": [
           "recTVbfml3Ct7IvW3"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "test": "ארנונה.לא_מצאנו",
@@ -8850,6 +9069,9 @@
         "owner": [
           "reck5e9X8Gjt4OcER"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-21 מילים",
         "word-count": 21
@@ -8862,6 +9084,9 @@
         "owner": [
           "reck5e9X8Gjt4OcER"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אגרת שילוט",
         "word-count": 33
@@ -8873,6 +9098,9 @@
         ],
         "owner": [
           "reck5e9X8Gjt4OcER"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "ועדת שילוט",
@@ -8896,6 +9124,10 @@
           "recH8jVnhdWnrd9cy"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "הגבלת שילוט על מבנים לשימור",
         "word-count": 9
@@ -8908,6 +9140,10 @@
         "owner": [
           "reck5e9X8Gjt4OcER"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "שלט שלט שעל הקיר",
         "word-count": 30
       }
@@ -8924,7 +9160,7 @@
       "title": " מחלקת שילוט ואכיפה"
     },
     "scheme": "blue",
-    "status": "for review",
+    "status": "done",
     "subtitle": "וכמה זה צריך לעלות לי?",
     "title": "איך לתכנן שלט?"
   },
@@ -8953,6 +9189,16 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
@@ -8965,6 +9211,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "מאיפה באים הלקוחות שלך ומה הם מחפשים?",
@@ -11029,6 +11278,16 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
@@ -12930,7 +13189,7 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "peach",
-    "status": "for review",
+    "status": "done",
     "subtitle": "ניתוח הביקושים",
     "title": "רוצים דברים לבית?"
   },
@@ -12959,6 +13218,16 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
@@ -12971,6 +13240,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "ילדים זה שמחה",
@@ -14370,6 +14642,16 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
@@ -14382,6 +14664,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "אז איפה אוכלים?",
@@ -16550,7 +16835,7 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "peach",
-    "status": "for review",
+    "status": "done",
     "subtitle": "ניתוח הביקושים",
     "title": "רוצים מסעדות ובתי קפה?"
   },
@@ -16579,6 +16864,16 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
@@ -16591,6 +16886,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "אם אין לחם...",
@@ -17990,6 +18288,16 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
@@ -18002,6 +18310,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "העיקר הבריאות",
@@ -19002,18 +19313,31 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
       },
       {
-        "content": " בעלי מקצועות חופשיים, שירותים נלווים ועוד\n\n",
+        "content": " בעלי מקצועות חופשיים, שירותים נלווים ועוד\n",
         "layout": "simple",
         "module": [
           "ביקוש"
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "needs-more-work"
         ],
         "title": "מה זה כולל?",
         "word-count": 7
@@ -20516,7 +20840,7 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "peach",
-    "status": "for review",
+    "status": "needs-more-work",
     "subtitle": "ניתוח הביקושים",
     "title": "רוצים שירותים מקצועיים?"
   },
@@ -20545,12 +20869,22 @@
           "recFgU3hpF7LQCm72",
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "done",
+          "needs-more-work",
+          "done"
+        ],
         "status": true,
         "title": "איך להסתכל על סקר ביקושים?",
         "word-count": 32
       },
       {
-        "content": "יש הרבה מאוד תחביבים ופעילויות פנאי שיכולים להועיל לגוף ולנפש \n .ועל כך יכולים להעיד האנשים שעוסקים בהם \n.ברחבי העיר מפוזרים מתנס\"ים שמצעים מגוון רחב של חוגים\n אבל תמיד יש את החוג המיוחד או המדריך הטוב שאינו נמצא קרוב לביתך.  אבל שווה   \nלהשתתף בחוג גם אם הוא בשכונה אחרת.\n",
+        "content": "תחביבים ופעילויות פנאי מועילים לגוף ולנפש. ברחבי העיר מפוזרים מתנס\"ים שמציעים מגוון רחב של חוגים, אבל תמיד יש את החוג המיוחד או המדריכה האחת והיחידה שאינם נמצאים קרוב לביתך. בקיצור, נחמד שיש פנאי קרוב לבית, אבל אם החוג שווה את זה, לעיתים גם נקפוץ גם עבורו לשכונה אחרת.\n",
         "layout": "simple",
         "module": [
           "ביקוש"
@@ -20558,8 +20892,12 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "תחביבים ספורט ופנאי",
-        "word-count": 52
+        "word-count": 48
       },
       {
         "content": "",
@@ -22591,7 +22929,7 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "peach",
-    "status": "for review",
+    "status": "done",
     "subtitle": "ניתוח הביקושים",
     "title": "רוצים תחביבים, ספורט ופנאי?"
   },
@@ -22605,6 +22943,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "שלב 1 - אפיון העסק",
         "word-count": 34
@@ -22616,6 +22957,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "שלב 2 - הכנת תכנית עסקית",
@@ -22629,6 +22973,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "שלב 3 - רשויות המדינה",
         "word-count": 41
@@ -22641,6 +22988,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "שלב 4 - פתיחת חשבון בנק עסקי",
         "word-count": 11
@@ -22652,6 +23002,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "קצת מושגים",
@@ -22703,6 +23056,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-30 מילים",
         "word-count": 30
@@ -22715,6 +23071,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "מה זה מיתוג?",
         "word-count": 41
@@ -22726,6 +23085,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "נוכחות ברשת ",
@@ -22740,6 +23102,10 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "in work"
+        ],
         "status": true,
         "title": "מנועי חיפוש",
         "word-count": 52
@@ -22753,6 +23119,10 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "in work"
+        ],
         "status": true,
         "title": "אתר אינטרנט",
         "word-count": 40
@@ -22764,6 +23134,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "תרמו לדיון בקבוצות ובפורומים",
@@ -22778,6 +23151,10 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "in work"
+        ],
         "status": true,
         "title": "רשימת דיוור",
         "word-count": 34
@@ -22789,6 +23166,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "פרסום ממומן",
@@ -22840,6 +23220,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-35 מילים",
         "word-count": 35
@@ -22852,6 +23235,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "מה כדאי לקחת בחשבון?",
         "word-count": 47
@@ -22863,6 +23249,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "חנייה בתשלום",
@@ -22878,6 +23267,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "הידעת?",
@@ -22933,12 +23325,15 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "בואו נתאם לכם שיחת וידאו עם אגף רישוי עסקים",
         "word-count": 8
       },
       {
-        "content": "גוש וחלקה יאפשרו לך לקבל מידע לפי חוק התכנון והבנייה וגם לבדוק נושאי בעלות באמצעות הוצאת נסח טאבו ממשרד המשפטים. באתר המפות העירוני ניתן לצפות במידע: \n\n",
+        "content": "לדעת מה הם הגוש והחלקה של הנכס המיועד יאפשר לך לקבל מידע לפי חוק התכנון והבנייה וגם לבדוק נושאי בעלות באמצעות הוצאת נסח טאבו ממשרד המשפטים. באתר המפות העירוני ניתן לצפות במידע הזה ובשכבות מידע נוספות:\n",
         "extra-info-link": "https://gis.br7.org.il/apps/br7/",
         "extra-info-link-title": "בדיקת גוש/חלקה ומידע תכנוני נוסף",
         "module": [
@@ -22949,11 +23344,15 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "בדיקת גוש/חלקה ומידע תכנוני נוסף",
-        "word-count": 27
+        "word-count": 36
       },
       {
-        "content": "אתר נציבות הנגישות לבעלי מוגבליות:\n<https://www.gov.il/he/departments/topics/small_businesses>\n",
+        "content": "לטובת העמקה בנושא הנגישות:\n",
         "extra-info-link": "https://www.gov.il/he/departments/guides/small_business_guide",
         "extra-info-link-title": "אתר נציבות הנגישות לבעלי מוגבליות",
         "module": [
@@ -22964,12 +23363,17 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "מידע נוסף על הנגשת עסק",
-        "word-count": 5
+        "word-count": 4
       },
       {
-        "content": "טופס בקשה להצבת שלט ותשלום אגרה:\n",
+        "content": "ברגע שאתם כבר יודעים איזה שילוט אתם רוצים הגישו:\n",
         "extra-info-link": "https://www.beer-sheva.muni.il/Business/ArnonaShilut/Pages/ShilutAchifa.aspx",
+        "extra-info-link-title": "טופס בקשה להצבת שלט ותשלום אגרה",
         "module": [
           "טיפים עסקיים"
         ],
@@ -22978,11 +23382,15 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "שילוט - פעולות מקוונות",
-        "word-count": 6
+        "word-count": 9
       },
       {
-        "content": "מידע נוסף באגף הנדסה, מחלקת שימור:\n",
+        "content": "מידע נוסף באתר של:\n",
         "extra-info-link": "https://www.beer-sheva.muni.il/Residents/Engineer/CityPlanning/Pages/ShimurOldCity.aspx",
         "extra-info-link-title": "מחלקת שימור באגף הנדסה",
         "module": [
@@ -22993,8 +23401,12 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "שימור בעיר העתיקה",
-        "word-count": 6
+        "word-count": 4
       },
       {
         "content": "פירוט הסדרי חנייה וחניונים:\n",
@@ -23008,21 +23420,29 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "חניונים ותעריפים",
         "word-count": 4
       },
       {
-        "content": "ניתן להתעמק בנתונים שהוצגו למעלה ואפילו לבדוק מה הבדל בין ביקוש לעסקים \"ליד הבית\" ולעסקים ליד העבודה ועוד פילוחים שונים:\n",
+        "content": "הצגנו לך כבר כמה מסקנות מהסקר, אבל יכול להיות שיעניין אותך להתעמק עוד יותר בנתונים ואפילו לבדוק מה הבדל בין ביקוש לעסקים \"ליד הבית\" ולעסקים ליד העבודה ולבחון עוד פילוחים שונים:\n",
         "extra-info-link": "https://app.powerbi.com/view?r=eyJrIjoiZDQ4ODgxZTItMzNmNy00M2YyLWFjYWEtYzA4ZTA2YTA3OTUxIiwidCI6ImRmYzRlOWEyLTkwYTctNDY0MC1hNWY5LWZkYzFiMWFlZjM2NSIsImMiOjl9",
-        "extra-info-link-title": "סקר ביקושים ",
+        "extra-info-link-title": "סקר ביקושים: 2019",
         "module": [
           "טיפים עסקיים"
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "סקר ביקושים",
-        "word-count": 20
+        "word-count": 31
       },
       {
         "content": "בדיקה מפורטת של מספר התושבים ומאפיינים דמוגרפים בתצוגת מפה עד רדיוס של 200 מטרים:\n",
@@ -23034,6 +23454,10 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "מידע דמוגרפי נוסף",
         "word-count": 14
       }
@@ -23069,8 +23493,8 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "blue",
-    "status": "for review",
-    "subtitle": "*ואולי כאלו שהזכרנו בצ'אט",
+    "status": "done",
+    "subtitle": "כל אלה שהבטחנו לך ועוד…",
     "title": "קישורים שימושיים"
   },
   {
@@ -23092,6 +23516,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "דירה להשכיר",
         "word-count": 17
@@ -23112,6 +23539,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "לקוחות באזור רחוב יעקב כהן - רגר",
         "word-count": 25
@@ -23129,6 +23559,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "אגף רישוי עסקים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "עוברי אורח באזור",
         "word-count": 9
@@ -23149,6 +23582,10 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "אגף פיקוח",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "שילוט",
         "word-count": 8
       },
@@ -23168,6 +23605,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "אגף הנדסה",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "שימור",
         "word-count": 18
@@ -23190,6 +23630,10 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 12
@@ -23207,6 +23651,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "סימון כניסה לעסק",
         "word-count": 21
@@ -23232,6 +23679,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "דיגיטל או שכונה?",
         "word-count": 20
@@ -23249,6 +23699,10 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "הידעת?",
         "word-count": 14
       },
@@ -23263,6 +23717,10 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "מה עוד כדאי ל{שם עסק} לדעת?",
         "word-count": 9
       }
@@ -23298,7 +23756,7 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "blue",
-    "status": "for review",
+    "status": "done",
     "subtitle": "מידע נוסף",
     "title": "עוד דבר קטן:"
   },
@@ -23312,6 +23770,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-44 מילים",
         "word-count": 48
@@ -23323,6 +23784,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "מאיפה לי לדעת?",
@@ -23344,6 +23808,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 12
@@ -23364,6 +23831,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 13
@@ -23384,6 +23854,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 14
@@ -23406,6 +23879,10 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done",
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 12
@@ -23423,6 +23900,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 10
@@ -23441,6 +23921,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "מנהלת התחדשות עירונית",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 24
@@ -23458,6 +23941,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חברת יעדים",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 44
@@ -23475,6 +23961,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חכ\"ל",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 12
@@ -23492,6 +23981,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "מנהלת התחדשות עירונית",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 30
@@ -23510,6 +24002,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "מנהלת התחדשות עירונית",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 6
@@ -23527,6 +24022,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חכ\"ל",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 8
@@ -23544,6 +24042,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חכ\"ל",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 15
@@ -23561,6 +24062,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חכ\"ל",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 10
@@ -23578,6 +24082,9 @@
           "recFgU3hpF7LQCm72"
         ],
         "responsible": "חכ\"ל",
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אז מה מתוכנן?",
         "word-count": 6
@@ -25787,6 +26294,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "אסכם לך את זה ב-33 מילים",
         "word-count": 33
@@ -25798,6 +26308,9 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done"
         ],
         "status": true,
         "title": "עוד לפני שבוחנים מערכות",
@@ -25811,6 +26324,9 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "איזה בעיה המערכת באה לפתור?",
         "word-count": 50
@@ -25823,18 +26339,25 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
         "status": true,
         "title": "סוגי מערכות מידע",
         "word-count": 86
       },
       {
-        "content": "- נותן השירות נותן שירותים לסוג עסק כדוגמת העסק שלי (לבקש **לדעת מי הם הלקוחות** ולפנות אליהם) \n- בדיקה אצל עסקים דומים באיזה מערכת הם משתמשים והאם הם מרוצים \n- עלות בהתאם ליכולת וגודל העסק\n- מהן **עליות תחזוקה** ועלות הוספת משתמשים נוספים\n- מערכת נוחה לשימוש וקלה ללמידה (אם העובדים לא ידעו לעבוד עם המערכת, לא כל שימוש בה)\n- **תחזוקה ותמיכה** של הספק (צוות ייעודי, מענה מהיר ואיכותי, תחזוקה עתידית בעלות סבירה)\n- ליווי עד שהמערכת עובדת בצורה מלא. (לרוב ניתן לדרוש שהתשלום החודשי (במידה וקיים) יתחיל רק לאחר שהמערכת פועל באופן תקין)\n- **הדגמת המוצר** ו/או קבלת גרסה ניסיונית\n- תמיכה של המערכת בציוד תומך שברשותכם או ב**מערכת נוספת** שקיימת\n",
+        "content": "- נותן השירות נותן שירותים לסוג עסק כדוגמת העסק שלי (לבקש **לדעת מי הם הלקוחות** ולפנות אליהם) \n- בדיקה אצל עסקים דומים באיזו מערכת הם משתמשים והאם הם מרוצים \n- עלות בהתאם ליכולת וגודל העסק\n- מהן **עלויות תחזוקה** ועלות הוספת משתמשים נוספים\n- מערכת נוחה לשימוש וקלה ללמידה (אם העובדים לא ידעו לעבוד עם המערכת, לא כל שימוש בה)\n- **תחזוקה ותמיכה** של הספק (צוות ייעודי, מענה מהיר ואיכותי, תחזוקה עתידית בעלות סבירה)\n- ליווי עד שהמערכת עובדת בצורה מלא. (לרוב ניתן לדרוש שהתשלום החודשי (במידה וקיים) יתחיל רק לאחר שהמערכת פועל באופן תקין)\n- **הדגמת המוצר** ו/או קבלת גרסה ניסיונית\n- תמיכה של המערכת בציוד תומך שברשותכם או ב**מערכת נוספת** שקיימת\n",
         "module": [
           "טיפים עסקיים"
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done"
+        ],
+        "status": true,
         "title": "רשימת מכולת לבחירת שירותי מידע",
         "word-count": 106
       }
@@ -25870,14 +26393,14 @@
       "title": "יעדים, החברה העירונית לפיתוח עסקי"
     },
     "scheme": "blue",
-    "status": "for review",
+    "status": "done",
     "subtitle": "מה, איך ולמה?",
     "title": "שימוש במערכות מידע"
   },
   {
     "cards": [
       {
-        "content": "מזון מן החי בצורתו הגולמית \\*או\\* טיפול בבע\"ח כמו שיש בעסקים מסוג איטליז, חנות חיות, מספרת לבע\"ח, בית קירור, בית מטבחיים, מפעל מזון וכדומה מצריך אישור מיוחד. על פי רוב אישור זה מחליף את אישור משרד הבריאות, אבל שווה לבדוק.\n",
+        "content": "יש לקבל אישור מיוחד עבור מזון מן החי בצורתו הגולמית **או** טיפול בבע\"ח כמו שיש בעסקים מסוג איטליז, חנות חיות, מספרת לבע\"ח, בית קירור, בית מטבחיים, מפעל מזון וכדומה. על פי רוב אישור זה מחליף את אישור משרד הבריאות, אבל שווה לבדוק.\n",
         "module": [
           "רישוי עסק",
           "טיפים עסקיים",
@@ -25887,8 +26410,14 @@
           "recm1HrAXlQgKXQ5N",
           "recH8jVnhdWnrd9cy"
         ],
+        "stack-status": [
+          "done",
+          "in work",
+          "done"
+        ],
+        "status": true,
         "title": "אסכם לך את זה ב-40 מילים",
-        "word-count": 40
+        "word-count": 42
       },
       {
         "content": "הדירוג שלך בתוצאות חיפוש יקבע ע״פ הנוכחות שלך ברשת. חשוב שללקוחות שלך יהיה קל לחפש אותך. לדוגמה, מי שינסה לחפש ״מספרה״ במנוע חיפוש לא בהכרח ימצא אותך, אבל למי שידע לחפש ״מספרת ארמונד בעמק שרה״ יש סיכוי טוב יותר, בעיקר אם לארמונד יש נוכחות ברשת שמציינת בפירוש שהמספרה שלו היא בעמק שרה.\n",
@@ -25898,6 +26427,10 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done",
+          "in work"
         ],
         "status": true,
         "title": "מנועי חיפוש",
@@ -25912,6 +26445,10 @@
         "owner": [
           "recFgU3hpF7LQCm72"
         ],
+        "stack-status": [
+          "done",
+          "in work"
+        ],
         "status": true,
         "title": "רשימת דיוור",
         "word-count": 34
@@ -25924,6 +26461,10 @@
         ],
         "owner": [
           "recFgU3hpF7LQCm72"
+        ],
+        "stack-status": [
+          "done",
+          "in work"
         ],
         "status": true,
         "title": "אתר אינטרנט",
