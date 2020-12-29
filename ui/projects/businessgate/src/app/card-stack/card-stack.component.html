@@ -1,4 +1,4 @@
-<div class='wrapper' [style.transform]='positionTransform' [class.open]='open'>
+<div class='wrapper' [style.transform]='positionTransform' [class.open]='open' [class.opened]='opened'>
     <div class='stack' *ngIf='stack'>
         <div class='cards' #stackEl>
             <div class='filler' [style.min-width]='scrollPadding + "px"'></div>

@@ -22,7 +22,9 @@ export class StateService {
   }
 
   addState(x) {
-    return [...this._current, x].join('|');
+    if (!this.inState(this._current, x)) {
+      return [...this._current, x].join('|');
+    }
   }
 
   pushState(x) {

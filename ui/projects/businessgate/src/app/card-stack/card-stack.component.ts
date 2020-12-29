@@ -153,7 +153,7 @@ export class CardStackComponent implements OnInit, OnChanges {
     });
   }
 
-  openStack() {
+    openStack() {
     return from([true]).pipe(
       delay(0),
       tap(() => {
@@ -177,10 +177,15 @@ export class CardStackComponent implements OnInit, OnChanges {
         this.fitMap(0, 1, 0);
       }),
       delay(600),
+      tap(() => {
+        const el = this.stackEl.nativeElement as HTMLDivElement;
+        el.scroll(0, 0);
+        this.opened = true;
+      }),
+      delay(0),
       switchMap(() => {
         const el = this.stackEl.nativeElement as HTMLDivElement;
         this.fullWidth = el.offsetWidth;
-        this.opened = true;
         this.scrollSub = fromEvent(el, 'scroll').subscribe((event) => {
           let ticking = false;
           let scrollPosition = (event.target as HTMLDivElement).scrollLeft;
