@@ -28,7 +28,7 @@ export class WidgetMapComponent implements OnInit {
           setTimeout(() => {
             this.map = new mapboxgl.Map({
               container: this.mapEl.nativeElement,
-              style: 'mapbox://styles/akariv/ckhix97sm2bcw19ldri4vu9ds/draft',
+              style: 'mapbox://styles/businessgate/ckja1jcb85fiz19p5iye1o6bb',
               minZoom: 3,
             });
             this.map['__key'] = key;

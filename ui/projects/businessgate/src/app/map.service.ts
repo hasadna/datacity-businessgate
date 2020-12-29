@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class MapService {
 
-  ACCESS_TOKEN = 'pk.eyJ1IjoiYWthcml2IiwiYSI6ImNqMWdkMXd0MzAwMGgycXV4dDVhNWUzam4ifQ.0Q6N5ch8nrnp5sLnCpDYZQ';
+  ACCESS_TOKEN = 'pk.eyJ1IjoiYnVzaW5lc3NnYXRlIiwiYSI6ImNrajhycnp6NTA4dngycnBlbGs4YXl2MHkifQ.Xxbg8tuWET8qOGVk0qkYTA';
 
   constructor(private http: HttpClient) {
     (mapboxgl as any).accessToken = this.ACCESS_TOKEN;

@@ -297,7 +297,7 @@ export class CardStackComponent implements OnInit, OnChanges {
           if (layer.filter) {
             newLayer.filter = layer.filter;
           }
-          map.addLayer(newLayer);
+          map.addLayer(newLayer, this.PREFIX + layer_id);
         }
         for (const layer_id of this.ISO_LAYERS) {
           const layer = style.layers.filter((l) => l.id === layer_id)[0] as mapboxgl.FillLayer;
@@ -307,7 +307,7 @@ export class CardStackComponent implements OnInit, OnChanges {
             source: 'isochronesData',
             layout: Object.assign(layer.layout || {}, {visibility: 'visible'}),
             paint: layer.paint,          
-          } as mapboxgl.FillLayer);
+          } as mapboxgl.FillLayer, layer_id);
         }
         for (const layer_id of this.LABEL_LAYERS) {
           const layer = style.layers.filter((l) => l.id === layer_id)[0] as mapboxgl.SymbolLayer;
@@ -353,19 +353,20 @@ export class CardStackComponent implements OnInit, OnChanges {
             source: 'pointData',
             layout: layout,
             paint: layer.paint,          
-          } as mapboxgl.SymbolLayer);
+          } as mapboxgl.SymbolLayer, layer_id);
         }
         if (this.record.location && this.record.location.center) {
           map.addSource(
             'centerData',  {type: 'geojson', data: this.record.location.center}
           );
-          const layer = style.layers.filter((l) => l.id === 'center_symbol')[0] as mapboxgl.FillLayer;
+          const layer_id = 'center_symbol';
+          const layer = style.layers.filter((l) => l.id === layer_id)[0] as mapboxgl.FillLayer;
           map.addLayer({
-            id: '_center_symbol', 
+            id: '_' + layer_id, 
             type: layer.type,
             source: 'centerData',
             layout: Object.assign(layer.layout || {}, {visibility: 'visible'}),
-          } as mapboxgl.FillLayer);
+          } as mapboxgl.FillLayer, layer_id);
         }
         const el = this.el.nativeElement as HTMLDivElement;
         this.mapPadding = {
