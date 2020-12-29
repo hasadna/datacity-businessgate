@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { from, ReplaySubject, Subject } from 'rxjs';
 import * as stringify from 'json-stable-stringify';
 import { switchMap } from 'rxjs/operators';
+import { SCRIPT_VERSION } from './version';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class BackendService {
   private state = '';
   public updateQueue = new Subject<any>();
 
-  constructor(private firestore: AngularFirestore, private location: Location) {
+  constructor(private firestore: AngularFirestore, private location: Location, private config: ConfigService) {
     this.updateQueue.pipe(
       switchMap((item) => {
         return this.doUpdate(item);
@@ -26,6 +28,7 @@ export class BackendService {
   }
 
   handleItem(itemId) {
+    let script_version = SCRIPT_VERSION;
     if (!itemId) {
       const record = {'timestamp': new Date().toISOString(), 'data': '{}'};
       from(this.firestore.collection('records').add(record))
@@ -34,7 +37,8 @@ export class BackendService {
           this.location.replaceState('/r/' + docRef.id);
           this.itemId = docRef.id;
           this.record.next({
-            self_link: window.location.href
+            self_link: window.location.href,
+            script_version
           });
         });
     } else {
@@ -46,9 +50,11 @@ export class BackendService {
           console.log('Document was retrieved with content', this.state.length);
           const record = JSON.parse(this.state);
           record.self_link = window.location.href;
+          script_version = record.script_version;
           this.record.next(record);
         }
       });
+      this.config.getScript(script_version);
     }
   }
 
