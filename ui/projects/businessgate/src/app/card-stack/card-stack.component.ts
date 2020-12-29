@@ -456,10 +456,11 @@ export class CardStackComponent implements OnInit, OnChanges {
                 found = true;
               }
             }
-            if (bk === 'טעוני רישוי' && this.record._num_licensing_agencies > 2) {
+            const licensable = this.record._business_record.license_item && this.record._business_record.license_item.length > 0;
+            if (bk === 'טעוני רישוי' && licensable) {
               found = true;
             }
-            if (bk === 'לא טעוני רישוי' && this.record._num_licensing_agencies === 2) {
+            if (bk === 'לא טעוני רישוי' && !licensable) {
               found = true;
             }
             if (bk === 'כל העסקים') {
