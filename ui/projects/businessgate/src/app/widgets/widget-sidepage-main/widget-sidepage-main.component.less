@@ -44,10 +44,12 @@ h2 {
     line-height: 53px;
     border-bottom: 1px solid @black-200;
     margin: 0;
-    color: @accent-text;
     width: 100%;
-    cursor: pointer;
 
+    a, a:hover, a:visited {
+        color: @accent-text;
+        text-decoration: none;
+    }
     &:last-of-type {
         border: none;
     }

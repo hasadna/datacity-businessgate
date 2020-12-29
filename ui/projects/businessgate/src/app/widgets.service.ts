@@ -3,6 +3,7 @@ import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
 
 import * as mapboxgl from 'mapbox-gl';
 import { ContentManager } from 'hatool';
+import { StateService } from './state.service';
 
 
 @Injectable({
@@ -24,5 +25,22 @@ export class WidgetsService {
   public sidePage = new Subject<string>();
   public stacksPage = new Subject<string>();
   
-  constructor() { }
+  constructor(private state: StateService) {
+    this.state.state.subscribe((state) => {
+      for (const sidepage of [
+        'main', 'about', 'contact', 'eula', 'privacy', 'no-menu'
+      ]) {
+        if (this.state.inState(state, sidepage)) {
+          this.sidePage.next(sidepage);
+          break;
+        }
+        if (sidepage === 'no-menu') {
+          this.sidePage.next(null);
+        }
+      }
+      if (state.length === 0) {
+        this.stackActive.next(null);
+      }
+    });
+  }
 }

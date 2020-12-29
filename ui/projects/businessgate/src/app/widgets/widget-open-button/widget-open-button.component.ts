@@ -12,8 +12,4 @@ export class WidgetOpenButtonComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  openSidepage() {
-    this.widgets.sidePage.next('main');
-  }
 }

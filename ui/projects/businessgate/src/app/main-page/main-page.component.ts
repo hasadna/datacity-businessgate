@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { WidgetsService } from '../widgets.service';
 import { environment } from '../../environments/environment';
 import { StacksService } from '../stacks.service';
+import { StateService } from '../state.service';
 import { MainScrollService } from '../main-scroll.service';
 import { ChatMsgShareDialogComponent } from '../chat-msgs/chat-msg-share-dialog/chat-msg-share-dialog.component';
 import { ChatMsgCopyLinkComponent } from '../chat-msgs/chat-msg-copy-link/chat-msg-copy-link.component';
@@ -46,10 +47,11 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
               private stacksSvc: StacksService,
               private el: ElementRef,
               private mainScroll: MainScrollService,
+              private state: StateService,
               public _: I18nService) {
     this.activatedRoute.params.subscribe((x) => {
       this.backend.handleItem(x.id);
-    })
+    });
   }
 
   initChat() {
@@ -102,6 +104,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
 
   ngAfterViewInit() {
     this.initChat();
+    this.state.init(this.activatedRoute);
   }
 
   ngAfterContentChecked() {

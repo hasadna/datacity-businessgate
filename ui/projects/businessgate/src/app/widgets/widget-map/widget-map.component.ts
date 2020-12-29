@@ -74,6 +74,7 @@ export class WidgetMapComponent implements OnInit {
           }),
           delay(1)
         ).subscribe(() => {
+          console.log('DESTROYED MAP', this.open);
           this.widgets.mapCloseRequested.next();
           this.widgets.mapLoaded.next(null);
         });

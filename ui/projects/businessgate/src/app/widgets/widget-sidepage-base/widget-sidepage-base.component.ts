@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WidgetsService } from '../../widgets.service';
 
-import { filter, tap } from 'rxjs/operators';
+import { delay, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-widget-sidepage-base',
@@ -16,9 +16,16 @@ export class WidgetSidepageBaseComponent implements OnInit {
 
   constructor(private widgets: WidgetsService) {
     this.widgets.sidePage.pipe(
-      filter((x) => x === this.page)
+      filter((x) => x === this.page),
+      delay(0),
     ).subscribe(() => {
       this.open = true;
+    });
+    this.widgets.sidePage.pipe(
+      filter((x) => x === null),
+      delay(0),
+    ).subscribe(() => {
+      this.open = false;
     });
   }
 

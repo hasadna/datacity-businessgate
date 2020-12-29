@@ -7,6 +7,7 @@ import { MapService } from '../map.service';
 import { from, fromEvent, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { WidgetsService } from '../widgets.service';
 import { debounceTime, delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { StateService } from '../state.service';
 
 
 @Component({
@@ -76,7 +77,8 @@ export class CardStackComponent implements OnInit, OnChanges {
 
   constructor(public el: ElementRef, 
               private mapSvc: MapService,
-              private widgets: WidgetsService) {
+              private widgets: WidgetsService,
+              private state: StateService) {
     this.mapFitParams.pipe(
       debounceTime(100),
     ).subscribe((x) => {
@@ -156,6 +158,21 @@ export class CardStackComponent implements OnInit, OnChanges {
       delay(0),
       tap(() => {
         this.open = true;
+        this.state.pushState(this.stackName);
+        this.state.state.pipe(
+          filter((state) => this.state.inState(state, this.stackName)),
+          first(),
+          switchMap((state) => {
+            console.log('CARDSTACK STATE', state);
+            return this.state.state;
+          }),
+          filter((state) => !this.state.inState(state, this.stackName)),
+          first()
+        ).subscribe(() => {
+          if (this.open) {
+            this.openState.next(false);
+          }
+        });
         this.stackState.emit('opening');
         this.fitMap(0, 1, 0);
       }),
@@ -208,6 +225,7 @@ export class CardStackComponent implements OnInit, OnChanges {
       tap(() => {
         console.log(this.stackName, 'CLOSING');
         this.open = false;
+        this.state.popState(this.stackName);
         this.map = null;
         this.stackState.next('closing');
         if (this.scrollSub) {

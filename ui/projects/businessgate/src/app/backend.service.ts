@@ -89,7 +89,7 @@ export class BackendService {
       })
     }
     if (record.questions) {
-      for (const name of Object.keys(record.questions)) {
+      for (const name of Object.keys(record.questions).sort()) {
         questions.push({name, questions: record.questions[name]})
       }
     }
