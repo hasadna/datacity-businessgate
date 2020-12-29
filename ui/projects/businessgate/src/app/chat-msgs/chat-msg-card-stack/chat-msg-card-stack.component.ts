@@ -146,7 +146,7 @@ export class ChatMsgCardStackComponent implements OnInit {
       this.vScrollSub = this.mainScroll.scrollPosition.pipe(
         filter((pos) => {
           if (this.mainScrollPosition !== null) {
-            return Math.abs(this.mainScrollPosition - pos) > 50;
+            return Math.abs(this.mainScrollPosition - pos) > 100;
           } else {
             this.mainScrollPosition = pos;
             return false;
