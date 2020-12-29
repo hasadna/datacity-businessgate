@@ -2,11 +2,14 @@
 git checkout master && \
 export VERSION=`git show --pretty="format:%aI.%h" -s` && \
 echo VERSION: $VERSION && \
-echo "export const VERSION='$VERSION';" > ui/projects/businessgate/src/app/version.ts && \
 hatool content/script.yaml ui/projects/businessgate/src/assets/script.$VERSION.json && \
-git add ui/projects/businessgate/src/assets/script.$VERSION.json && \
-git commit -m "Automatic update of script for version $VERSION" && \
-git push && \
+export SCRIPT_VERSION=`md5sum ui/projects/businessgate/src/assets/script.$VERSION.json |cut -f 1 -d ' '` && \
+mv content/script.yaml ui/projects/businessgate/src/assets/script.{$VERSION,$SCRIPT_VERSION}.json && \
+echo "export const VERSION='$VERSION';" > ui/projects/businessgate/src/app/version.ts && \
+echo "export const SCRIPT_VERSION='$SCRIPT_VERSION';" >> ui/projects/businessgate/src/app/version.ts && \
+git add ui/projects/businessgate/src/assets/script.$SCRIPT_VERSION.json || true && \
+git commit -m "Automatic update of script for version $SCRIPT_VERSION" || true && \
+git push || true && \
 (git branch -D dist || true) && \
 git checkout -b dist && \
 (cd data && python prepare_stacks.py) && \
