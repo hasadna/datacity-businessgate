@@ -30,7 +30,7 @@ export class WidgetsService {
       for (const sidepage of [
         'main', 'about', 'contact', 'eula', 'privacy', 'no-menu'
       ]) {
-        if (this.state.inState(state, sidepage)) {
+        if (this.state.inState(state, 'menu', sidepage)) {
           this.sidePage.next(sidepage);
           break;
         }

@@ -18,34 +18,34 @@ export class StateService {
       fragment = fragment || '';
       this._current = fragment.split('|').filter((x) => x.length > 0);
       this.state.next(this._current);
-      if (window['gtag']) {
-        window['gtag']('event', 'nav', {
-          'event_category': 'fragment',
-          'event_label': fragment
-        });
-      }
     });
   }
 
-  addState(x) {
-    if (!this.inState(this._current, x)) {
-      return [...this._current, x].join('|');
+  addState(kind, x) {
+    if (!this.inState(this._current, kind, x)) {
+      if (window['gtag']) {
+        window['gtag']('event', 'nav', {
+          'event_category': kind,
+          'event_label': x
+        });
+      }
+      return [...this._current.filter((i) => i.indexOf(kind + ':') !== 0), kind + ':' + x].join('|');
     }
   }
 
-  pushState(x) {
-    this.router.navigate([], {fragment: this.addState(x)});
+  pushState(kind, x) {
+    this.router.navigate([], {fragment: this.addState(kind, x)});
   }
 
-  removeState(x) {
-    return [...this._current.filter((i) => i !== x)].join('|');
+  removeState(kind) {
+    return [...this._current.filter((i) => i.indexOf(kind + ':') !== 0)].join('|');
   }
 
-  popState(x) {
-    this.router.navigate([], {fragment: this.removeState(x)});
+  popState(kind) {
+    this.router.navigate([], {fragment: this.removeState(kind)});
   }
 
-  inState(state: string[], x) {
-    return state.indexOf(x) >= 0;
+  inState(state: string[], kind, x) {
+    return state.indexOf(kind + ':' + x) >= 0;
   }
 }

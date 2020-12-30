@@ -110,9 +110,6 @@ export class CardStackComponent implements OnInit, OnChanges {
     this.runner = this.params.__runner;
     this.record = this.runner.record;
     if (this.stack !== this._stack) {
-      if (this._stack) {
-        this.state.popState(this._stack.name);
-      }
       this._stack = this.stack;
       this.cards = this.processCards();
     }
@@ -161,15 +158,15 @@ export class CardStackComponent implements OnInit, OnChanges {
       delay(0),
       tap(() => {
         this.open = true;
-        this.state.pushState(this.stackName);
+        this.state.pushState('stack', this.stackName);
         this.state.state.pipe(
-          filter((state) => this.state.inState(state, this.stackName)),
+          filter((state) => this.state.inState(state, 'stack', this.stackName)),
           first(),
           switchMap((state) => {
             console.log('CARDSTACK STATE', state);
             return this.state.state;
           }),
-          filter((state) => !this.state.inState(state, this.stackName)),
+          filter((state) => !this.state.inState(state, 'stack', this.stackName)),
           first()
         ).subscribe(() => {
           if (this.open) {
@@ -233,7 +230,7 @@ export class CardStackComponent implements OnInit, OnChanges {
       tap(() => {
         console.log(this.stackName, 'CLOSING');
         this.open = false;
-        this.state.popState(this.stackName);
+        this.state.popState('stack');
         this.map = null;
         this.stackState.next('closing');
         if (this.scrollSub) {
