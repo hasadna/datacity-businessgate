@@ -110,6 +110,9 @@ export class CardStackComponent implements OnInit, OnChanges {
     this.runner = this.params.__runner;
     this.record = this.runner.record;
     if (this.stack !== this._stack) {
+      if (this._stack) {
+        this.state.popState(this._stack.name);
+      }
       this._stack = this.stack;
       this.cards = this.processCards();
     }
@@ -153,7 +156,7 @@ export class CardStackComponent implements OnInit, OnChanges {
     });
   }
 
-    openStack() {
+  openStack() {
     return from([true]).pipe(
       delay(0),
       tap(() => {
