@@ -14,7 +14,7 @@ Sentry.init({
   autoSessionTracking: true,
   integrations: [
     new Integrations.BrowserTracing({
-      tracingOrigins: ['localhost:4200', "https://asakim.datacity.org.il"],
+      tracingOrigins: ['localhost:4200', "https://br7biz.org.il"],
       routingInstrumentation: Sentry.routingInstrumentation,
     }),
   ],
