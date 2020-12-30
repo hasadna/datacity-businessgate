@@ -4,7 +4,7 @@ import { WidgetsService } from '../../widgets.service';
 
 import * as mapboxgl from 'mapbox-gl';
 import { from, Observable, ReplaySubject } from 'rxjs';
-import { first, distinctUntilChanged, delay, tap } from 'rxjs/operators';
+import { first, distinctUntilChanged, delay, tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-widget-map',
@@ -92,6 +92,7 @@ export class WidgetMapComponent implements OnInit {
           )
         );
       }),
+      filter((bounds) => !!bounds && !!bounds.bounds)
     ).subscribe((bounds) => {
       if (this.mapObs !== null) {
         this.mapObs.pipe(first()).subscribe((map) => {
