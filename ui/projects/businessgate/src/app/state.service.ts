@@ -18,6 +18,12 @@ export class StateService {
       fragment = fragment || '';
       this._current = fragment.split('|').filter((x) => x.length > 0);
       this.state.next(this._current);
+      if (window['gtag']) {
+        window['gtag']('event', 'nav', {
+          'event_category': 'fragment',
+          'event_label': fragment
+        });
+      }
     });
   }
 
