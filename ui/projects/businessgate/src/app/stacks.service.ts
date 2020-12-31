@@ -23,7 +23,7 @@ export class StacksService {
 
   registerStack(stack) {
     const module = stack.module;
-    const name = stack.name;
+    const name = stack.title + ' ' + stack.subtitle;
     if (!!this.stack_cache[name]) {
       return;
     }

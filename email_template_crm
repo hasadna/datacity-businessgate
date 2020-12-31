@@ -1,0 +1,48 @@
+סיכום השיחה שלנו על פתיחת {{business_kind}} באיזור {{location}}
+
+
+<html>
+<body style='direction:rtl'>
+הי!<br/><br/>
+
+שמחתי מאוד לדבר איתך היום!<br/>
+הנה קישור לכל הכרטיסיות שאספת - <a href='{{self_link}}'>{{self_link}}</a>.
+
+הן כוללות מידע מגוון בנושאים הבאים:
+<ul>
+{{#each stack_modules}}
+    <li>
+        <b>{{module}}:</b>
+        <ul>
+            {{#each stacks}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </li>
+{{/each}}
+</ul>
+<br/>
+דרך אגב, כיתבתי למייל הזה גם את דקלה מיעדים, שתמשיך את הטיפול בפנייה שלך.<br/><br/>
+
+<u><b>הפרטים שמסרת לנו:</b></u>
+<p><b>כתובת מייל: </b>{{email_address}}</p>
+{{#if phone_number}}
+    <p><b>מספר טלפון: </b>{{phone_number}}</p>
+{{#/if}}
+
+{{#if questions}}
+    <u><b>הערות ושאלות נוספות שהיו לך:</b></u>
+    {{#each questions}}
+        <b>{{name}}</b>
+        <ul>
+            {{#each questions}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    {{/each}}
+{{/if}}
+
+<br/><br/>
+<a href='{{self_link}}'><img src='https://br7biz.org.il/assets/img/email_footer.png'></a>
+</body>
+</html>

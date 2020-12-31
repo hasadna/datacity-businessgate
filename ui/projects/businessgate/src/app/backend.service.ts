@@ -6,6 +6,7 @@ import * as stringify from 'json-stable-stringify';
 import { switchMap } from 'rxjs/operators';
 import { SCRIPT_VERSION } from './version';
 import { ConfigService } from './config.service';
+import { StacksService } from './stacks.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class BackendService {
   private state = '';
   public updateQueue = new Subject<any>();
 
-  constructor(private firestore: AngularFirestore, private location: Location, private config: ConfigService) {
+  constructor(private firestore: AngularFirestore, private location: Location, private config: ConfigService, private stacks: StacksService) {
     this.updateQueue.pipe(
       switchMap((item) => {
         return this.doUpdate(item);
@@ -101,16 +102,21 @@ export class BackendService {
       for (const name of Object.keys(record.questions).sort()) {
         questions.push({name, questions: record.questions[name]})
       }
-    }
+    }    
     const item = {
-      to: 'emrib@br7.org.il',
+      to: record.email_address,
+      // cc: 'diklas@br7.org.il',
+      // bcc: 'emrib@br7.org.il',
       template: {
         name: 'crm',
         data: {
+          self_link: record.self_link,
           business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
           location: (record.location ? record.location.שם : null) || '-',
+          phone_number: record.phone_number,
           email_address: record.email_address,
-          questions: questions
+          questions: questions,
+          stack_modules: this.stacks.stack_modules,
         }
       }
     };
