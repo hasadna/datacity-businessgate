@@ -66,7 +66,7 @@ export class ChatMsgCardStackComponent implements OnInit {
       delay(0)
     ).subscribe((result) => {
       this.stacks = result;
-      this.stacksSvc.registerStacks(this.stacks);
+      this.stacksSvc.registerStacks(this.stacks, (x) => this.params.__runner.fillIn(x));
       this.record.stack_count = this.stacksSvc.stack_count;
       if (result.length === 1) {
         this.stack = result[0];

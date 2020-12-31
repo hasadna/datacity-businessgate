@@ -111,8 +111,8 @@ export class BackendService {
     }    
     const item = {
       to: record.email_address,
-      // cc: 'diklas@br7.org.il',
-      // bcc: 'emrib@br7.org.il',
+      cc: 'diklas@br7.org.il',
+      bcc: 'emrib@br7.org.il',
       template: {
         name: 'crm',
         data: {

@@ -15,15 +15,15 @@ export class StacksService {
 
   constructor() { }
 
-  registerStacks(stacks) {
+  registerStacks(stacks, fillIn) {
     for (const stack of stacks) {
-      this.registerStack(stack);
+      this.registerStack(stack, fillIn);
     }
   }
 
-  registerStack(stack) {
+  registerStack(stack, fillIn) {
     const module = stack.module;
-    const name = stack.title + ' ' + stack.subtitle;
+    const name = fillIn(stack.title + ' ' + stack.subtitle);
     if (!!this.stack_cache[name]) {
       return;
     }
