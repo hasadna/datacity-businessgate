@@ -90,6 +90,24 @@ export class BackendService {
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
   }
 
+  async sendDirectQuestion(record, owner, questions) {
+    const item = {
+      to: owner.email,
+      cc: [record.email_address], //, 'diklas@br7.org.il'],
+      // bcc: 'emrib@br7.org.il',
+      template: {
+        name: 'direct-question',
+        data: {
+          business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
+          location: (record.location ? record.location.שם : null) || '-',
+          questions: questions,
+        }
+      }
+    };
+    return this.firestore.collection('mail').add(item).then((docref) => docref.id);
+
+  }
+
   async sendCRMEmail(record) {
     const questions = [];
     if (record._feedback && record._feedback.length) {

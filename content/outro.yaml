@@ -70,11 +70,6 @@
                   cases:
                     - undefined: true
                       steps:
-                        # - do:
-                        #     cmd: send_client_response_email
-                        #     variable: _client_response_email_receipt
-                        #     params:
-                        #       - record
                         - do:
                             cmd: send_crm_email
                             variable: _crm_email_receipt

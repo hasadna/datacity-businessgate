@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, switchMap, tap } from 'rxjs/operators';
+import { BackendService } from '../../backend.service';
 import { WidgetsService } from '../../widgets.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class ChatlikeEndingCardComponent implements OnInit {
 
   @Output() closed = new EventEmitter<void>();
 
-  constructor(private widget: WidgetsService) { }
+  constructor(private widget: WidgetsService, private backend: BackendService) { }
 
   ngOnInit(): void {
   }
@@ -32,13 +33,18 @@ export class ChatlikeEndingCardComponent implements OnInit {
       email_address: record.email_address
     });
     this.widget.moreInfoChatDone.pipe(
-      first()
-    ).subscribe((result) => {
-      record.email_address = record.email_address || result.email_address;
-      record.questions = record.questions || {};
-      const key = `${this.stack.module}: ${this.stack.title} ${this.stack.subtitle}`;
-      record.questions[key] = record.questions[this.stack.name] || [];
-      record.questions[key].push(...(result.questions || []));
+      first(),
+      tap((result) => {
+        record.email_address = record.email_address || result.email_address;
+        record.questions = record.questions || {};
+        const key = `${this.stack.module}: ${this.stack.title} ${this.stack.subtitle}`;
+        record.questions[key] = record.questions[this.stack.name] || [];
+        record.questions[key].push(...(result.questions || []));  
+      }),
+      switchMap((result) => {
+        return this.backend.sendDirectQuestion(record, this.stack.owner, result.questions)
+      })
+    ).subscribe(() => {
       this.close();
     })
   }
