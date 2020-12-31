@@ -1,0 +1,21 @@
+פניה ל{{job_title}} בנוגע לפתיחת {{business_kind}} באיזור {{location}}
+
+
+<html>
+<body style='direction:rtl'>
+הי!<br/><br/>
+
+אני מעביר לך שאלה שעלתה בזמן השיחה שלי עם הפונה.
+
+<ul>
+    {{#each questions}}
+        <li>{{this}}</li>
+    {{/each}}
+</ul>
+
+אודה לך מאוד על תשובה מהירה!
+
+תודה,<br/>
+BR7, בוט העסקים
+</body>
+</html>

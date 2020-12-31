@@ -77,27 +77,15 @@ export class BackendService {
     }
   }
 
-  async sendClientEmail(address, record) {
-    const item = {
-      to: address,
-      template: {
-        name: 'client-response',
-        data: {
-          self_link: record.self_link
-        }
-      }
-    };
-    return this.firestore.collection('mail').add(item).then((docref) => docref.id);
-  }
-
   async sendDirectQuestion(record, owner, questions) {
     const item = {
       to: owner.email,
-      cc: [record.email_address], //, 'diklas@br7.org.il'],
-      // bcc: 'emrib@br7.org.il',
+      cc: [record.email_address, 'diklas@br7.org.il'],
+      bcc: 'emrib@br7.org.il',
       template: {
         name: 'direct-question',
         data: {
+          job_title: owner.title,
           business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
           location: (record.location ? record.location.שם : null) || '-',
           questions: questions,
@@ -131,7 +119,7 @@ export class BackendService {
           self_link: record.self_link,
           business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
           location: (record.location ? record.location.שם : null) || '-',
-          phone_number: record.phone_number,
+          phone_number: record.phone_number || '',
           email_address: record.email_address,
           questions: questions,
           stack_modules: this.stacks.stack_modules,

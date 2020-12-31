@@ -28,7 +28,7 @@
 <p><b>כתובת מייל: </b>{{email_address}}</p>
 {{#if phone_number}}
     <p><b>מספר טלפון: </b>{{phone_number}}</p>
-{{#/if}}
+{{/if}}
 
 {{#if questions}}
     <u><b>הערות ושאלות נוספות שהיו לך:</b></u>

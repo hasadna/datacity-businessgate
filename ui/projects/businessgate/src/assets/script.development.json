@@ -68,8 +68,8 @@
               }
             },
             {
-              "say": "תוך 10 דקות בערך כל התהליך של פתיחת עסק יהפוך לברור הרבה יותר\t&#x1F3C7;\n",
-              "uid": "b20c92a502"
+              "say": "תוך 10 דקות בערך כל התהליך של פתיחת עסק יהפוך לברור הרבה יותר\t&#9889;\n",
+              "uid": "f90dff7131"
             },
             {
               "html-say": "אתן לך כאן מידע ראשוני (לפי <a href='javascript:;' onclick='document.location.hash=\"eula\";'>תנאי השימוש שלי</a>)\n - את התהליך המלא מומלץ להמשיך אחר כך עם אנשי מקצוע שינחו אותך בניואנסים הקטנים\n",
@@ -293,8 +293,8 @@
                         "uid": "5ec3e91670"
                       },
                       {
-                        "say": "נושא הרישוי הוא אחד האתגרים המרכזיים בהקמת עסק, אבל יש אנשי מקצוע שיוכלו לעזור עם זה, הכנו לך מדריך קצר.",
-                        "uid": "a3f2f74a17"
+                        "say": "נושא רישוי העסק הוא אחד האתגרים המרכזיים בהקמת עסק, אבל יש אנשי מקצוע שיוכלו לעזור עם זה, הכנו לך מדריך קצר.",
+                        "uid": "762c5b4b0c"
                       },
                       {
                         "cards": {
@@ -731,8 +731,8 @@
               "uid": "23916fad93"
             },
             {
-              "say": "במחלקת התכנון הכנו לך סיור קצר בעתיד של האיזור. רוצה להציץ?\n",
-              "uid": "d95b313284"
+              "say": "איך נכון לחשוב על העתיד?\n",
+              "uid": "db786e7add"
             },
             {
               "cards": {
@@ -819,7 +819,7 @@
                         "uid": "a76ad0f998",
                         "wait": {
                           "long": true,
-                          "placeholder": "איך היה לך לדבר איתי היום?",
+                          "placeholder": "מה להעביר לדקלה? נשמח לשמוע גם ביקורת בונה…",
                           "variable": "_feedback"
                         }
                       },
@@ -947,43 +947,6 @@
                       {
                         "say": "תודה, הנה הקישור והוא כבר בדרך אליך",
                         "uid": "9061ee7666"
-                      },
-                      {
-                        "switch": {
-                          "arg": "_client_response_email_receipt",
-                          "cases": [
-                            {
-                              "steps": [
-                                {
-                                  "do": {
-                                    "cmd": "send_client_response_email",
-                                    "params": [
-                                      "record"
-                                    ],
-                                    "variable": "_client_response_email_receipt"
-                                  },
-                                  "uid": "74274eb473"
-                                },
-                                {
-                                  "do": {
-                                    "cmd": "send_crm_email",
-                                    "params": [
-                                      "record"
-                                    ],
-                                    "variable": "_crm_email_receipt"
-                                  },
-                                  "uid": "d4c8bab599"
-                                }
-                              ],
-                              "uid": "82395455aa",
-                              "undefined": true
-                            },
-                            {
-                              "default": true
-                            }
-                          ]
-                        },
-                        "uid": "eb1fc21324"
                       }
                     ],
                     "uid": "d3384dceb1"
@@ -1046,15 +1009,59 @@
               }
             },
             {
+              "switch": {
+                "arg": "email_address",
+                "cases": [
+                  {
+                    "default": true,
+                    "steps": [
+                      {
+                        "switch": {
+                          "arg": "_crm_email_receipt",
+                          "cases": [
+                            {
+                              "steps": [
+                                {
+                                  "do": {
+                                    "cmd": "send_crm_email",
+                                    "params": [
+                                      "record"
+                                    ],
+                                    "variable": "_crm_email_receipt"
+                                  },
+                                  "uid": "0976d448b5"
+                                }
+                              ],
+                              "uid": "4946f17ab7",
+                              "undefined": true
+                            },
+                            {
+                              "default": true
+                            }
+                          ]
+                        },
+                        "uid": "2064ea5d54"
+                      }
+                    ],
+                    "uid": "c95416162d"
+                  },
+                  {
+                    "undefined": true
+                  }
+                ]
+              },
+              "uid": "ee09af87b5"
+            },
+            {
               "say": "דבר אחרון, אנחנו נשמח לעזור לעוד אנשים שרוצים לפתוח עסקים בעיר שלנו",
-              "uid": "677ea870b7"
+              "uid": "45490729c1"
             },
             {
               "say": "אפשר אולי לבקש איזה שיתוף קטן של האתר עם איזו מילה טובה?",
-              "uid": "9a84b5c905"
+              "uid": "5996e786a7"
             },
             {
-              "uid": "2bc993584c",
+              "uid": "da1c5488dc",
               "wait": {
                 "options": [
                   {
@@ -1063,14 +1070,14 @@
                     "steps": [
                       {
                         "share-dialog": null,
-                        "uid": "d38191f584"
+                        "uid": "8890884669"
                       },
                       {
                         "say": "תודה ענקית מכולנו וממני במיוחד!",
-                        "uid": "25ddb63860"
+                        "uid": "720ae496ce"
                       }
                     ],
-                    "uid": "50f9548b84"
+                    "uid": "817ac60b8a"
                   },
                   {
                     "class": "grayed",
@@ -1078,21 +1085,21 @@
                     "steps": [
                       {
                         "say": "אין בעיה",
-                        "uid": "13fdbb3c55"
+                        "uid": "b1ed09b79a"
                       }
                     ],
-                    "uid": "61552485a8"
+                    "uid": "c08b11a984"
                   }
                 ]
               }
             },
             {
               "say": "אשמח מאוד שנשמור על קשר",
-              "uid": "6035b9b16e"
+              "uid": "ed58b27cad"
             },
             {
               "say": "והכי חשוב, שיהיה המון בהצלחה!",
-              "uid": "3afb6e88d0"
+              "uid": "bad0976d29"
             },
             {
               "img": {
@@ -1107,16 +1114,16 @@
                   "width": "40%"
                 }
               },
-              "uid": "5caf0f9fee"
+              "uid": "8b2eb53aeb"
             },
             {
               "do": {
                 "cmd": "save"
               },
-              "uid": "caab6ffebe"
+              "uid": "a4ed0c52a9"
             },
             {
-              "uid": "ea7106a90a",
+              "uid": "aa10c4f56b",
               "wait": {
                 "options": [
                   {
@@ -1127,10 +1134,10 @@
                         "do": {
                           "cmd": "new_chat"
                         },
-                        "uid": "7530b2318c"
+                        "uid": "b3729a73ac"
                       }
                     ],
-                    "uid": "8fd7c1de40"
+                    "uid": "4b4b15ad0f"
                   }
                 ]
               }
