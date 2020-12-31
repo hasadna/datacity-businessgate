@@ -12,25 +12,28 @@
         .stack {
             width: 100%;
 
-            .cards {
+            .mask {
                 width: 100%;
-                display: flex;
-                flex-flow: row;
-                justify-content: flex-start;
-                padding: 20px 0;
-            
-                overflow-x: hidden;
-                overflow-y: hidden;
+                .cards {
+                    width: 100%;
+                    display: flex;
+                    flex-flow: row;
+                    justify-content: flex-start;
+                    padding: 20px 0;
                 
-                position: relative;
-                app-title-card {
-                    z-index: 1;
-                }
-                
-                & > * {
-                    scroll-snap-align: center;
-                    transition-property: transform;
-                    transition-duration: 500ms;
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                    
+                    position: relative;
+                    app-title-card {
+                        z-index: 1;
+                    }
+                    
+                    & > * {
+                        scroll-snap-align: center;
+                        transition-property: transform;
+                        transition-duration: 500ms;
+                    }    
                 }    
             }
 
@@ -40,6 +43,13 @@
                 left: 0;
                 display: none;
             }
+            .back-scroller {
+                position: absolute;
+                top: ~'calc(50% - 28px)';
+                right: 0;
+                transform: rotate(180deg);
+                display: none;
+            }
 
         }
     
@@ -47,31 +57,29 @@
             z-index: 6;
 
             .stack {
-                .cards {
-                    .scroll-x;
-                    scroll-behavior: smooth;
-                    scroll-snap-type: x mandatory;
-                    scroll-snap-stop: always;
-                }
-                z-index: 10;    
-
-                .gradient {
-                    display: block;
-                    z-index: 2;
-                }
-
-                .scroller {
+                .mask {
+                    .cards {
+                        .scroll-x;
+                        scroll-behavior: smooth;
+                        scroll-snap-type: x mandatory;
+                        scroll-snap-stop: always;
+                    }
+                    z-index: 10;    
+                }    
+                .scroller, .back-scroller {
                     z-index: 2;
                     display: block;
                     cursor: pointer;
                 }
+
             }
+
         }
 
     }
 
     @media only screen and (min-width: 1000px) {
-        .wrapper .stack {
+        .wrapper .stack .mask {
             mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, #fff 10%, #fff 90%, rgba(0,0,0,0) 100%);
         }    
     }

@@ -1,38 +1,41 @@
 <div class='wrapper' [style.transform]='positionTransform' [class.open]='open' [class.opened]='opened'>
     <div class='stack' *ngIf='stack'>
-        <div class='cards' #stackEl>
-            <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
-            <app-title-card [params]='params'
-                            [stack]='stack' [width]='width' [style.transform]='transform(0)'
-                            (click)='open ? null : openState.next(true)'
-            ></app-title-card>
-            <ng-container *ngFor='let card of cards; let i = index'>                
-                <ng-container *ngIf='layout(card) === "simple"'>
-                    <app-simple-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
-                        [card]='card' [width]='width' [style.transform]='transform(i+1)'
-                    ></app-simple-card>
+        <div class='mask'>
+            <div class='cards' #stackEl>
+                <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
+                <app-title-card [params]='params'
+                                [stack]='stack' [width]='width' [style.transform]='transform(0)'
+                                (click)='open ? null : openState.next(true)'
+                ></app-title-card>
+                <ng-container *ngFor='let card of cards; let i = index'>                
+                    <ng-container *ngIf='layout(card) === "simple"'>
+                        <app-simple-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
+                            [card]='card' [width]='width' [style.transform]='transform(i+1)'
+                        ></app-simple-card>
+                        </ng-container>
+                        <ng-container *ngIf='layout(card) === "gallery"'>
+                        <app-gallery-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
+                            [card]='card' [width]='width' [style.transform]='transform(i+1)'
+                            (selected)='returnValue($event)'
+                        ></app-gallery-card>
+                        </ng-container>
+                        <ng-container *ngIf='layout(card) === "scores"'>
+                        <app-scores-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
+                            [card]='card' [width]='width' [style.transform]='transform(i+1)'
+                            [scheme]='stack.scheme'
+                            [current]='current()'
+                        ></app-scores-card>
                     </ng-container>
-                    <ng-container *ngIf='layout(card) === "gallery"'>
-                    <app-gallery-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
-                        [card]='card' [width]='width' [style.transform]='transform(i+1)'
-                        (selected)='returnValue($event)'
-                    ></app-gallery-card>
-                    </ng-container>
-                    <ng-container *ngIf='layout(card) === "scores"'>
-                    <app-scores-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
-                        [card]='card' [width]='width' [style.transform]='transform(i+1)'
-                        [scheme]='stack.scheme'
-                        [current]='current()'
-                    ></app-scores-card>
                 </ng-container>
-            </ng-container>
-            <app-chatlike-ending-card [params]='params' (closed)='returnValue()'
-                    [stack]='stack' [width]='width'
-                    *ngIf='goodbye && stack.goodbye'
-                    [style.transform]='transform(cards.length+1)'></app-chatlike-ending-card>
-            <div class='filler' [style.min-width]='scrollPadding + "px"'></div>                
+                <app-chatlike-ending-card [params]='params' (closed)='returnValue()'
+                        [stack]='stack' [width]='width'
+                        *ngIf='goodbye && stack.goodbye'
+                        [style.transform]='transform(cards.length+1)'></app-chatlike-ending-card>
+                <div class='filler' [style.min-width]='scrollPadding + "px"'></div>                
+            </div>
         </div>
-        <img src='assets/img/card-counter.svg' (click)='scroll($event)' class='scroller layout-desktop'>
+        <img src='assets/img/card-counter.svg' (click)='scroll($event, true)' class='scroller layout-desktop'>
+        <img src='assets/img/card-counter.svg' (click)='scroll($event, false)' class='back-scroller layout-desktop'>
     </div>
     <ng-content select='.pre-content'></ng-content>
     <ng-content select='.post-content'></ng-content>

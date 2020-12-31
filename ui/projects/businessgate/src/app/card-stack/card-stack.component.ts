@@ -643,9 +643,13 @@ export class CardStackComponent implements OnInit, OnChanges {
     this.widgets.mapBounds.next({bounds: bounds, padding: this.mapPadding});
   }
 
-  scroll(event: MouseEvent) {
+  scroll(event: MouseEvent, ahead: boolean) {
     const el = (event.target as HTMLElement).parentElement.querySelector('.cards');
-    el.scrollBy({left: -this.width, behavior: 'smooth'});
+    if (ahead) {
+      el.scrollBy({left: -this.width, behavior: 'smooth'});
+    } else {
+      el.scrollBy({left: this.width, behavior: 'smooth'});
+    }
   }
 
 }
