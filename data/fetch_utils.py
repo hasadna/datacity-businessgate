@@ -8,7 +8,7 @@ from PIL import Image
 from kvfile import KVFile
 
 _cache = KVFile(filename='_cache_airtable')
-override = set(['stack:institutions'])
+override = set([])
 for key in override:
     try:
         _cache.get(key)
