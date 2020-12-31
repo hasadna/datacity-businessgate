@@ -8,7 +8,7 @@ import { WidgetsService } from '../../widgets.service';
 })
 export class WidgetOpenButtonComponent implements OnInit {
 
-  constructor(private widgets: WidgetsService) { }
+  constructor(public widgets: WidgetsService) { }
 
   ngOnInit(): void {
   }

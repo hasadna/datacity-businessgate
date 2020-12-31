@@ -24,6 +24,8 @@ export class WidgetsService {
 
   public sidePage = new Subject<string>();
   public stacksPage = new Subject<string>();
+
+  public selecting = false;
   
   constructor(private state: StateService) {
     this.state.state.subscribe((state) => {

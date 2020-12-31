@@ -5,6 +5,7 @@ import { first, map, switchMap, tap } from 'rxjs/operators';
 import { BackendService } from '../../backend.service';
 import { DataService } from '../../data.service';
 import { MapService } from '../../map.service';
+import { WidgetsService } from '../../widgets.service';
 
 @Component({
   selector: 'app-chat-msg-select-from-list',
@@ -20,15 +21,16 @@ export class ChatMsgSelectFromListComponent implements OnInit {
   args: any = {};
   record: any = {};
   items: any[] = [];
-  done = false;
+  _done = false;
   typed = ''; 
   stack = [];
 
   selection = new ReplaySubject<string>(1);
 
-  constructor(private data: DataService, private backend: BackendService, private mapSvc: MapService) { }
+  constructor(private data: DataService, private backend: BackendService, private mapSvc: MapService, private widgets: WidgetsService) { }
 
   ngOnInit(): void {
+    this.done = false;
     this.args = this.params['select-from-list'];
     this.record = this.params.__runner.record;
     if (this.params.__runFast) {
@@ -77,6 +79,15 @@ export class ChatMsgSelectFromListComponent implements OnInit {
         this.items.push(...result);
       })
     }
+  }
+
+  set done(value) {
+    this._done = value;
+    this.widgets.selecting = !value;
+  }
+
+  get done() {
+    return this._done;
   }
 
   selected(item) {
