@@ -1,4 +1,4 @@
-<div class='page-container' *ngIf='open'>
+<div class='page-container' *ngIf='open' [class.map]='stacks.stack_cache[stack_name] && stacks.stack_cache[stack_name].map'>
 
     <app-card-stack
         [params]='params'
