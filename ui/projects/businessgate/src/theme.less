@@ -99,9 +99,6 @@ htl-hatool {
 
                 htl-message-options, htl-message-multi-options {
                     width: 100%;
-                    position: relative;
-                    right: -20px;
-                    width: calc(100% + 40px);
                     display: block;
 
                     .options {
@@ -140,6 +137,10 @@ htl-hatool {
                         }
 
                         &:not(.selected) {
+                            right: -20px;
+                            width: calc(100% + 40px);
+                            position: relative;
+
                             button {
                                 &:hover {
                                     box-shadow: 0px 4px 0px @black-700;

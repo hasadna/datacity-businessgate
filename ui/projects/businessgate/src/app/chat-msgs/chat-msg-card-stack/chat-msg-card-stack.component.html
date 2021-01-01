@@ -1,27 +1,29 @@
-<app-card-stack
-    [params]='params'
-    [stack]='stack'
-    [goodbye]='true'
+<div class='wrapper' [class.wide]='stack && stack.map'>
+    <app-card-stack
+        [params]='params'
+        [stack]='stack'
+        [goodbye]='true'
 
-    [class]='stacksSvc.colorSchemeClass(stack)'
-    (stackState)='onStackState($event)'
-    (activeCard)='slideSelectors(!!$event.card);'
-    (returned)='returnValue($event)'
->
-    <div class='pre-content'>
-        <div class='stack-selectors' *ngIf='!!stacks && stacks.length > 1' [class.open]='opened'
-            [class.slidden]='selectorsSlidden'>
-            <app-stack-header-card *ngFor='let _stack of stacks'
-                [class]='stacksSvc.colorSchemeClass(_stack)'
-                [params]='params' [stack]='_stack'
-                (click)='selectStack(_stack)'
-            ></app-stack-header-card>
-        </div>       
-    </div>
-    <div class='post-content'>
-        <div class='bot-option'  [class.open]='opened' (click)='returnValue()' 
-        *ngIf='!mapVisible && closeVisible && (stacks.length > 1 || (stack && !stack.disableClose))'>
-            <img src='assets/img/down-arrow.png'/>
-        </div>        
-    </div>
-</app-card-stack>
+        [class]='stacksSvc.colorSchemeClass(stack)'
+        (stackState)='onStackState($event)'
+        (activeCard)='slideSelectors(!!$event.card);'
+        (returned)='returnValue($event)'
+    >
+        <div class='pre-content'>
+            <div class='stack-selectors' *ngIf='!!stacks && stacks.length > 1' [class.open]='opened'
+                [class.slidden]='selectorsSlidden'>
+                <app-stack-header-card *ngFor='let _stack of stacks'
+                    [class]='stacksSvc.colorSchemeClass(_stack)'
+                    [params]='params' [stack]='_stack'
+                    (click)='selectStack(_stack)'
+                ></app-stack-header-card>
+            </div>       
+        </div>
+        <div class='post-content'>
+            <div class='bot-option'  [class.open]='opened' (click)='returnValue()' 
+            *ngIf='!mapVisible && closeVisible && (stacks.length > 1 || (stack && !stack.disableClose))'>
+                <img src='assets/img/down-arrow.png'/>
+            </div>        
+        </div>
+    </app-card-stack>
+</div>

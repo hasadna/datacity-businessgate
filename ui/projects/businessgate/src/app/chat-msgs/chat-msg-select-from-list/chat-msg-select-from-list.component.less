@@ -2,23 +2,34 @@
 
 :host {
     width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    // width: ~'calc(100% - 16px)';
+    // height: ~'calc(100% - 16px)';
+    // top: 8px;
+    // left: 8px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    pointer-events: none;
+
     .selector {
         width: 100%;
         max-width: @chat-width; 
-        height: ~'calc(100% - 16px)';
-        position: fixed;
-        top: 8px;
-        margin-right: -20px;
+        height: 100%;
         display: flex;
         flex-flow: column;
         background-color: @white;
         padding: 0 20px;
         box-shadow: 0px -4px 16px rgba(0, 0, 0, 0.12);
+        pointer-events: all;
 
         .input {
 
             width: @chat-width - 40px;
-            max-width: 100%;
+            max-width: ~'calc(100% - 16px)';
             padding: 16px;
             flex: 0 0 auto; 
 

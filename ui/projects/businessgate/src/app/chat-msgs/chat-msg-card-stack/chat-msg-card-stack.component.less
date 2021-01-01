@@ -1,9 +1,13 @@
 @import '../../../common.less';
 @import '../../../stacks.less';
 
-:host {
+.wrapper {
     width: ~'calc(100vw - 16px)';
     padding: 20px 0;
+
+    &.wide {
+        width: 100vw;
+    }
 
     .bot-option {
         cursor: pointer;
