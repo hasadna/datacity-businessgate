@@ -79,7 +79,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         },
         {
           keyword: 'select-from-list',
-          cls: ChatMsgSelectFromListComponent
+          cls: ChatMsgSelectFromListComponent,
+          timeout: 0
         },
         {
           keyword: 'cards',
@@ -87,7 +88,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         },
         {
           keyword: 'share-dialog',
-          cls: ChatMsgShareDialogComponent
+          cls: ChatMsgShareDialogComponent,
+          timeout: 0
         },
         {
           keyword: 'copy-link',
