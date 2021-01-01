@@ -72,7 +72,7 @@
               "uid": "f90dff7131"
             },
             {
-              "html-say": "אתן לך כאן מידע ראשוני (לפי <a href='javascript:;' onclick='document.location.hash=\"eula\";'>תנאי השימוש שלי</a>)\n - את התהליך המלא מומלץ להמשיך אחר כך עם אנשי מקצוע שינחו אותך בניואנסים הקטנים\n",
+              "html-say": "אתן לך כאן מידע ראשוני (לפי <a href='javascript:;' onclick='document.location.hash=\"menu:eula\";'>תנאי השימוש שלי</a>)\n - את התהליך המלא מומלץ להמשיך אחר כך עם אנשי מקצוע שינחו אותך בניואנסים הקטנים\n",
               "uid": "bacdab6a94"
             },
             {
@@ -977,6 +977,7 @@
               "wait": {
                 "options": [
                   {
+                    "echo": false,
                     "show": "כן, תודה",
                     "steps": [
                       {

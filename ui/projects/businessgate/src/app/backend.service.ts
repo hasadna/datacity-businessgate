@@ -30,6 +30,7 @@ export class BackendService {
 
   handleItem(itemId) {
     let script_version = SCRIPT_VERSION;
+    const location = window.location.href.split('#')[0];
     if (!itemId) {
       const record = {'timestamp': new Date().toISOString(), 'data': '{}'};
       from(this.firestore.collection('records').add(record))
@@ -38,7 +39,7 @@ export class BackendService {
           this.location.replaceState('/r/' + docRef.id);
           this.itemId = docRef.id;
           const newRec = {
-            self_link: window.location.href,
+            self_link: location,
             script_version
           };
           this.record.next(newRec);
@@ -52,7 +53,7 @@ export class BackendService {
           this.state = (doc.data() as any).data;
           console.log('Document was retrieved with content', this.state.length);
           const record = JSON.parse(this.state);
-          record.self_link = window.location.href;
+          record.self_link = location;
           record.script_version = record.script_version || script_version;
           script_version = record.script_version;
           this.record.next(record);

@@ -35,7 +35,9 @@ export class ChatlikeEndingCardComponent implements OnInit {
     this.widget.moreInfoChatDone.pipe(
       first(),
       tap((result) => {
-        record.email_address = record.email_address || result.email_address;
+        if (result.email_address) {
+          record.email_address = result.email_address;
+        }
         record.questions = record.questions || {};
         const key = this.params.__runner.fillIn(`${this.stack.module}: ${this.stack.title} ${this.stack.subtitle}`);
         record.questions[key] = record.questions[key] || [];
