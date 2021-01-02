@@ -44,7 +44,7 @@ export class ChatlikeEndingCardComponent implements OnInit {
         record.questions[key].push(...(result.questions || []));  
       }),
       switchMap((result) => {
-        return this.backend.sendDirectQuestion(record, this.stack.owner, result.questions)
+        return this.backend.sendDirectQuestion(record, this.stack.owner, result.questions || []);
       })
     ).subscribe(() => {
       this.close();

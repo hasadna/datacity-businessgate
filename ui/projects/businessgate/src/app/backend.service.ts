@@ -93,6 +93,7 @@ export class BackendService {
         }
       }
     };
+    console.log('Send Direct email', item);
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
 
   }
@@ -127,6 +128,7 @@ export class BackendService {
         }
       }
     };
+    console.log('Send CRM email', item);
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
   }
 }
