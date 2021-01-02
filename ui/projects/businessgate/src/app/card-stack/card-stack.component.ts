@@ -452,8 +452,11 @@ export class CardStackComponent implements OnInit, OnChanges {
       }
       if (card.business_kinds) {
         let found = false;
-        if (this.record._business_record) {
-          for (const bk of card.business_kinds) {
+        for (const bk of card.business_kinds) {
+          if (bk === 'כל העסקים') {
+            found = true;
+          }
+          if (this.record._business_record) {
             if (bk === this.record._business_record.business_kind_name) {
               found = true;
             }
@@ -467,9 +470,6 @@ export class CardStackComponent implements OnInit, OnChanges {
               found = true;
             }
             if (bk === 'לא טעוני רישוי' && !licensable) {
-              found = true;
-            }
-            if (bk === 'כל העסקים') {
               found = true;
             }
             if (found) {

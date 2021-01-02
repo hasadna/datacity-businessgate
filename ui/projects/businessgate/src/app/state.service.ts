@@ -9,10 +9,12 @@ export class StateService {
 
   state = new ReplaySubject<string[]>(1);
   _current = [];
+  activatedRoute: ActivatedRoute;
 
   constructor(private router: Router) { }
   
   init(activatedRoute: ActivatedRoute) {
+    this.activatedRoute = activatedRoute;
     activatedRoute.fragment.subscribe((fragment) => {
       console.log('FRAGMENT!', fragment);
       fragment = fragment || '';
@@ -34,7 +36,7 @@ export class StateService {
   }
 
   pushState(kind, x) {
-    this.router.navigate([], {fragment: this.addState(kind, x)});
+    this.router.navigate([], {fragment: this.addState(kind, x), relativeTo: this.activatedRoute});
   }
 
   removeState(kind) {
