@@ -79,6 +79,9 @@ export class BackendService {
   }
 
   async sendDirectQuestion(record, owner, questions) {
+    if (!record.email_address || questions.length === 0) {
+      return;
+    }
     const item = {
       to: owner.email,
       cc: [record.email_address, 'diklas@br7.org.il'],
@@ -95,7 +98,6 @@ export class BackendService {
     };
     console.log('Send Direct email', item);
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
-
   }
 
   async sendCRMEmail(record) {
