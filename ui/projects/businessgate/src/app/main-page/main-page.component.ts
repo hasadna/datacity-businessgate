@@ -9,7 +9,8 @@ import { ChatMsgSelectFromListComponent } from '../chat-msgs/chat-msg-select-fro
 import { ChatMsgCardStackComponent } from '../chat-msgs/chat-msg-card-stack/chat-msg-card-stack.component';
 import { DataService } from '../data.service';
 import { delay, first, map, switchMap, tap, timestamp, windowWhen } from 'rxjs/operators';
-import * as turf from '@turf/turf';
+import booleanContains from '@turf/boolean-contains';
+import distance from '@turf/distance';
 import { forkJoin, fromEvent, of, Subscription } from 'rxjs';
 import { MapService } from '../map.service';
 import { BackendService } from '../backend.service';
@@ -145,7 +146,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       const obs = this.data.neighborhods.pipe(
         tap((neighborhoods) => {
               for (const neighborhood of neighborhoods.features) {
-                if (turf.booleanContains(neighborhood, location.center)) {
+                if (booleanContains(neighborhood, location.center)) {
                   location.neighborhood = neighborhood.properties.title;
                   break;
                 }
@@ -158,7 +159,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
             if (!commercial_area.geometry) {
               continue;
             }
-            if (turf.booleanContains(commercial_area.geometry, location.center)) {
+            if (booleanContains(commercial_area.geometry, location.center)) {
               location.commercial_area = commercial_area.name;
               break;
             }
@@ -278,7 +279,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         stacks.institutions.cards.forEach((card) => {
           if (card.pointGeometry) {
             for (const feature of card.pointGeometry.features) {
-              if (turf.distance(feature, record.location.center) < 0.5) {
+              if (distance(feature, record.location.center) < 0.5) {
                 card.test = 'location';
                 show_institutions = true;
                 return;

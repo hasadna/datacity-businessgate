@@ -1,5 +1,5 @@
 import * as mapboxgl from 'mapbox-gl';
-import * as turf from '@turf/turf';
+import pointOnFeature from '@turf/point-on-feature';
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -37,7 +37,7 @@ export class MapService {
 
   calculatePoint(geometry) {
     if (geometry.type === 'Polygon') {
-      return turf.pointOnFeature(geometry);
+      return pointOnFeature(geometry);
     } else if (geometry.type === 'Point') {
       return geometry;
     } else if (geometry.type === 'Feature') {
