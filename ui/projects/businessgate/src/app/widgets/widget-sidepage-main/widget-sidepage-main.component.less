@@ -9,6 +9,7 @@ app-widget-sidepage-base {
     display: block;
     pointer-events: none;
     z-index: 20;
+    overflow-x: hidden;
 
     ::ng-deep {
         .content {
@@ -63,14 +64,33 @@ img.logo-full {
 
 .logos {
     margin-top: auto;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
+    position: relative;
+    height: 38px;
 
-    img {
-        height: 38px;
-        max-width: 120px;
+    .logos-inner {
+        position: absolute;
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: flex-start;
+        animation: showcase 10s linear infinite;
+    
+        img {
+            flex: 0 0 auto;
+            height: 38px;
+            max-width: 120px;
+            margin: 0 12px
+        }    
+    }
+}
+
+@keyframes showcase {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(50%);
     }
 }

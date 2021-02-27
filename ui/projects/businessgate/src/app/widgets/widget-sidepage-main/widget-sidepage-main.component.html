@@ -6,9 +6,14 @@
     <h2><a [routerLink]='[]' fragment='menu:privacy'>מדיניות פרטיות</a></h2>
     <h2><a [routerLink]='[]' fragment='menu:eula'>תנאי שימוש</a></h2>
     <div class='logos'>
-        <img src='assets/img/beersheba.svg'>
-        <img src='assets/img/yeadim.svg'>
-        <img src='assets/img/movilim.png'>
-        <img src='assets/img/pkw.svg'>
+        <div class='logos-inner'>
+            <ng-container *ngFor='let _ of [1,2]'>
+                <img src='assets/img/beersheba.svg'>
+                <img src='assets/img/yeadim.svg'>
+                <img src='assets/img/movilim.png'>
+                <img src='assets/img/smba.svg'>
+                <img src='assets/img/pkw.svg'>    
+            </ng-container>    
+        </div>
     </div>
 </app-widget-sidepage-base>
