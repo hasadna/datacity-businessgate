@@ -84,7 +84,7 @@ export class BackendService {
     }
     const item = {
       to: owner.email,
-      cc: [record.email_address, 'diklas@br7.org.il'],
+      cc: [record.email_address, 'diklas@br7.org.il', 'rsv@br7.org.il'],
       bcc: 'emrib@br7.org.il',
       template: {
         name: 'direct-question',
@@ -115,7 +115,7 @@ export class BackendService {
     }    
     const item = {
       to: record.email_address,
-      cc: 'diklas@br7.org.il',
+      cc: ['diklas@br7.org.il', 'rsv@br7.org.il'],
       bcc: 'emrib@br7.org.il',
       template: {
         name: 'crm',
