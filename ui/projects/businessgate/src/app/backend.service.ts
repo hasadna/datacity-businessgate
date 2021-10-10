@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, ReplaySubject, Subject } from 'rxjs';
@@ -7,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { SCRIPT_VERSION } from './version';
 import { ConfigService } from './config.service';
 import { StacksService } from './stacks.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class BackendService {
   private state = '';
   public updateQueue = new Subject<any>();
 
-  constructor(private firestore: AngularFirestore, private location: Location, private config: ConfigService, private stacks: StacksService) {
+  constructor(private firestore: AngularFirestore, private router: Router, private config: ConfigService, private stacks: StacksService) {
     this.updateQueue.pipe(
       switchMap((item) => {
         return this.doUpdate(item);
@@ -36,7 +36,7 @@ export class BackendService {
       from(this.firestore.collection('records').add(record))
         .subscribe((docRef) => {
           console.log('Document was written with id', docRef.id);
-          this.location.replaceState('/r/' + docRef.id);
+          this.router.navigate(['/r', docRef.id], {replaceUrl: true});
           this.itemId = docRef.id;
           const newRec = {
             self_link: location,
