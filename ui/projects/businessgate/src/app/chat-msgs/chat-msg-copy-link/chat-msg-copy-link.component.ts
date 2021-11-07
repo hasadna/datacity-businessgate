@@ -10,7 +10,6 @@ export class ChatMsgCopyLinkComponent implements OnInit {
   @Input() params;
   @Input() content;
 
-  link = window.location.href;
   clipboardSupported = false;
   copied = false;
 
@@ -42,10 +41,13 @@ export class ChatMsgCopyLinkComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.link = this.params.__runner.record.self_link || this.link;
   }
 
   wait() {
     return Promise.resolve(false);
+  }
+
+  get link() {
+    return this.params.__runner.record.self_link || window.location.href;
   }
 }

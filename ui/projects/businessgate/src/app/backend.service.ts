@@ -39,7 +39,7 @@ export class BackendService {
           this.router.navigate(['/r', docRef.id], {replaceUrl: true});
           this.itemId = docRef.id;
           const newRec = {
-            self_link: location,
+            self_link: 'https://br7biz.org.il/r/' + docRef.id,
             script_version
           };
           this.record.next(newRec);
