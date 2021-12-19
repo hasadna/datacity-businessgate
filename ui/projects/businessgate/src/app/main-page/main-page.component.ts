@@ -367,7 +367,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
   }
 
   async new_chat() {
-    window.location.href = '/';
+    window.location.href = environment.base;
   }
 
   async save() {
