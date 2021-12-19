@@ -187,20 +187,47 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     }
   }
 
-  check_needs_licensing(record) {
+  prepare_business_record(record) {
+    console.log('prepare_business_record', record);
     const business_kind = record.סוג_עסק;
-    return this.data.businesses.pipe(
-      first(),
-      map((businesses) => {
-        const business_record = businesses.filter((b) => b.business_kind_name === business_kind)[0];
-        console.log('_business_record', business_record);
-        console.log('record', record);
-        record._business_record = business_record;
-        record._num_licensing_agencies = business_record.licensing_agency.length;
-        record._licensing_agencies_stacks = business_record.licensing_agency.map((l) => l.value_id);
-        return !!record._business_record.license_item && record._business_record.license_item.length > 0;
+    return forkJoin([this.data.businesses_licensing, this.data.businesses_property_tax, this.data.businesses]).pipe(
+      tap(([_licensing, _property_tax, _businesses]) => {
+        const licensing = _licensing.filter((b) => b.business_kind === business_kind) || [];
+        const property_tax = _property_tax.filter((b) => b.business_kind === business_kind)[0] || {};
+        const business = _businesses.filter((b) => b.business_kind_name === business_kind)[0] || {};
+        record._business_record = Object.assign({}, business, {licensing, property_tax});
+        console.log('_business_record', record._business_record);
       })
     ).toPromise();
+  }
+
+  check_needs_licensing(record) {
+    const licensing_records = record._business_record.licensing || [];
+    const area = (record.גודל_נכס) || 0;
+    let business_record: any = {};
+    licensing_records.forEach((licensing_record) => {
+      if (licensing_record.area <= area) {
+        business_record = licensing_record;
+      }
+    });
+    console.log('_business_record licensing', business_record);
+    const licensing_agencies = [];
+    for (const a of ['environment', 'police', 'ordinance', 'agriculture', 'sanitation', 'fire-dept']) {
+      if (business_record[a] !== 'no') {
+        licensing_agencies.push(a);
+      }
+    }
+    if (licensing_agencies.length > 0) {
+      licensing_agencies.unshift(...['engineering', 'accessibility']);
+      licensing_agencies.push('common');
+    }
+    record._num_licensing_agencies = licensing_agencies.length;
+    record._licensing_agencies_stacks = licensing_agencies;
+    console.log('_licensing_agencies_stacks', record._licensing_agencies_stacks);
+    if (!!business_record.item_ids && business_record.item_ids.length > 0) {
+      return business_record.track
+    };
+    return 'none';
   }
 
   check_needs_signage(record) {
@@ -208,30 +235,29 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
   }
 
   calculate_arnona(record) {
-    const business_record = record._business_record;
+    const property_tax_record = record._business_record.property_tax || [];
+    console.log('ARNONAA', property_tax_record);
     const location = record.מיקום;
+    const zone_id = location.arnona_zones[property_tax_record.zone_kind];
+    const rules = property_tax_record.zone_rates[zone_id] || property_tax_record.zone_rates[''] || [];
+    const area = (record.גודל_נכס) || 0;
+    let property_tax_rule: any = {};
+    rules.forEach((rule) => {
+      if (rule.min_area <= area) {
+        property_tax_rule = rule;
+      }
+    });
     const arnona_info: any = {};
-    arnona_info.סיווג_נכס = business_record.tariff_zone;
-    if (business_record.tariffs['']) {
-      // Not zone aware
-      arnona_info.תעריף = business_record.tariffs[''];
-    } else {
-      // Zone aware
-      arnona_info.אזור = location.arnona_zones[arnona_info.סיווג_נכס] || 'error';
-      arnona_info.תעריף = business_record.tariffs[arnona_info.אזור] || 0;
-      arnona_info.לא_מצאנו = arnona_info['תעריף'] === 0
-    }
-    if (record.גודל_נכס && arnona_info['תעריף'] > 0) {
-      const size = parseInt(
-        record.גודל_נכס,
-        10
-      );
-      if (size > 0) {
-        arnona_info.עלות_כוללת = arnona_info.תעריף * size / 12;
+    arnona_info.סיווג_נכס = property_tax_record.zone_kind;
+    arnona_info.לא_מצאנו = !!property_tax_rule;
+    if (!!property_tax_rule) {
+      arnona_info.אזור = zone_id || 'error';
+      arnona_info.תעריף = property_tax_rule.rate;
+      if (area > 0) {
+        arnona_info.עלות_כוללת = (property_tax_rule.a * area + property_tax_rule.b) / 12;
         arnona_info.עלות_כוללת = arnona_info.עלות_כוללת.toFixed(0);
       }
     }
-    arnona_info.תעריף = arnona_info.תעריף.toFixed(2);
     record.ארנונה = arnona_info;
   }
 
@@ -363,8 +389,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       this.restart();
     };
     // console.log('CONTENT', this.content);
-    // this.content.debug = true;
-    // this.runner.debug = true;
+    this.content.debug = true;
+    this.runner.debug = true;
     this.record._state = this.record._state || {};
     this.runner.state = this.record._state;
     this.runnerSub = this.runner.run(
@@ -378,6 +404,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         check_needs_demand: async (record) => { return await this.check_needs_demand(record); },
         calculate_locations: async (record) => { return await this.calculate_locations(record); },
         prepare_geo_insights: async (record) => { return await this.prepare_geo_insights(record); },
+        prepare_business_record: async (record) => { return await this.prepare_business_record(record); },
         send_crm_email: async (record) => { return await this.send_crm_email(record); },
         select_commercial_area: async () => { return await this.select_commercial_area(); },
         stacks_button_visible: async () => { return await this.stacks_button_visible(); },

@@ -42,13 +42,13 @@ export class ChatMsgSelectFromListComponent implements OnInit {
     }
 
     if (this.args.source === 'business_kinds') {
-      this.data.businesses.pipe(
+      this.data.businesses_property_tax.pipe(
         first(),
         map((result: any[]) => {
           return result.map((x) => {
             return {
-              value: x.business_kind_name,
-              display: x.business_kind_name
+              value: x.business_kind,
+              display: x.business_kind
             };
           });
         })

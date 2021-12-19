@@ -443,6 +443,7 @@ export class CardStackComponent implements OnInit, OnChanges {
   // Data Processing
   processCards() {
     const ret = [];
+    const business_name = this.record.סוג_עסק || '';
     for (const card of this.stack.cards) {
       card.selectButtonText = card.selectButtonText || this.stack.selectButtonText;
       if (card.test) {
@@ -457,7 +458,7 @@ export class CardStackComponent implements OnInit, OnChanges {
             found = true;
           }
           if (this.record._business_record) {
-            if (bk === this.record._business_record.business_kind_name) {
+            if (bk === business_name) {
               found = true;
             }
             for (const dm of this.record._business_record.demand_category) {

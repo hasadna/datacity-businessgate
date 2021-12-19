@@ -14,34 +14,18 @@
           steps:
             - pop: default
         - default: true
-    - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} ב{{מיקום.שם}}, ננסה עכשיו להבין כמה תעלה הארנונה
-    - say: האם כבר ידוע לך גודל הנכס?
-    - wait:
-        options:
-        - show: כן, יש לי גודל מדוייק
-          echo: no
+    - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} ב{{מיקום.שם}}.
+    - switch:
+        arg: גודל_נכס
+        cases:
+        - undefined: true
           steps:
-            - wait:
-                variable: גודל_נכס
-                input-kind: number
-                input-min: 1
-                input-max: 100000
-                placeholder: גודל הנכס במ״ר
-            - say: אוקיי, אם כך אציג לך ארנונה ל{{סוג_עסק}} לפי {{גודל_נכס}} מ״ר
-        - show: לא, אבל אתן גודל משוער
-          echo: no
+            - say: >
+                משום שאין לנו מידע על גודל העסק, אני אציג לך מידע לפי מחיר למטר.
+        - default: true
           steps:
-            - wait:
-                variable: גודל_נכס
-                input-kind: number
-                input-min: 1
-                input-max: 100000
-                placeholder: גודל הנכס המשוער במ״ר
-            - say: אוקיי, אם כך אציג לך ארנונה ל{{סוג_עסק}} לפי {{גודל_נכס}} מ״ר בערך
-        - show: אין לי מושג
-          class: grayed
-          steps:
-            - say: אוקיי, אם כך אציג לך ארנונה ל{{סוג_עסק}} לפי מחיר למ״ר
+            - say: >
+                אני אציג לך ארנונה לפי {{גודל_נכס}} מ״ר בערך
     - do:
         cmd: calculate_arnona
         params:
