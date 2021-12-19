@@ -5,6 +5,8 @@ import { WidgetsService } from '../../widgets.service';
 import * as mapboxgl from 'mapbox-gl';
 import { from, Observable, ReplaySubject } from 'rxjs';
 import { first, distinctUntilChanged, delay, tap, filter } from 'rxjs/operators';
+ 
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-widget-map',
@@ -33,11 +35,9 @@ export class WidgetMapComponent implements OnInit {
             });
             this.map['__key'] = key;
             this.map.on('style.load', () => {
-              this.map.loadImage('/assets/img/map_marker.png', (error, image) => {
-                if (error) {
-                  throw error;
-                }
-                this.map.addImage('map-marker', image, {
+              this.map.loadImage(`${environment.base}assets/img/map_marker.png`, (error, image) => {
+                if (!error) {
+                  this.map.addImage('map-marker', image, {
                     stretchX: [
                       [24, 34],
                       [277, 287]
@@ -46,7 +46,7 @@ export class WidgetMapComponent implements OnInit {
                     content: [20, 25, 292, 91],
                     pixelRatio: 3
                   } as any);
-
+                }
                 this.mapObs.next(this.map);
                 this.widgets.mapLoaded.next(this.map);  
               });
