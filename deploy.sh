@@ -3,7 +3,7 @@ git checkout master && \
 export VERSION=`git show --pretty="format:%aI.%h" -s` && \
 echo VERSION: $VERSION && \
 hatool content/script.yaml script.$VERSION.json && \
-export SCRIPT_VERSION=`md5sum script.$VERSION.json |cut -f 1 -d ' '` && \
+export SCRIPT_VERSION=`md5 script.$VERSION.json |cut -f 1 -d ' '` && \
 mv script.$VERSION.json ui/projects/businessgate/src/assets/script.$SCRIPT_VERSION.json && \
 echo "export const VERSION='$VERSION';" > ui/projects/businessgate/src/app/version.ts && \
 echo "export const SCRIPT_VERSION='$SCRIPT_VERSION';" >> ui/projects/businessgate/src/app/version.ts && \
