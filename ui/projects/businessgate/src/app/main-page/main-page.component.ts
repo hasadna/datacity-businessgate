@@ -241,7 +241,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     const zone_id = location.arnona_zones[property_tax_record.zone_kind];
     const rules = property_tax_record.zone_rates[zone_id] || property_tax_record.zone_rates[''] || [];
     const area = (record.גודל_נכס) || 0;
-    let property_tax_rule: any = {};
+    let property_tax_rule: any = null
     rules.forEach((rule) => {
       if (rule.min_area <= area) {
         property_tax_rule = rule;
@@ -249,7 +249,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     });
     const arnona_info: any = {};
     arnona_info.סיווג_נכס = property_tax_record.zone_kind;
-    arnona_info.לא_מצאנו = !!property_tax_rule;
+    arnona_info.לא_מצאנו = !property_tax_rule;
     if (!!property_tax_rule) {
       arnona_info.אזור = zone_id || 'error';
       arnona_info.תעריף = property_tax_rule.rate;
