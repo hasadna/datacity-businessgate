@@ -23,6 +23,7 @@ import { MainScrollService } from '../main-scroll.service';
 import { ChatMsgShareDialogComponent } from '../chat-msgs/chat-msg-share-dialog/chat-msg-share-dialog.component';
 import { ChatMsgCopyLinkComponent } from '../chat-msgs/chat-msg-copy-link/chat-msg-copy-link.component';
 import { ChatMsgHtmlSayComponent } from '../chat-msgs/html-say/chat-msg-html-say.component';
+import { ChatMsgTopicSelectionComponent } from '../chat-msgs/chat-msg-topic-selection/chat-msg-topic-selection.component';
 
 @Component({
   selector: 'app-main-page',
@@ -99,6 +100,10 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         {
           keyword: 'html-say',
           cls: ChatMsgHtmlSayComponent
+        },
+        {
+          keyword: 'topic-selection',
+          cls: ChatMsgTopicSelectionComponent
         },
       ]);
       this.stacksSvc.runner = this.runner;

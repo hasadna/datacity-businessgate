@@ -4,8 +4,7 @@
     - goto: select-business-kind
     - goto: select-location
     - goto: choose-property-size
-    - do:
-        cmd: stacks_button_visible
+    - goto: topic-selection
 
 - name: introduction
   steps:
@@ -126,3 +125,60 @@
           steps:
             - say: אין בעיה :) 
     - say: מעולה! עכשיו אני יכול להתאים לך מידע רלוונטי.
+
+- name: topic-selection
+  steps:
+    - say: הנה כמה נושאים שלדעתי כדאי שנעבור עליהם ביחד.
+    - say: >
+        אפשר להסיר את ה-✓ מנושאים שלא מעניינים אותך, ואני אדלג עליהם.
+    - topic-selection:
+        choices:
+          - id: licensing
+            show: רישוי העסק
+            default: true
+            requires:
+              - business_kind
+          - id: geo_insights
+            show: תובנות איזוריות
+            default: true
+            requires:
+              - location
+          - id: arnona
+            show: ארנונה
+            default: true
+            requires:
+              - business_kind
+              - location
+          - id: tips
+            show: טיפים כלליים לבעלי עסקים 
+            default: true
+            requires: []
+          - id: signage
+            show: שילוט
+            default: false
+            requires:
+              - business_kind
+          - id: demand
+            show: סקר הביקושים שנערך ב-2019
+            default: false
+            requires: []
+        responses:
+          default:
+            show: בוא נתחיל!
+          all:
+            show: אני רוצה לשמוע הכל
+          none:
+            show: אעדיף פשוט לדבר עם מישהו
+
+    - switch:
+        arg: _skipped_topic_selection
+        cases:
+          - match: true
+            steps:
+              - say: אני מבין
+          - default: true
+            steps:
+              - say: נהדר!
+              - say: אני אחראי לסכם עבורך את כל נושאי השיחה שלנו. מעכשיו והלאה הם יופיעו תמיד בפינה הימנית העליונה של המסך.
+              - do:
+                  cmd: stacks_button_visible

@@ -1,5 +1,12 @@
 - name: demand
   steps:
+    - switch:
+        arg: topics.demand
+        cases:
+        - undefined: true
+          steps:
+            - pop: default
+        - default: true
     - do:
         variable: _needs_demand
         cmd: check_needs_demand

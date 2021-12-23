@@ -1,7 +1,7 @@
 - name: signage
   steps:
     - switch:
-        arg: סוג_עסק
+        arg: topics.signage
         cases:
         - undefined: true
           steps:
