@@ -1,7 +1,7 @@
 - name: geo-insights
   steps:
     - switch:
-        arg: מיקום
+        arg: topics.geo_insights
         cases:
         - undefined: true
           steps:

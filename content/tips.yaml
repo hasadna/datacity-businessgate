@@ -1,5 +1,12 @@
 - name: tips
   steps:
+    - switch:
+        arg: topics.tips
+        cases:
+        - undefined: true
+          steps:
+            - pop: default
+        - default: true
     - say: >
         ועכשיו: צריך לדבר על הרגע שאחרי שהעסק שלך יוקם...
     - say: >
@@ -13,10 +20,9 @@
     - say: אספתי כמה טיפים נוספים שיוכלו אולי לעניין אותך
     - cards:
         stacks:
-          - business_tips.חנייה
-          - business_tips.פתיחת_העסק 
-          - business_tips.שיווק_דיגיטלי
-          - business_tips.טיפים_כלליים
-          - bzm.הוצאות_לא_צפויות
-          - ICT.מערכות_מידע
-          - business-operation
+        - business_tips.חנייה
+        - business_tips.פתיחת_העסק 
+        - business_tips.שיווק_דיגיטלי
+        - bzm.הוצאות_לא_צפויות
+        - ICT.מערכות_מידע
+        - business_tips.טיפים_כלליים

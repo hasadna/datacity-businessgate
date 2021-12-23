@@ -1,19 +1,13 @@
 - name: arnona
   steps:
     - switch:
-        arg: סוג_עסק
+        arg: topics.arnona
         cases:
         - undefined: true
           steps:
             - pop: default
         - default: true
-    - switch:
-        arg: מיקום
-        cases:
-        - undefined: true
-          steps:
-            - pop: default
-        - default: true
+    - say: ועכשיו, כדאי שנדבר על ארנונה.
     - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} ב{{מיקום.שם}}.
     - switch:
         arg: גודל_נכס
