@@ -5,6 +5,7 @@
     - goto: select-location
     - goto: choose-property-size
     - goto: topic-selection
+    - goto: first-contact
 
 - name: introduction
   steps:
@@ -132,6 +133,7 @@
     - say: >
         אפשר להסיר את ה-✓ מנושאים שלא מעניינים אותך, ואני אדלג עליהם.
     - topic-selection:
+        id: intro
         choices:
           - id: licensing
             show: רישוי העסק
@@ -163,7 +165,7 @@
             default: false
             requires: []
         responses:
-          default:
+          some:
             show: בוא נתחיל!
           all:
             show: אני רוצה לשמוע הכל
@@ -182,3 +184,38 @@
               - say: אני אחראי לסכם עבורך את כל נושאי השיחה שלנו. מעכשיו והלאה הם יופיעו תמיד בפינה הימנית העליונה של המסך.
               - do:
                   cmd: stacks_button_visible
+
+- name: first-contact
+  steps:
+    - say: >
+        לפני שאנחנו מתחילים: הכנתי לך קישור אישי כדי שכל השיחה שלנו תהיה זמינה עבורך גם אם היא תיפסק באמצע.
+    - copy-link:
+    - say: >
+        אם זה עוזר, אני אוכל לשלוח את הלינק הזה ואת סיכום השיחה שלנו לאימייל שלך. רוצה?
+    - wait:
+        options:
+          - show: כן, זה יהיה נוח
+            steps:
+              - goto: get-email
+              - say: מעולה, אני אשלח בסוף השיחה שלנו סיכום עם כל הקישורים הרלוונטיים, שיהיו לך בהישג יד.
+          - show: לא תודה
+            class: grayed
+            steps:
+              - say: אין בעיה. יותר נוח לך בטלפון במקום אימייל?
+              - wait:
+                  options:
+                    - show: כן, תודה
+                      steps:
+                        - goto: get-phone-number
+                        - say: מעולה, יצרו איתך קשר תוך כמה ימים.
+                    - show: לא תודה
+                      class: grayed
+                      steps:
+                        - say: >
+                            בסדר גמור :) הלינק הזה יישמר עבורך בכל אופן, ונציגי העירייה ויעדים ישמחו לשמוע ממך בכל עת.
+    - say: אז, שנתחיל?
+    - wait:
+        options:
+          - show: בטח
+
+

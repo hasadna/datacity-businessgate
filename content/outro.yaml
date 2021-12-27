@@ -1,15 +1,94 @@
 - name: outro
   steps:
-    - say: זהו זה
-    - say: >
-        באמת לפתוח עסק זה לא משחק ילדים, אבל אנחנו בסיפור הזה ביחד!
-    - say: >
-        לפני שנפרד, אני אשמח להעביר הודעה בשמך לדקלה מיעדים
-    - say: >
-        היא ה-מומחית לפתיחת עסקים בעיר והיא תוכל ללוות אותך יותר טוב מכל אחד אחר
-    - say: >
-        מעבר לזה, נשמח לשמוע איך היה לך לדבר איתי היום, כי כמו כל בוט אני תמיד רוצה להשתפר
-    - say: מתאים?
+    - switch:
+        arg: _topic_selection
+        cases:
+          - match: none
+            steps:
+              - say: לפתוח עסק זה לא משחק ילדים - אבל אנחנו בסיפור הזה ביחד!
+              - say: אני אשמח לחבר בינך לבין דקלה מיעדים
+          - default: true
+            steps:
+              - say: זהו, עברנו על כל מה שבחרת מתוך הנושאים שמצאתי רלוונטיים לעסק שלך.
+              - switch:
+                  arg: _topic_selection
+                  cases:
+                    - default: true
+                    - match: some
+                      steps:
+                        - say: רוצה אולי לשמוע על אחד הנושאים שדילגנו עליהם?
+                        - topic-selection:
+                            id: outro
+                            choices:
+                              - id: licensing
+                                show: רישוי העסק
+                                requires:
+                                  - business_kind
+                              - id: geo_insights
+                                show: תובנות איזוריות
+                                requires:
+                                  - location
+                              - id: arnona
+                                show: ארנונה
+                                requires:
+                                  - business_kind
+                                  - location
+                              - id: tips
+                                show: טיפים כלליים לבעלי עסקים 
+                                requires: []
+                              - id: signage
+                                show: שילוט
+                                requires:
+                                  - business_kind
+                              - id: demand
+                                show: סקר הביקושים שנערך ב-2019
+                                requires: []
+                            responses:
+                              some:
+                                show: ספר לי עוד
+                              all:
+                                show: ספר לי עוד
+                              none:
+                                show: לא, זה הכל, תודה
+                        - goto: run-all
+
+
+              - say: מפה לשם אספתי עבורך {{stack_count}} כרטיסים - כולם נגישים בכל עת בפינה למעלה.
+              
+              - say: >
+                  את כל הקישורים שהזכרנו בשיחה אפשר למצוא כאן:
+              - cards:
+                  stack: links.קישורים
+              - switch:
+                  arg: email_address
+                  cases:
+                  - undefined: true
+                    steps:
+                      - say: רוצה שאשלח את כל זה לאימייל שלך?
+                      - wait:
+                          options:
+                            - show: האמת שכן
+                              steps:
+                              - goto: get-email
+                            - show: לא תודה, שמרתי את הלינק בעצמי
+                              steps:
+                              - say: אין בעיה
+
+                  - default: true
+              - switch:
+                  arg: email_address
+                  cases:
+                  - undefined: true
+                  - default: true
+                    steps:
+                      - say: אני תיכף אשלח למייל שלך סיכום עם כל הקישורים האלה, שיהיו לך בהישג יד.
+              
+
+              - say: לפתוח עסק זה לא משחק ילדים - אבל אנחנו בסיפור הזה ביחד!
+              - say: לפני שנפרד, אני אשמח לחבר בינך לבין דקלה מיעדים
+
+    - say: היא ה-מומחית לפתיחת עסקים בעיר, והיא תשמח ללוות אותך בהמשך התהליך.
+    - say: יש הודעה שאני יכול למסור לה בשמך?
     - wait:
         options:
           - show: אכתוב כמה מילים
@@ -19,74 +98,16 @@
                   variable: _feedback
                   long: true
                   placeholder: מה להעביר לדקלה? נשמח לשמוע גם ביקורת בונה…
-              - say: >
-                  מצויין, אני אעביר את זה ואבקש שיצרו איתך בקשר במייל בימים הקרובים
+              - say: תודה, אני אעביר את זה הלאה.
+              - goto: get-contact-if-needed
           - show: פשוט שתהיה איתי בקשר
             steps:
-              - say: >
-                  מצויין, אני אעביר בקשה ליצור איתך קשר במייל בימים הקרובים
+              - say: אוקיי!
+              - goto: get-contact-if-needed
           - show: אין צורך בשלב זה
             class: grayed
             steps:
               - say: בסדר גמור
-    - say: מפה לשם אספנו {{stack_count}} כרטיסים במיוחד עבור העסק שלך…
-    - say: >
-        אני אשלח לך גם קישור אישי, כדי שהכרטיסים והשיחה שלנו יהיו זמינים לך גם אחר כך	
-    - switch:
-        arg: email_address
-        cases:
-          - default: true
-          - undefined: true
-            steps:
-              - wait:
-                  options:
-                    - show: רשמו את האימייל שלי
-                      echo: false
-                      steps:
-                        - goto: outro-get-email
-                    - show: ביטול
-                      class: grayed
-                      steps:
-                        - say: >
-                            ללא כתובת אימייל לא נוכל לשלוח לך את הקישור או לשמור איתך על קשר…
-                        - wait:
-                            options:
-                              - show: אופס, רישמו את האימייל
-                                echo: false
-                                steps:
-                                  - goto: outro-get-email
-                              - show: אני לא רוצה לקבל אימייל 
-                                class: grayed
-                                steps:
-                                  - say: בסדר, לא נעלבתי. בכל מקרה, הנה הקישור האישי שלך שיהיה לך…
-    - switch:
-        arg: email_address
-        cases:
-          - default: true
-            steps:
-              - say: תודה, הנה הקישור והוא כבר בדרך אליך
-          - undefined: true
-    - copy-link:
-
-    - say: וכמו שדיברנו, הנה הקישורים שיוכלו לכוון אותך בהמשך התהליך
-    - cards:
-        stack: links.קישורים
-
-    - say: אנחנו נשמח להיות איתך בקשר טלפוני, זה לפעמים הרבה יותר פשוט מאימייל. רוצה?
-    - wait:
-        options:
-          - show: כן, תודה
-            echo: false
-            steps:
-              - wait:
-                  variable: phone_number
-                  placeholder: מספר הטלפון שלך
-                  validation: '[-+0-9]+'
-              - say: מעולה ממש!
-          - show: לא תודה
-            class: grayed
-            steps:
-              - say: בסדר גמור :)
 
     - switch:
         arg: email_address
@@ -141,9 +162,60 @@
                   cmd: new_chat
 
 
-- name: outro-get-email
+- name: get-contact-if-needed
+  steps:
+    - switch:
+        arg: email_address
+        cases:
+        - undefined: true
+        - default: true
+          steps:
+            - say: דקלה מיעדים תיצור איתך קשר תוך כמה ימים, בכתובת {{email_address}}
+            - goto: return
+    - switch:
+        arg: phone_number
+        cases:
+        - undefined: true
+        - default: true
+          steps:
+            - say: דקלה מיעדים תיצור איתך קשר תוך כמה ימים, בטלפון {{phone_number}}
+            - goto: return
+    - say: איך הכי נוח לך שנחזור אליך?
+    - wait:
+        options:
+          - show: באימייל
+            steps:
+              - goto: get-email
+              - switch:
+                  arg: email_address
+                  cases:
+                  - undefined: true
+                    steps:
+                      - say: דקלה מיעדים תיצור איתך קשר תוך כמה ימים, בכתובת {{email_address}}
+                      - goto: return
+                  - default: true
+          - show: בשיחת טלפון
+            steps:
+              - goto: get-phone-number
+              - switch:
+                  arg: phone_number
+                  cases:
+                  - undefined: true
+                    steps:
+                      - say: דקלה מיעדים תיצור איתך קשר תוך כמה ימים, בטלפון {{phone_number}}
+                      - goto: return
+                  - default: true
+
+- name: get-email
   steps:
     - wait:
         variable: email_address
         input-kind: email
         placeholder: כתובת המייל שלך
+
+- name: get-phone-number
+  steps:
+    - wait:
+        variable: phone_number
+        placeholder: מספר הטלפון שלך
+        validation: '[-+0-9]+'

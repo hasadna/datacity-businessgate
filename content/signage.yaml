@@ -5,7 +5,7 @@
         cases:
         - undefined: true
           steps:
-            - pop: default
+            - goto: return
         - default: true
     - do:
         variable: _needs_signage

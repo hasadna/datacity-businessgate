@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat-msg-topic-selection',
@@ -12,23 +11,32 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
   @Input() params;
   @Input() content;
 
-  choices: any[] = [];
   responses: any = {};
   record: any = {};
   returnValue = new Subject<string>();
   submitted = false
+  id = '';
+  state: any = {choices: [], topics: {}, init: false};
 
   constructor() { }
 
   ngOnInit(): void {
+    this.id = this.params['topic-selection']['id'];
     this.record = this.params['__runner']['record'];
-    this.choices = this.params['topic-selection']['choices'].filter(c => this.allowed(c));
     this.responses = this.params['topic-selection']['responses'];
-    if (!this.record.topics) {
-      this.record.topics = {};
-      this.choices.forEach(c => this.record.topics[c.id] = c.default);
+    
+    // Get or set state
+    this.record._topic_selection_state = this.record._topic_selection_state || {};
+    this.record._topic_selection_state[this.id] = this.record._topic_selection_state[this.id] || this.state;
+    this.state = this.record._topic_selection_state[this.id];
+
+    if (!this.state.init) {
+      this.state.choices = this.params['topic-selection']['choices'].filter(c => this.allowed(c));
+      const topics = {};
+      this.state.choices.forEach(c => topics[c.id] = !!c.default);
+      this.state.topics = topics;
+      this.state.init = true;
     }
-    console.log('TOP RRRR', this.record.topics.tips);
     if (this.params.__runFast) {
       this.submit();
     }
@@ -36,7 +44,7 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
 
   toggle(choice) {
     if (!this.submitted) {
-      this.record.topics[choice.id] = !this.record.topics[choice.id];
+      this.state.topics[choice.id] = !this.state.topics[choice.id];
     }
   }
 
@@ -49,12 +57,13 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
       business_kind: choice.requires.indexOf('business_kind') >= 0,
       location: choice.requires.indexOf('location') >= 0,
     }
-    console.log('TOP HAS', has, 'REQUIRES', requires);
-    return (!requires.business_kind || !!has.business_kind) && (!requires.location || !!has.location);
+    const previous = !!(this.record.topics || {})[choice.id];
+    console.log('TOP HAS', has, 'REQUIRES', requires, 'PREVIOUS', previous);
+    return (!requires.business_kind || !!has.business_kind) && (!requires.location || !!has.location) && !previous;
   }
 
   enabled(choice) {
-    return !!this.record.topics[choice.id];
+    return !!this.state.topics[choice.id];
   }
 
   wait() {
@@ -66,18 +75,19 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
   }
 
   selectedNone() {
-    return this.choices.filter(c => this.record.topics[c.id]).length === 0;
+    return this.state.choices.filter(c => this.state.topics[c.id]).length === 0;
   }
 
   selectedAll() {
-    return this.choices.filter(c => this.record.topics[c.id]).length === this.choices.length;
+    return this.state.choices.filter(c => this.state.topics[c.id]).length === this.state.choices.length;
   }
 
   submit() {
     if (!this.submitted) {
-      const option = this.selectedAll() ? 'all' : (this.selectedNone() ? 'none' : 'default');
+      const option = this.selectedAll() ? 'all' : (this.selectedNone() ? 'none' : 'some');
       const response = this.responses[option];
-      this.record._skipped_topic_selection = option === 'none';
+      this.record.topics = this.state.topics;
+      this.record._topic_selection = option;
       console.log('SUBMIT', option, response.show);
       this.returnValue.next(response.show);
       this.returnValue.complete();

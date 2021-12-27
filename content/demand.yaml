@@ -5,7 +5,7 @@
         cases:
         - undefined: true
           steps:
-            - pop: default
+            - goto: return
         - default: true
     - do:
         variable: _needs_demand
@@ -43,6 +43,6 @@
                 - match: true
                   steps:
                     - say: >
-                        בטח יעניין אותך ללמוד על הביקוש ל{{סוג_עסק}} ב{{מיקום.שם}} ביחס לאיזורים אחרים בעיר 
+                        בטח יעניין אותך ללמוד על הביקוש ל{{סוג_עסק}} באזור {{מיקום.שם}} ביחס לאיזורים אחרים בעיר 
     - cards:
         stacksFrom: demand-stacks   
