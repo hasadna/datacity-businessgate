@@ -112,9 +112,10 @@ export class BackendService {
       for (const name of Object.keys(record.questions).sort()) {
         questions.push({name, questions: record.questions[name]})
       }
-    }    
+    }
+    const recipient_email_address = record.email_address || 'diklas@br7.org.il';
     const item = {
-      to: record.email_address,
+      to: recipient_email_address,
       cc: ['diklas@br7.org.il', 'rsv@br7.org.il'],
       bcc: 'emrib@br7.org.il',
       template: {

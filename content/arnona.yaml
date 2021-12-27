@@ -5,10 +5,10 @@
         cases:
         - undefined: true
           steps:
-            - pop: default
+            - goto: return
         - default: true
     - say: ועכשיו, כדאי שנדבר על ארנונה.
-    - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} ב{{מיקום.שם}}.
+    - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} באזור {{מיקום.שם}}.
     - switch:
         arg: גודל_נכס
         cases:

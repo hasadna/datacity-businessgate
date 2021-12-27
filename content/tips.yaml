@@ -5,7 +5,7 @@
         cases:
         - undefined: true
           steps:
-            - pop: default
+            - goto: return
         - default: true
     - say: >
         ועכשיו: צריך לדבר על הרגע שאחרי שהעסק שלך יוקם...

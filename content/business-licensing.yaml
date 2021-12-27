@@ -9,7 +9,7 @@
         cases:
         - undefined: true
           steps:
-            - pop: default
+            - goto: return
         - default: true
     - do:
         variable: _needs_licensing
@@ -18,11 +18,6 @@
           - record
     - say: >
         אז, לגבי רישוי העסק:
-    - say: >
-        רוב האנשים שאני מדבר איתם לא יודעים שיש כמה מסלולים שונים לתהליך הרישוי. 
-        המסלול הספציפי שעליך לעבור נקבע לפי המורכבות של סך כל הפעילויות בעסק שלך.
-    - say: >
-        לדוגמה, מסעדה שבתוכה פועלת גם חנות קטנה, תידרש למסלול רישוי המתחשב גם בפעילויות של מסעדה, וגם של חנות.
     - switch:
         arg: _needs_licensing
         cases:
@@ -87,9 +82,5 @@
                           לשמחתי, אני בקשר עם אנשי המקצוע שיוכלו לעזור עם התהליך - והכנו מדריך קצר בעניין:
                       - cards:
                           stack: business-licensing-tutorial-deposition
-            - say: >
-                ריכזנו עבורך {{_num_licensing_agencies}} כרטיסים - אחד עבור כל גורם מולו עליך לעבוד על רשיון העסק שלך
-            - say: >
-                אפשר להציץ בפרטים של כל כרטיס  עכשיו, או אחר כך - מהכרטיסים שמימין למעלה. 
             - cards:
                 stacksFrom: _licensing_agencies_stacks            

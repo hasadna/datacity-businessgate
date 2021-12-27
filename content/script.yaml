@@ -14,14 +14,17 @@
     - name: default
       steps:
       - goto: intro
+      - goto: run-all              
+      - goto: outro
+
+    - name: run-all
+      steps:
       - goto: business-licensing
       - goto: demand
       - goto: geo-insights
       - goto: arnona
       - goto: signage
       - goto: tips
-      - goto: outro
-
 
 - description: More Info Script
   name: more-info
