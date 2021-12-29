@@ -7,6 +7,7 @@
     - include: signage.yaml
     - include: demand.yaml
     - include: geo-insights.yaml
+    - include: business-operation.yaml
     - include: tips.yaml
     - include: outro.yaml
 
@@ -24,6 +25,7 @@
       - goto: geo-insights
       - goto: arnona
       - goto: signage
+      - goto: business-operation
       - goto: tips
 
 - description: More Info Script
