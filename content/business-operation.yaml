@@ -1,0 +1,19 @@
+- name: business-operation
+  steps:
+    - switch:
+        arg: topics.business-operation
+        cases:
+        - undefined: true
+          steps:
+            - goto: return
+        - default: true
+    - say: >
+        ועכשיו: צריך לדבר על הרגע שאחרי שהעסק שלך יוקם...
+    - say: >
+        צריך לקחת בחשבון שגם לאחר שהעסק יפתח, יש דרישות להפעלת העסק או היבטים תפעוליים הקשורים בו.
+    - say: >
+        הדבר נכון לעסקים טעוני רישוי וגם לכאלו שאינם.
+    - say: >
+        אנחנו באגף הפיקוח העירוני ריכזו עבורך את הדרישות המרכזיות מעסקים בעיר.
+    - cards:
+        stack: business-operation

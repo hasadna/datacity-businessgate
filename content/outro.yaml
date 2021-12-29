@@ -25,7 +25,7 @@
                                 requires:
                                   - business_kind
                               - id: geo_insights
-                                show: תובנות איזוריות
+                                show: אזור הנכס
                                 requires:
                                   - location
                               - id: arnona
@@ -33,13 +33,16 @@
                                 requires:
                                   - business_kind
                                   - location
-                              - id: tips
-                                show: טיפים כלליים לבעלי עסקים 
+                              - id: business-operation
+                                show: ניהול העסק והפיקוח העירוני 
                                 requires: []
                               - id: signage
                                 show: שילוט
                                 requires:
                                   - business_kind
+                              - id: tips
+                                show: טיפים כלליים לבעלי עסקים 
+                                requires: []
                               - id: demand
                                 show: סקר הביקושים שנערך ב-2019
                                 requires: []

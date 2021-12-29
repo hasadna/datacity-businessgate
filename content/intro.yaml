@@ -141,7 +141,7 @@
             requires:
               - business_kind
           - id: geo_insights
-            show: תובנות איזוריות
+            show: אזור הנכס
             default: true
             requires:
               - location
@@ -151,8 +151,8 @@
             requires:
               - business_kind
               - location
-          - id: tips
-            show: טיפים כלליים לבעלי עסקים 
+          - id: business-operation
+            show: ניהול העסק והפיקוח העירוני 
             default: true
             requires: []
           - id: signage
@@ -160,6 +160,10 @@
             default: false
             requires:
               - business_kind
+          - id: tips
+            show: טיפים כלליים לבעלי עסקים 
+            default: true
+            requires: []
           - id: demand
             show: סקר הביקושים שנערך ב-2019
             default: false
