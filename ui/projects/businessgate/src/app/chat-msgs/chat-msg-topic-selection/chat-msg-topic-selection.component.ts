@@ -30,6 +30,10 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
     this.record._topic_selection_state[this.id] = this.record._topic_selection_state[this.id] || this.state;
     this.state = this.record._topic_selection_state[this.id];
 
+    if (!this.params.__runFast) {
+      this.state.init = false;
+    }
+
     if (!this.state.init) {
       this.state.choices = this.params['topic-selection']['choices'].filter(c => this.allowed(c));
       const topics = {};
