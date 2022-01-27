@@ -88,9 +88,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     HatoolLibModule,
-    RouterModule.forRoot(
-      appRoutes
-    ),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
