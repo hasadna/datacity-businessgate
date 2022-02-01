@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
   runner: ScriptRunner;
   runnerSub: Subscription;
   config: any = {};
-  record: any = {};
+  record: any = null;
   @ViewChild('fixMe', {static: true}) fixMe: ElementRef;
   vScrollSub: Subscription;
 
@@ -55,6 +55,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     this.activatedRoute.params.subscribe((x) => {
       this.backend.handleItem(x.id);
     });
+    console.log('MainPageComponent constructor');
   }
 
   initChat() {
@@ -65,6 +66,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         return this.backend.record;
       }),
       first(),
+      delay(0),
       tap((record) => {
         this.record = record;        
       }),
@@ -241,7 +243,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
 
   calculate_arnona(record) {
     const property_tax_record = record._business_record.property_tax || [];
-    console.log('ARNONAA', property_tax_record);
     const location = record.מיקום;
     const zone_id = location.arnona_zones[property_tax_record.zone_kind];
     const rules = property_tax_record.zone_rates[zone_id] || property_tax_record.zone_rates[''] || [];
@@ -260,7 +261,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       arnona_info.תעריף = property_tax_rule.rate;
       if (area > 0) {
         arnona_info.עלות_כוללת = (property_tax_rule.a * area + property_tax_rule.b) / 12;
-        arnona_info.עלות_כוללת = arnona_info.עלות_כוללת.toFixed(0);
+        arnona_info.עלות_כוללת = (Math.round(arnona_info.עלות_כוללת/100)*100).toFixed(0);
       }
     }
     record.ארנונה = arnona_info;
@@ -393,7 +394,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     this.runner.fixme = () => {
       this.restart();
     };
-    // console.log('CONTENT', this.content);
     this.content.debug = true;
     this.runner.debug = true;
     this.record._state = this.record._state || {};

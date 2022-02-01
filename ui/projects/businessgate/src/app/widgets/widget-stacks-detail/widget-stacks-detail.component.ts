@@ -35,6 +35,7 @@ export class WidgetStacksDetailComponent implements OnInit {
 
   close() {
     if (this.cardStack) {
+      console.log('FFF5');
       this.cardStack.openState.next(false);
     }
     this.stack_name = '';

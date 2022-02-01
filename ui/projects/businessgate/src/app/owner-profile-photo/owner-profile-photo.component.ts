@@ -29,7 +29,6 @@ export class OwnerProfilePhotoComponent implements OnChanges {
     `;
     this.initials = '';
     if (this.owner.name) {
-      // console.log('OOO', this.owner);
       for (const part of this.owner.name.split(' ')) {
         this.initials += part[0];
         if (this.initials.length === 2) {

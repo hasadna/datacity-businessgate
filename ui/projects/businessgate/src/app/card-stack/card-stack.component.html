@@ -1,10 +1,10 @@
-<div class='wrapper' [style.transform]='positionTransform' [class.open]='open' [class.opened]='opened'>
-    <div class='stack' *ngIf='stack'>
+<div class='wrapper' [style.transform]='positionTransform' [class.expanded]='expandState !== "collapsed"'>
+    <div class='stack' *ngIf='_stack'>
         <div class='mask'>
-            <div class='cards' #stackEl>
+            <div class='cards' [class.created]='innerState === "created"' #stackEl>
                 <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
                 <app-title-card [params]='params'
-                                [stack]='stack' [width]='width' [style.transform]='transform(0)'
+                                [stack]='_stack' [width]='width' [style.transform]='transform(0)'
                                 (click)='open ? null : openState.next(true)'
                 ></app-title-card>
                 <ng-container *ngFor='let card of cards; let i = index'>                
@@ -22,14 +22,14 @@
                         <ng-container *ngIf='layout(card) === "scores"'>
                         <app-scores-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
                             [card]='card' [width]='width' [style.transform]='transform(i+1)'
-                            [scheme]='stack.scheme'
+                            [scheme]='_stack.scheme'
                             [current]='current()'
                         ></app-scores-card>
                     </ng-container>
                 </ng-container>
                 <app-chatlike-ending-card [params]='params' (closed)='returnValue()'
-                        [stack]='stack' [width]='width'
-                        *ngIf='goodbye && stack.goodbye'
+                        [stack]='_stack' [width]='width'
+                        *ngIf='goodbye && _stack.goodbye'
                         [style.transform]='transform(cards.length+1)'></app-chatlike-ending-card>
                 <div class='filler' [style.min-width]='scrollPadding + "px"'></div>                
             </div>
