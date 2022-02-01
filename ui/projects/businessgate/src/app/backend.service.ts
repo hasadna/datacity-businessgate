@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, ReplaySubject, Subject } from 'rxjs';
 import * as stringify from 'json-stable-stringify';
 import { switchMap } from 'rxjs/operators';
@@ -57,6 +57,8 @@ export class BackendService {
           record.script_version = record.script_version || script_version;
           script_version = record.script_version;
           this.record.next(record);
+        } else {
+          this.router.navigate([''], {replaceUrl: true});
         }
       });
     }

@@ -34,7 +34,7 @@ export class ChatMsgCardStackComponent implements OnInit {
   selectorsSlidden = false;
   mapVisible = false;
     
-  returned = new ReplaySubject<string>();
+  returned = new ReplaySubject<string|null>();
   init = new ReplaySubject<void>(1);
 
   constructor(private data: DataService, 
@@ -96,14 +96,16 @@ export class ChatMsgCardStackComponent implements OnInit {
     if (this.variable2) {
       this.record[this.variable2] = value;
     }
+    console.log('FFF3');
     this.stackEl.openState.next(false);
-    this.returned.next();
+    this.returned.next(null);
   }
 
   wait() {
     return this.returned.pipe(
       first(),
       tap(() => {
+        console.log('FFF2');
         this.stackEl.openState.next(false);
         return this.backend.update(this.record);
       }),
@@ -155,6 +157,7 @@ export class ChatMsgCardStackComponent implements OnInit {
         first()
       ).subscribe(() => {
         this.vScrollSub = null;
+        console.log('FFF1');
         this.stackEl.openState.next(false);
       });
     } else if (state === 'closing') {

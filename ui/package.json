@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@sentry/angular": "^6.17.2",
-    "@sentry/tracing": "^5.29.2",
+    "@sentry/tracing": "^6.17.2",
     "@turf/boolean-contains": "^6.3.0",
     "@turf/distance": "^6.3.0",
     "@turf/point-on-feature": "^6.3.0",

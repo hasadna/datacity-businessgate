@@ -33,7 +33,11 @@
                         scroll-snap-align: center;
                         transition-property: transform;
                         transition-duration: 500ms;
-                    }    
+                    }
+
+                    &.created {
+                        transition-duration: 0ms;
+                    }
                 }    
             }
 
@@ -52,7 +56,7 @@
             }
         }
     
-        &.opened {
+        &.expanded {
             z-index: 8;
 
             .stack {
