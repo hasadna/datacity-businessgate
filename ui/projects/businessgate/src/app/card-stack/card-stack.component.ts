@@ -84,11 +84,11 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
 
   // Expand/Collapse
   expandState: StackExpansionState = StackExpansionState.Collapsed;
-  expandQueue = new ObservableQueue<void>();
+  expandQueue = new ObservableQueue<void>('EXPAND Q');
 
   // State
   innerState: CardStackState = CardStackState.Created;
-  openQueue = new ObservableQueue<void>();
+  openQueue = new ObservableQueue<void>('OPEN Q');
 
   runner: ScriptRunnerImpl;
   record: any;
@@ -103,18 +103,15 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
               private mapSvc: MapService,
               private widgets: WidgetsService,
               private state: StateService) {
-    console.log('CREATING CARD STACK');
     this.mapFitParams.pipe(
       debounceTime(100),
     ).subscribe((x) => {
       this._fitMap(x[0], x[1], x[2]);
     });
     this.init.pipe(
-      tap((x) => { console.log('INIT STACK?', x); }),
       filter((x) => !!x),
-      delay(1),
+      delay(0),
       tap(() => {
-        console.log('INIT STACK', this.stackName);
         const el = this.el.nativeElement as HTMLDivElement;
         this.fullWidth = el.offsetWidth;
         this.width = this.fullWidth - this.PADDING;
@@ -146,13 +143,11 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
     if (!this._stack) {
       this.updateStack();
       this.init.next(!!this.stack && !!this.el.nativeElement);
-    } else if (this.stack && this.stackName !== this.stack.name) {
-      this.openState.next(false);
     }
   }
 
   updateStack() {
-    console.log('REPLACING STACK', this._stack?.name, '->', this.stack?.name);
+    // console.log('REPLACING STACK', this._stack?.name, '->', this.stack?.name);
     this.runner = this.params.__runner;
     this.record = this.runner.record;
     if (this.stack !== this._stack) {
@@ -165,10 +160,10 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
   initStateListener() {
     this.openState.pipe(delay(0)).subscribe((state) => {
       if (state) {
-        console.log('HANDLING REQUEST FOR OPENING STACK', this.stackName);
+        // console.log('HANDLING REQUEST FOR OPENING STACK', this.stackName);
         this.openQueue.add(this.openStack());
       } else {
-        console.log('HANDLING REQUEST FOR CLOSING STACK', this.stackName);
+        // console.log('HANDLING REQUEST FOR CLOSING STACK', this.stackName);
         this.openQueue.add(this.closeStack());
       }
     });
@@ -202,13 +197,10 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   expand() {
-    if (this.expandState === StackExpansionState.Expanded || this.expandState === StackExpansionState.Expanding) {
-      return;
-    }
-    console.log(this.stackName, 'EXPANDING');
-    this.expandState = StackExpansionState.Expanding;
-    const obs = timer(0).pipe(
+    const obs = from([true]).pipe(
       tap(() => {
+        // console.log(this.stackName, 'EXPANDING');
+        this.expandState = StackExpansionState.Expanding;
         if (this.scrollSub) {
           this.scrollSub.unsubscribe();
           this.scrollSub = null;  
@@ -223,73 +215,88 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       tap(() => {
         this.startScrollListening();
       }),
-      delay(250), //TODO wait for what exactly?
+      delay(250), //TODO wait for end of scrolling
       map(() => {
         const el = this.stackEl.nativeElement as HTMLDivElement;
         el.scroll(-this.width, 0); // Scroll to the first card
         this.expandState = StackExpansionState.Expanded;
+      }),
+      delay(1000), //wait for end of scrolling
+      tap(() => {
+        // console.log(this.stackName, 'EXPANDED');
       })
     );
-    obs.subscribe(() => {
-      console.log(this.stackName, 'EXPANDED');
-    });
-    this.expandQueue.add(obs);
-    return obs;
+    const done = new ReplaySubject<void>();
+    const checker = from([true]).pipe(
+      switchMap(() => {
+        // console.log(this.stackName, 'CHECKING IF EXPANDED', this.expandState);
+        if (this.expandState === StackExpansionState.Expanded || this.expandState === StackExpansionState.Expanding) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
+      }),
+      tap(() => {
+        done.next();
+      })
+    );
+    // console.log('REQUESTING EXPAND', this.stackName);
+    this.expandQueue.add(checker);
+    return done;
   }
 
   collapse() {
-    if (this.expandState === StackExpansionState.Collapsed || this.expandState === StackExpansionState.Collapsing) {
-      return;
-    }
-    console.log(this.stackName, 'COLLAPSING');
-    this.expandState = StackExpansionState.Collapsing;
-    const obs = timer(0).pipe(
+    const r = Math.random();
+    const obs = from([true]).pipe(
       tap(() => {
+        // console.log(this.stackName, 'COLLAPSING', r);
+        this.expandState = StackExpansionState.Collapsing;
         const el = this.stackEl.nativeElement as HTMLDivElement;
         el.scroll(0, 0);
       }),
-      delay(600), //TODO Wait for animation to finish
-      tap(() => {
+      // delay(600), //TODO Wait for animation to finish
+      delay(1000), //wait for end of scrolling
+      map(() => {
         this.expandState = StackExpansionState.Collapsed;
         this.calcPositionTransform();  
+        // console.log(this.stackName, 'COLLAPSED', r);
       })
     );
-    obs.subscribe(() => {
-      console.log(this.stackName, 'COLLAPSED');
-    });
-    return obs;
+    const done = new ReplaySubject<void>();  
+    const checker = from([r]).pipe(
+      switchMap(() => {
+        // console.log(this.stackName, 'CHECKING IF COLLAPSED', r, this.expandState);
+        if (this.expandState === StackExpansionState.Collapsed || this.expandState === StackExpansionState.Collapsing) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
+      }),
+      tap(() => {
+        done.next();
+      })
+    );
+    // console.log('REQUESTING COLLAPSE', r, this.stackName);
+    this.expandQueue.add(checker);
+    return done;
   }
 
   openStack() {
-    if (this.innerState === CardStackState.Open || this.innerState === CardStackState.Opening) {
-      return from([void 0]);
-    }
-    console.log(this.stackName, 'OPENING');
-    this.innerState = CardStackState.Opening;
-    this.updateStack();
-    return timer(0).pipe(
-      map(() => {
+    const obs = from([true]).pipe(
+      tap(() => {
+        // console.log(this.stackName, 'OPENING');
+        this.innerState = CardStackState.Opening;
+        this.updateStack();    
+      }),
+      switchMap(() => {
         this.state.pushState('stack', this.stackName);
-        // Ensure we're marking this stack as closed even if closed by someone else
-        this.state.state.pipe(
-          filter((state) => this.state.inState(state, 'stack', this.stackName)),
-          first(),
-          switchMap((state) => {
-            return this.state.state;
-          }),
-          filter((state) => !this.state.inState(state, 'stack', this.stackName)),
-          first()
-        ).subscribe(() => {
-          if (this.open) {
-            console.log('CLOSING STACK as we"re opening another');
-            this.openState.next(false);
-          }
-        });
         this.stackState.emit('opening');
         this.fitMap(0, 1, 0);
+        // console.log('WAITING FOR EXPAND');
         return this.expand();
       }),
       tap(() => {
+        // console.log('EXPANDED');
         this.calcPositionTransform(); // Position vertically
         this.innerState = CardStackState.Open;
       }),
@@ -303,32 +310,39 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       delay(250), /// Wait for repositioning to avoid closing by scroll detection
       map(() => {
         this.stackState.next('open'); // Mark as open
-        console.log(this.stackName, 'STACK IS OPEN');
+        // console.log(this.stackName, 'STACK IS OPEN');
       }),
+    );
+    return from([true]).pipe(
+      switchMap(() => {
+        // console.log('CHECKING IF STACK IS OPEN', this.stackName, this.innerState);
+        if (this.innerState === CardStackState.Open || this.innerState === CardStackState.Opening) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
+      })
     );
   }
 
   closeStack() {
-    if (this.innerState === CardStackState.Closed || this.innerState === CardStackState.Closing) {
-      return from([void 0]);
-    }
-    console.log(this.stackName, 'CLOSING');
-    this.innerState = CardStackState.Closing;
-    return timer(0).pipe(
+    const obs = from([true]).pipe(
       tap(() => {
-        this.state.popState('stack');
+        // console.log(this.stackName, 'CLOSING');
+        this.innerState = CardStackState.Closing;
+        this.state.popState('stack', this.stackName);
         this.map = null;
         this.stackState.next('closing');
       }),
       switchMap(() => {
-        console.log(this.stackName, 'CLOSING MAP');
+        // console.log(this.stackName, 'CLOSING MAP');
         return this.closeMap();
       }),
       switchMap(() => {
         return this.collapse();
       }),
       tap(() => {
-        console.log(this.stackName, 'CLOSING DONE');
+        // console.log(this.stackName, 'CLOSING DONE');
         this.innerState = CardStackState.Closed;
         this.calcPositionTransform();  
       }),
@@ -336,6 +350,16 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       map(() => {
         this.stackState.next('closed');
       })
+    );
+    return from([true]).pipe(
+      switchMap(() => {
+        // console.log('CHECKING IF STACK IS CLOSED', this.stackName, this.innerState);
+        if (this.innerState !== CardStackState.Open && this.innerState !== CardStackState.Opening) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
+      }),
     );
   }
 
@@ -476,6 +500,7 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       tap(() => {
         this.calcPositionTransform();
         this.stackState.next('map-closed');
+        console.log('CLOSED MAP', this.stackName);
       })
     );
     console.log('CLOSE MAP', this.widgets.mapLoaded, 'ret=', ret);
@@ -499,6 +524,10 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
 
   get stackName() {
     return this._stack ? this._stack.name : '<noname>';
+  }
+
+  get stateName() {
+    return this._stack?.state_name || this.stackName;
   }
 
   // Position calculation

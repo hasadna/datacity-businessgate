@@ -12,7 +12,7 @@ import { WidgetsService } from '../../widgets.service';
 })
 export class WidgetStackComponent implements OnInit, AfterContentInit {
 
-  @ViewChild(ChatMsgCardStackComponent) stackEl: ChatMsgCardStackComponent);
+  @ViewChild(ChatMsgCardStackComponent) stackEl: ChatMsgCardStackComponent;
 
   open = false;
   stackObs: ReplaySubject<any> = null;
@@ -48,6 +48,7 @@ export class WidgetStackComponent implements OnInit, AfterContentInit {
       }),
       filter((x) => x),
       switchMap(() => {
+        // console.log('OPENING STACK 1', this.stackEl, this.stackEl?.stackEl);
         this.stackEl.stackEl.openState.next(true);
         return merge(
           this.closeRequest,
@@ -57,7 +58,7 @@ export class WidgetStackComponent implements OnInit, AfterContentInit {
       }),
       first(),
       tap(() => {
-        console.log('FFF4', this.stackEl, this.stackEl?.stackEl);
+        // console.log('CLOSING STACK 4');
         this.stackEl.stackEl.openState.next(false);
         this.content = null;
         this.params = null;

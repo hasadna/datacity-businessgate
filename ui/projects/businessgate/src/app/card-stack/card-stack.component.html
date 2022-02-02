@@ -5,7 +5,7 @@
                 <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
                 <app-title-card [params]='params'
                                 [stack]='_stack' [width]='width' [style.transform]='transform(0)'
-                                (click)='open ? null : openState.next(true)'
+                                (click)='openState.next(true)'
                 ></app-title-card>
                 <ng-container *ngFor='let card of cards; let i = index'>                
                     <ng-container *ngIf='layout(card) === "simple"'>

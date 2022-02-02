@@ -7,6 +7,7 @@ import { BackendService } from '../../backend.service';
 import { StacksService } from '../../stacks.service';
 import { CardStackComponent } from '../../card-stack/card-stack.component';
 import { MainScrollService } from '../../main-scroll.service';
+import { StateService } from '../../state.service';
 
 @Component({
   selector: 'app-chat-msg-card-stack',
@@ -26,6 +27,7 @@ export class ChatMsgCardStackComponent implements OnInit {
   variable2: string;
   stacks: any[] = [];
   stack: any = null;
+  stateName = '';
   
   vScrollSub: Subscription = null;
   mainScrollPosition: number = null;
@@ -41,7 +43,8 @@ export class ChatMsgCardStackComponent implements OnInit {
               private backend: BackendService, 
               public stacksSvc: StacksService,
               private hostElement: ElementRef,
-              private mainScroll: MainScrollService) {
+              private mainScroll: MainScrollService,
+              ) {
     this.slideSelectors(false);
     this.initStackListener();
   }
@@ -84,7 +87,10 @@ export class ChatMsgCardStackComponent implements OnInit {
   }
 
   selectStack(stack) {
+    // console.log('SELECT STACK CLOSING');
+    this.stackEl.openState.next(false);
     this.stack = stack;
+    // console.log('SELECT STACK OPENING');
     this.stackEl.openState.next(true);
   }
 
@@ -96,7 +102,7 @@ export class ChatMsgCardStackComponent implements OnInit {
     if (this.variable2) {
       this.record[this.variable2] = value;
     }
-    console.log('FFF3');
+    // console.log('CLOSING STACK 3');
     this.stackEl.openState.next(false);
     this.returned.next(null);
   }
@@ -105,7 +111,7 @@ export class ChatMsgCardStackComponent implements OnInit {
     return this.returned.pipe(
       first(),
       tap(() => {
-        console.log('FFF2');
+        // console.log('CLOSING STACK 2');
         this.stackEl.openState.next(false);
         return this.backend.update(this.record);
       }),
@@ -157,7 +163,7 @@ export class ChatMsgCardStackComponent implements OnInit {
         first()
       ).subscribe(() => {
         this.vScrollSub = null;
-        console.log('FFF1');
+        // console.log('CLOSING STACK 1');
         this.stackEl.openState.next(false);
       });
     } else if (state === 'closing') {
