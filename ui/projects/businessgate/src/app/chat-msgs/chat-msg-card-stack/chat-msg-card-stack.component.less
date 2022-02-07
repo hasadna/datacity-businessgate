@@ -20,8 +20,11 @@
             height: 18px;
         }
 
+        margin-top: 0;
+        transition: margin-top 500ms;
         &.open {
-            z-index: 10;
+            z-index: -1;
+            margin-top: -70px;
         }
     }
 

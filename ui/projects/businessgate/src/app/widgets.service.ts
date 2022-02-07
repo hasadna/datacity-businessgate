@@ -19,6 +19,8 @@ export class WidgetsService {
   public stackActive = new Subject<{content: ContentManager, params: any}>();
   public stackResult = new Subject<any>();
 
+  public showStackBackdrop = false;
+  
   public moreInfoChat = new Subject<any>();
   public moreInfoChatDone = new Subject<any>();
 
