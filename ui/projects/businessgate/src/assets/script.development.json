@@ -8,6 +8,16 @@
           "name": "intro",
           "steps": [
             {
+              "cards": {
+                "stack": "business-licensing-tutorial"
+              }
+            },
+            {
+              "cards": {
+                "stack": "business-licensing-tutorial"
+              }
+            },
+            {
               "goto": "introduction",
               "uid": "476e01979d"
             },

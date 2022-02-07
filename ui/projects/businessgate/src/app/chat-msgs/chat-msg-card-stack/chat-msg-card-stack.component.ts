@@ -28,6 +28,7 @@ export class ChatMsgCardStackComponent implements OnInit {
   stacks: any[] = [];
   stack: any = null;
   stateName = '';
+  opened = false;
   
   vScrollSub: Subscription = null;
   mainScrollPosition: number = null;
@@ -151,6 +152,7 @@ export class ChatMsgCardStackComponent implements OnInit {
       }
     } else if (state === 'open') {
       this.mainScrollPosition = null;
+      this.opened = true;
       this.vScrollSub = this.mainScroll.scrollPosition.pipe(
         filter((pos) => {
           if (this.mainScrollPosition !== null) {
@@ -172,6 +174,8 @@ export class ChatMsgCardStackComponent implements OnInit {
         this.vScrollSub = null;
         this.mainScrollPosition = null;
       }
+    } else if (state === 'closed') {
+      this.opened = false;
       // this.content.setScrollLock(false);
     } else if (state === 'map-opened') {
       this.mapVisible = true;
