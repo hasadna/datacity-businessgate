@@ -6,7 +6,7 @@ import { WidgetsService } from '../../widgets.service';
   templateUrl: './widget-stack-backdrop.component.html',
   styleUrls: ['./widget-stack-backdrop.component.less'],
   host: {
-    '[class.visible]': 'widgets.showStackBackdrop',
+    '[class.visible]': 'widgets.openStack !== null',
   }
 })
 export class WidgetStackBackdropComponent implements OnInit {

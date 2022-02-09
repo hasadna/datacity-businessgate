@@ -18,6 +18,7 @@ export class ChatMsgCardStackComponent implements OnInit {
 
   @Input() params;
   @Input() content: ContentManager;
+  @Input() small = true;
   @ViewChild(CardStackComponent, {static: true}) stackEl: CardStackComponent;
 
   runner: ScriptRunnerImpl;
