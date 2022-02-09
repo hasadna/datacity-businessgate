@@ -21,10 +21,13 @@
         }
 
         margin-top: 0;
-        transition: margin-top 500ms;
+        opacity: 1;
+        transition: all 500ms;
+        transition-property: margin-top, opacity;
         &.open {
             z-index: -1;
             margin-top: -70px;
+            opacity: 0;
         }
     }
 

@@ -8,6 +8,8 @@
     .wrapper {
         position: relative;
         z-index: 1;
+        transition-property: transform;
+        transition-duration: 500ms;
 
         .stack {
             width: 100%;
@@ -55,20 +57,26 @@
                             & > * {
                                 transition-duration: 0ms;
                             }
-                            transition-duration: 0ms;
-                            transform: scale(0.54);
-                            margin: -80px 0;
+                            &.small {
+                                transition-duration: 0ms;
+                                transform: scale(0.54);
+                                margin: -80px 0;    
+                            }
                         }
                         &.state-initial {
                             & > * {
                                 scroll-snap-align: start;
                             }
-                            transform: scale(0.54);
-                            margin: -80px 0;
+                            &.small {
+                                transform: scale(0.54);
+                                margin: -80px 0;
+                            }
                         }
                         &.state-closed {
-                            transform: scale(0.54);
-                            margin: -80px 0;
+                            &.small {
+                                transform: scale(0.54);
+                                margin: -80px 0;
+                            }
                         }
                     }
                 }    

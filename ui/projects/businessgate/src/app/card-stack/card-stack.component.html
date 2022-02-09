@@ -6,6 +6,7 @@
         <div class='mask'>
             <div class='cards' #stackEl>
                 <div class='cards-scroller'
+                    [class.small]='small'
                     [class.state-created]='innerState === "created"'
                     [class.state-initial]='innerState === "initial"'
                     [class.state-closed]='innerState === "closed" || innerState === "closing"'

@@ -38,6 +38,7 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() stack;
   @Input() params;
   @Input() goodbye = false;
+  @Input() small = true;
 
   // Outputs
   @Output() activeCard = new EventEmitter<{index: number, card: any}>();
@@ -201,6 +202,7 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   expand() {
+    const el = this.stackEl.nativeElement as HTMLDivElement;
     const obs = from([true]).pipe(
       tap(() => {
         // console.log(this.stackName, 'EXPANDING');
@@ -212,11 +214,11 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       }),
       delay(600), //TODO wait for animation to finish
       tap(() => {
-        const el = this.stackEl.nativeElement as HTMLDivElement;
-        el.scroll(0, 0);
+        el.scroll({top: 0, left: 0, behavior: 'auto'});
       }),
       delay(0), // Wait for layouting
       tap(() => {
+        this.calcPositionTransform(); // Position vertically
         this.startScrollListening();
       }),
       delay(250), //TODO wait for end of scrolling
@@ -237,11 +239,21 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       switchMap(() => {
         // console.log(this.stackName, 'CHECKING IF EXPANDED', this.expandState);
         if (this.expandState === StackExpansionState.Expanded || this.expandState === StackExpansionState.Expanding) {
-          if (this.innerState === CardStackState.Opening) {
-            const el = this.stackEl.nativeElement as HTMLDivElement;
-            el.scroll(-this.width, 0); // Scroll to the first card
-          }
-          return from([void 0]);
+          return from([void 0]).pipe(
+            tap(() => {
+              if (this.innerState === CardStackState.Opening || this.innerState === CardStackState.Open) {
+                const el = this.stackEl.nativeElement as HTMLDivElement;
+                el.scroll(-this.width, 0); // Scroll to the first card
+              }
+            }),
+            delay(1000),
+            tap(() => {
+              if (this.innerState === CardStackState.Opening || this.innerState === CardStackState.Open) {
+                const el = this.stackEl.nativeElement as HTMLDivElement;
+                el.scroll(-this.width, 0); // Scroll to the first card
+              }
+            })
+          );
         } else {
           return obs;
         }
@@ -300,7 +312,7 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       tap(() => {
         // console.log(this.stackName, 'OPENING');
         this.innerState = CardStackState.Opening;
-        this.widgets.showStackBackdrop = true;
+        this.widgets.openStack = this;
         this.updateStack();    
       }),
       switchMap(() => {
@@ -348,7 +360,7 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
         this.state.popState('stack', this.stackName);
         this.map = null;
         this.stackState.next('closing');
-        this.widgets.showStackBackdrop = false;
+        this.widgets.openStack = null;
       }),
       switchMap(() => {
         // console.log(this.stackName, 'CLOSING MAP');
@@ -558,14 +570,20 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   calcPositionTransform() {
-    if (this.open && this._stack && this._stack.map) {
+    if (this.open && this._stack) {
       const el = this.el.nativeElement as HTMLDivElement;
       const bbox = el.getBoundingClientRect();
       const bottom = bbox.top + bbox.height;
       const height = window.innerHeight;
-      this.positionTransform = 'translateY(' + (height - bottom) + 'px)';
+      let target = 0;
+      if (this._stack.map) {
+        target = height;
+      } else {
+        target = height/2 + bbox.height/2;
+      }
+      this.positionTransform = 'translateY(' + (target - bottom) + 'px)';
       return true;
-    } else {
+  } else {
       this.positionTransform = 'translateY(0px)';
       return false;
     }
