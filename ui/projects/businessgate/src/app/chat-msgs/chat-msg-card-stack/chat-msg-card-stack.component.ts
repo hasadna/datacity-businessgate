@@ -77,6 +77,8 @@ export class ChatMsgCardStackComponent implements OnInit {
         this.stack = result[0];
       }
       if (this.params.__runFast) {
+        this.stacksSvc.discoveryRequested = false;
+        this.stacksSvc.updateVisibleCount();
         if (this.variable) {
           if (this.record[this.variable]) {
             this.returnValue(this.record[this.variable]);
@@ -177,6 +179,7 @@ export class ChatMsgCardStackComponent implements OnInit {
       }
     } else if (state === 'closed') {
       this.opened = false;
+      this.stacksSvc.closeStack();
       // this.content.setScrollLock(false);
     } else if (state === 'map-opened') {
       this.mapVisible = true;

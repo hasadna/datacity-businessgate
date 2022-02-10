@@ -1,9 +1,20 @@
-<div class='button' (click)='openOverview()' [class.active]='stacks.visible'>
+<div class='button' (click)='openOverview()' [class.active]='active'>
     <div class='minicards'>
         <div class='minicard bg'></div>
-        <div class='minicard fg'>{{ stacks.stack_count }}</div>
+        <div class='minicard fg'>{{ stacks.stack_visible_count }}</div>
     </div>
 </div>
+<div class='animated'
+    [class.active]='newStackAnimation === true'
+    [class.close]='newStackAnimation === false'
+>
+    <div class='minicards'>
+        <div class='minicard bg'></div>
+        <div class='minicard fg'></div>
+    </div>
+</div>
+
 <ng-container *ngIf='stacks.discovery && stacks.visible'>
-    <img class='discovery' src='assets/img/cart-discovery.svg' (click)='stacks.discovery = false'>
+    <img class='discovery' src='assets/img/cart-discovery.svg' (click)='removeDiscovery()'>
+    <span class='discovery-text'>החפיסות שאספת מחכות לך כאן</span>
 </ng-container>

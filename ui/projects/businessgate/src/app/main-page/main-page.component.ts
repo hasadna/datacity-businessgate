@@ -358,10 +358,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     ).toPromise();
   }
 
-  async stacks_button_visible() {
-    this.stacksSvc.visible = true;
-  }
-
   restart() {
     const state = this.runner.state;
     if (this.runnerSub) {
@@ -385,6 +381,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       }
       this.runner.runFast = false;
       this.stacksSvc.discovery = false;
+      this.stacksSvc.discoveryRequested = false;
+      this.stacksSvc.updateVisibleCount();
       this.content.messages.forEach((m) => { if (m.params) { m.params.fixme = null; } });
     });
     return this.backend.doUpdate(this.record);
@@ -412,7 +410,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         prepare_business_record: async (record) => { return await this.prepare_business_record(record); },
         send_crm_email: async (record) => { return await this.send_crm_email(record); },
         select_commercial_area: async () => { return await this.select_commercial_area(); },
-        stacks_button_visible: async () => { return await this.stacks_button_visible(); },
         new_chat: async () => { return await this.new_chat(); },
         save: async () => { return await this.save(); },
       },
