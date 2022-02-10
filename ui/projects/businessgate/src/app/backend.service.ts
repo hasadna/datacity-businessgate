@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, ReplaySubject, Subject } from 'rxjs';
-import * as stringify from 'json-stable-stringify';
+import stringify from 'quick-stable-stringify';
 import { switchMap } from 'rxjs/operators';
 import { SCRIPT_VERSION } from './version';
 import { ConfigService } from './config.service';
