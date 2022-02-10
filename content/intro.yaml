@@ -186,8 +186,6 @@
             steps:
               - say: נהדר!
               - say: אני אחראי לסכם עבורך את כל נושאי השיחה שלנו. מעכשיו והלאה הם יופיעו תמיד בפינה הימנית העליונה של המסך.
-              - do:
-                  cmd: stacks_button_visible
 
 - name: first-contact
   steps:

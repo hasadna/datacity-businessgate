@@ -8,16 +8,6 @@
           "name": "intro",
           "steps": [
             {
-              "cards": {
-                "stack": "business-licensing-tutorial"
-              }
-            },
-            {
-              "cards": {
-                "stack": "business-licensing-tutorial"
-              }
-            },
-            {
               "goto": "introduction",
               "uid": "476e01979d"
             },
@@ -312,7 +302,7 @@
                     "requires": [
                       "location"
                     ],
-                    "show": "תובנות איזוריות"
+                    "show": "אזור הנכס"
                   },
                   {
                     "default": true,
@@ -325,9 +315,9 @@
                   },
                   {
                     "default": true,
-                    "id": "tips",
+                    "id": "business-operation",
                     "requires": [],
-                    "show": "טיפים כלליים לבעלי עסקים"
+                    "show": "ניהול העסק והפיקוח העירוני"
                   },
                   {
                     "default": false,
@@ -336,6 +326,12 @@
                       "business_kind"
                     ],
                     "show": "שילוט"
+                  },
+                  {
+                    "default": true,
+                    "id": "tips",
+                    "requires": [],
+                    "show": "טיפים כלליים לבעלי עסקים"
                   },
                   {
                     "default": false,
@@ -383,12 +379,6 @@
                       {
                         "say": "אני אחראי לסכם עבורך את כל נושאי השיחה שלנו. מעכשיו והלאה הם יופיעו תמיד בפינה הימנית העליונה של המסך.",
                         "uid": "26b248e6bb"
-                      },
-                      {
-                        "do": {
-                          "cmd": "stacks_button_visible"
-                        },
-                        "uid": "85a7ac95ca"
                       }
                     ],
                     "uid": "58e7589549"
@@ -1064,6 +1054,55 @@
           "uid": "6cc9d2f5ca"
         },
         {
+          "name": "business-operation",
+          "steps": [
+            {
+              "switch": {
+                "arg": "topics.business-operation",
+                "cases": [
+                  {
+                    "steps": [
+                      {
+                        "goto": "return",
+                        "uid": "6c47092da1"
+                      }
+                    ],
+                    "uid": "ad24431a3e",
+                    "undefined": true
+                  },
+                  {
+                    "default": true
+                  }
+                ]
+              },
+              "uid": "5b5f5b876d"
+            },
+            {
+              "say": "ועכשיו: צריך לדבר על הרגע שאחרי שהעסק שלך יוקם...\n",
+              "uid": "e3da7c495c"
+            },
+            {
+              "say": "צריך לקחת בחשבון שגם לאחר שהעסק יפתח, יש דרישות להפעלת העסק או היבטים תפעוליים הקשורים בו.\n",
+              "uid": "e764d82caf"
+            },
+            {
+              "say": "הדבר נכון לעסקים טעוני רישוי וגם לכאלו שאינם.\n",
+              "uid": "ea3843e91e"
+            },
+            {
+              "say": "אנחנו באגף הפיקוח העירוני ריכזו עבורך את הדרישות המרכזיות מעסקים בעיר.\n",
+              "uid": "18479def7d"
+            },
+            {
+              "cards": {
+                "stack": "business-operation"
+              },
+              "uid": "2e452ba52f"
+            }
+          ],
+          "uid": "28a69085d5"
+        },
+        {
           "name": "tips",
           "steps": [
             {
@@ -1088,30 +1127,8 @@
               "uid": "ee7723d0a7"
             },
             {
-              "say": "ועכשיו: צריך לדבר על הרגע שאחרי שהעסק שלך יוקם...\n",
-              "uid": "012f5c6b10"
-            },
-            {
-              "say": "צריך לקחת בחשבון שגם לאחר שהעסק יפתח, יש דרישות להפעלת העסק או היבטים תפעוליים הקשורים בו.\n",
-              "uid": "546c442796"
-            },
-            {
-              "say": "הדבר נכון לעסקים טעוני רישוי וגם לכאלו שאינם.\n",
-              "uid": "50652ac533"
-            },
-            {
-              "say": "אנחנו באגף הפיקוח העירוני ריכזו עבורך את הדרישות המרכזיות מעסקים בעיר.\n",
-              "uid": "1dfaf250cb"
-            },
-            {
-              "cards": {
-                "stack": "business-operation"
-              },
-              "uid": "d1de67027f"
-            },
-            {
               "say": "אספתי כמה טיפים נוספים שיוכלו אולי לעניין אותך",
-              "uid": "3b04035804"
+              "uid": "a4f0e92d7d"
             },
             {
               "cards": {
@@ -1124,7 +1141,7 @@
                   "business_tips.טיפים_כלליים"
                 ]
               },
-              "uid": "455ae50897"
+              "uid": "14a6e67411"
             }
           ],
           "uid": "dc22144a35"
@@ -1186,7 +1203,7 @@
                                         "requires": [
                                           "location"
                                         ],
-                                        "show": "תובנות איזוריות"
+                                        "show": "אזור הנכס"
                                       },
                                       {
                                         "id": "arnona",
@@ -1197,9 +1214,9 @@
                                         "show": "ארנונה"
                                       },
                                       {
-                                        "id": "tips",
+                                        "id": "business-operation",
                                         "requires": [],
-                                        "show": "טיפים כלליים לבעלי עסקים"
+                                        "show": "ניהול העסק והפיקוח העירוני"
                                       },
                                       {
                                         "id": "signage",
@@ -1207,6 +1224,11 @@
                                           "business_kind"
                                         ],
                                         "show": "שילוט"
+                                      },
+                                      {
+                                        "id": "tips",
+                                        "requires": [],
+                                        "show": "טיפים כלליים לבעלי עסקים"
                                       },
                                       {
                                         "id": "demand",
@@ -1745,8 +1767,12 @@
               "uid": "b1e091c5ea"
             },
             {
-              "goto": "tips",
+              "goto": "business-operation",
               "uid": "0d6b20294e"
+            },
+            {
+              "goto": "tips",
+              "uid": "e6f1ff5809"
             }
           ],
           "uid": "037025d96e"
