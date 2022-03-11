@@ -610,10 +610,12 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
             if (bk === business_name) {
               found = true;
             }
-            for (const dm of this.record._business_record.demand_category) {
-              if (bk === dm[0]) {
-                found = true;
-              }
+            if (this.record._business_record.demand_category) {
+              for (const dm of this.record._business_record.demand_category) {
+                if (bk === dm[0]) {
+                  found = true;
+                }
+              }  
             }
             const licensable = this.record._business_record.license_item && this.record._business_record.license_item.length > 0;
             if (bk === 'טעוני רישוי' && licensable) {
