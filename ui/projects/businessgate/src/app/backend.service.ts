@@ -51,7 +51,7 @@ export class BackendService {
       .subscribe((doc) => {
         if (doc.exists) {
           this.state = (doc.data() as any).data;
-          console.log('Document was retrieved with content', this.state.length);
+          console.log('Document was retrieved with content', this.state);
           const record = JSON.parse(this.state);
           record.self_link = location;
           record.script_version = record.script_version || script_version;
