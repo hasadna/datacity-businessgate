@@ -12,11 +12,19 @@ export class WidgetStacksButtonComponent implements OnInit {
 
   newStackAnimation: boolean = null;
   removedDiscovery = new ReplaySubject<void>(1);
+  lastAnimationCount = -1;
 
   constructor(private widgets: WidgetsService, public stacks: StacksService) { }
 
   ngOnInit(): void {
+    timer(1000).subscribe(() => {
+      this.lastAnimationCount = this.stacks.stack_count;
+    });
     this.stacks.closedStack.subscribe(() => {
+      if (this.stacks.stack_count === this.lastAnimationCount) {
+        return;
+      }
+      this.lastAnimationCount = this.stacks.stack_count;
       if (this.newStackAnimation === null) {
         this.newStackAnimation = true;
         from([true]).pipe(
@@ -24,10 +32,13 @@ export class WidgetStacksButtonComponent implements OnInit {
           tap(() => {
             this.stacks.updateVisibleCount();
           }),
-          tap(() => {
-            this.stacks.updateDiscovery();
+          switchMap(() => {
+            if (this.stacks.updateDiscovery()) {
+              return this.removedDiscovery;
+            } else {
+              return from([true]);
+            }
           }),
-          switchMap(() => this.removedDiscovery),
           tap(() => {
             this.newStackAnimation = false;
           }),

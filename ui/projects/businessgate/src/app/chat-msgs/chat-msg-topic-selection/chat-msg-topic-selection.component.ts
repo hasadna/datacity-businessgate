@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { BackendService } from '../../backend.service';
 
 @Component({
   selector: 'app-chat-msg-topic-selection',
@@ -18,7 +19,7 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
   id = '';
   state: any = {choices: [], topics: {}, init: false};
 
-  constructor() { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
     this.id = this.params['topic-selection']['id'];
@@ -92,10 +93,10 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
       const response = this.responses[option];
       this.record.topics = this.state.topics;
       this.record._topic_selection = option;
-      console.log('SUBMIT', option, response.show);
       this.returnValue.next(response.show);
       this.returnValue.complete();
       this.submitted = true;
+      this.backend.update(this.record);
     }
   }
 }
