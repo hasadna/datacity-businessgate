@@ -38,6 +38,9 @@ export class ChatlikeEndingCardComponent implements OnInit {
         if (result.email_address) {
           record.email_address = result.email_address;
         }
+        if (result.phone_number) {
+          record.phone_number = result.phone_number;
+        }
         record.questions = record.questions || {};
         const key = this.params.__runner.fillIn(`${this.stack.module}: ${this.stack.title} ${this.stack.subtitle}`);
         record.questions[key] = record.questions[key] || [];

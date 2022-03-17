@@ -45,9 +45,10 @@ export class WidgetMoreInfoChatComponent implements OnInit {
         // this.content.debug = true;
         // this.runner.debug = true;
         this.record = {};
-        if (params.email_address) {
-          this.record.email_address = params.email_address;
+        if (params.email_address || params.phone_number) {
+          this.record._selected_method = 'yes';
         }
+        this.record.owner_name = params.owner.name;
         this.content.addTo(params.goodbyeMessage);
         this.content.queueFrom('יש לי עוד שאלה');
         return this.runner.run(
