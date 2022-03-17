@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ContentManager, ScriptRunnerImpl } from 'hatool';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subscription, timer } from 'rxjs';
 import { delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
 import { DataService } from '../../data.service';
 import { BackendService } from '../../backend.service';
@@ -95,7 +95,10 @@ export class ChatMsgCardStackComponent implements OnInit {
     this.stackEl.openState.next(false);
     this.stack = stack;
     // console.log('SELECT STACK OPENING');
-    this.stackEl.openState.next(true);
+    timer(1200).subscribe(() => {
+      console.log('opening....');
+      this.stackEl.openState.next(true);
+    });
   }
 
   returnValue(value?) {

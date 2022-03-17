@@ -52,8 +52,10 @@ export class StacksService {
   }
 
   updateDiscovery() {
-    this.discovery = this.discoveryRequested;
+    const ret = this.discoveryRequested;
+    this.discovery = ret;
     this.discoveryRequested = false;
+    return ret;
   }
 
   colorSchemeClass(stack) {
