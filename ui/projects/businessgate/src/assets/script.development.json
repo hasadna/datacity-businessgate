@@ -1787,11 +1787,21 @@
           "name": "default",
           "steps": [
             {
-              "say": "בשמחה, במה אוכל לעזור?",
-              "uid": "e570e74e21"
+              "say": "אין בעיה! אני יכול להעביר בשמך שאלה אל {{owner_name}}, ותוכלו להמשיך את השיחה בלעדי.",
+              "uid": "aa75a08688"
             },
             {
-              "uid": "c5e39a10c2",
+              "goto": "question",
+              "uid": "c6301b5585"
+            }
+          ],
+          "uid": "3d3b5c127d"
+        },
+        {
+          "name": "question",
+          "steps": [
+            {
+              "uid": "06bb557297",
               "wait": {
                 "long": true,
                 "placeholder": "אפשר לכתוב כאן בכמה מילים…",
@@ -1805,15 +1815,11 @@
                   "record"
                 ]
               },
-              "uid": "32fb575eb4"
-            },
-            {
-              "say": "אוקיי. אשמח לברר ולחזור אליך לגבי זה באימייל.\n",
-              "uid": "f97a1b90ee"
+              "uid": "da34d7dd98"
             },
             {
               "switch": {
-                "arg": "email_address",
+                "arg": "_selected_method",
                 "cases": [
                   {
                     "default": true
@@ -1821,37 +1827,69 @@
                   {
                     "steps": [
                       {
-                        "goto": "get-email",
-                        "uid": "3c8cf4a7b2"
+                        "say": "איך הכי נוח לך שנחזור אליך?",
+                        "uid": "74e471a81c"
+                      },
+                      {
+                        "uid": "99ab78fe15",
+                        "wait": {
+                          "options": [
+                            {
+                              "show": "באימייל",
+                              "steps": [
+                                {
+                                  "uid": "25a1e15766",
+                                  "wait": {
+                                    "input-kind": "email",
+                                    "placeholder": "כתובת האימייל שלך",
+                                    "variable": "email_address"
+                                  }
+                                },
+                                {
+                                  "say": "מצוין. אני אפנה ל{{owner_name}} וניצור איתך קשר לגבי זה תוך כמה ימים, בכתובת {{email_address}}.\n",
+                                  "uid": "a62153df9e"
+                                }
+                              ],
+                              "uid": "0893de3601",
+                              "value": "email"
+                            },
+                            {
+                              "show": "בשיחת טלפון",
+                              "steps": [
+                                {
+                                  "uid": "b2146ad485",
+                                  "wait": {
+                                    "placeholder": "מספר הטלפון שלך",
+                                    "validation": "[-+0-9]+",
+                                    "variable": "phone_number"
+                                  }
+                                },
+                                {
+                                  "say": "מצוין. אני אפנה ל{{owner_name}} וניצור איתך קשר לגבי זה תוך כמה ימים, בטלפון {{phone_number}}.\n",
+                                  "uid": "50e3a160d9"
+                                }
+                              ],
+                              "uid": "673208e008",
+                              "value": "phone"
+                            }
+                          ],
+                          "variable": "_selected_method"
+                        }
                       }
                     ],
-                    "uid": "360d902451",
+                    "uid": "643cef7c67",
                     "undefined": true
                   }
                 ]
               },
-              "uid": "ddcac0d113"
+              "uid": "e617a08d5e"
             },
-            {
-              "say": "מצויין, תודה. אני אהיה איתך בקשר באימייל לגבי זה תוך כמה ימים,  בכתובת {{email_address}}.\n",
-              "uid": "6d54c751aa"
-            },
-            {
-              "goto": "finalize",
-              "uid": "a4e891f6c3"
-            }
-          ],
-          "uid": "3d3b5c127d"
-        },
-        {
-          "name": "finalize",
-          "steps": [
             {
               "say": "יש עוד משהו שרצית לשאול בנושא?",
-              "uid": "1371d726e6"
+              "uid": "f730c37127"
             },
             {
-              "uid": "6551108e93",
+              "uid": "53d933d5bd",
               "wait": {
                 "options": [
                   {
@@ -1861,53 +1899,17 @@
                     "show": "אה, כן… יש לי עוד שאלה",
                     "steps": [
                       {
-                        "goto": "default",
-                        "uid": "80c1bc8894"
+                        "goto": "question",
+                        "uid": "022d9be3f5"
                       }
                     ],
-                    "uid": "c9bd2411d0"
-                  },
-                  {
-                    "show": "תיקון כתובת האימייל",
-                    "steps": [
-                      {
-                        "goto": "get-email",
-                        "uid": "0b26a040ec"
-                      },
-                      {
-                        "goto": "finalize",
-                        "uid": "79aceb1fb4"
-                      }
-                    ],
-                    "uid": "6526070dc8"
+                    "uid": "c2356d9773"
                   }
                 ]
               }
             }
           ],
-          "uid": "bf78bcda46"
-        },
-        {
-          "name": "get-email",
-          "steps": [
-            {
-              "say": "באיזו כתובת אוכל ליצור איתך קשר?",
-              "uid": "c21f0dd9e2"
-            },
-            {
-              "uid": "c77d4f17b1",
-              "wait": {
-                "input-kind": "email",
-                "placeholder": "כתובת האימייל שלך",
-                "variable": "email_address"
-              }
-            },
-            {
-              "say": "אוקיי, אשלח ל-{{email_address}}",
-              "uid": "c391aa577a"
-            }
-          ],
-          "uid": "b2f1d10419"
+          "uid": "e109ccbfff"
         }
       ]
     },
