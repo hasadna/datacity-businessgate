@@ -14,11 +14,11 @@ export class StackHeaderCardComponent implements OnInit {
   @Input() params;
 
   transforms = [
-    'rotate(5deg)',
-    'rotate(-3deg)',
-    'rotate(10deg)',
-    'rotate(-7deg)',
-    'rotate(2deg)',
+    'translateY(5px)matrix(1, 0.03, -0.04, 1, 0, 0)',
+    'translateY(5px)matrix(1, -0.03, 0.04, 1, 0, 0)',
+    'translateY(5px)matrix(1, -0.05, 0.05, 1, 0, 0)',
+    'translateY(5px)matrix(1, 0.05, -0.05, 1, 0, 0)',
+    'translateY(5px)matrix(1, -0.03, 0.04, 1, 0, 0)',
   ];
 
   ngOnInit(): void {

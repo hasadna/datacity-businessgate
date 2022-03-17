@@ -84,6 +84,7 @@ export class BackendService {
     if (!record.email_address || questions.length === 0) {
       return;
     }
+    const business_name = record.סוג_עסק || '-';
     const item = {
       to: owner.email,
       cc: [record.email_address, 'diklas@br7.org.il', 'rsv@br7.org.il'],
@@ -92,7 +93,7 @@ export class BackendService {
         name: 'direct-question',
         data: {
           job_title: owner.title,
-          business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
+          business_kind: business_name,
           location: (record.location ? record.location.שם : null) || '-',
           questions: questions,
         }
@@ -116,6 +117,7 @@ export class BackendService {
       }
     }
     const recipient_email_address = record.email_address || 'diklas@br7.org.il';
+    const business_name = record.סוג_עסק || '-';
     const item = {
       to: recipient_email_address,
       cc: ['diklas@br7.org.il', 'rsv@br7.org.il'],
@@ -124,7 +126,7 @@ export class BackendService {
         name: 'crm',
         data: {
           self_link: record.self_link,
-          business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
+          business_kind: business_name,
           location: (record.location ? record.location.שם : null) || '-',
           phone_number: record.phone_number || '',
           email_address: record.email_address,
