@@ -52,7 +52,7 @@ def process_stack_commercial_areas(stack):
             card.pop('cards', None)
             if 'photo' in card:
                 card['image'] = to_data_url(card.pop('photo')[0]['url'], width=680)
-            card['שם'] = card['title']
+            card['שם'] = card['title'].strip()
             cards.append(card)
         _cache.set(key, cards)
 
