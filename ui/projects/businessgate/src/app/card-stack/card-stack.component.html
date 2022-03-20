@@ -2,7 +2,7 @@
     [class.state-expanded]='expandState !== "collapsed"'
     [class.state-opened]='innerState === "open" || innerState === "opening"'
 >
-    <div class='stack' *ngIf='_stack' (click)='small ? openState.next(true) : null'>
+    <div class='stack' *ngIf='_stack' (click)='open ? null : openState.next(true)'>
         <div class='mask'>
             <div class='cards' #stackEl>
                 <div class='cards-scroller'
