@@ -8,6 +8,8 @@
     .wrapper {
         position: relative;
         z-index: 1;
+        transition-property: transform;
+        transition-duration: 500ms;
 
         .stack {
             width: 100%;
@@ -23,17 +25,60 @@
                 
                     overflow-x: hidden;
                     overflow-y: hidden;
-                    
                     position: relative;
-                    app-title-card {
-                        z-index: 1;
-                    }
-                    
-                    & > * {
-                        scroll-snap-align: center;
-                        transition-property: transform;
+
+                    transition-property: transform;
+                    transition-duration: 500ms;
+                    transform: scale(1);
+
+                    .cards-scroller  {
+                        width: 100%;
+                        display: flex;
+                        flex-flow: row;
+                        justify-content: flex-start;
+
+                        position: relative;
+                        app-title-card {
+                            z-index: 1;
+                        }
+
+                        margin: 0;
+                        transition-property: transform, margin-top, margin-bottom;
                         transition-duration: 500ms;
-                    }    
+                        transform: scale(1);
+    
+                        & > * {
+                            scroll-snap-align: center;
+                            transition-property: transform;
+                            transition-duration: 500ms;
+                        }
+    
+                        &.state-created {
+                            & > * {
+                                transition-duration: 0ms;
+                            }
+                            &.small {
+                                transition-duration: 0ms;
+                                transform: scale(0.54);
+                                margin: -80px 0;    
+                            }
+                        }
+                        &.state-initial {
+                            & > * {
+                                scroll-snap-align: start;
+                            }
+                            &.small {
+                                transform: scale(0.54);
+                                margin: -80px 0;
+                            }
+                        }
+                        &.state-closed {
+                            &.small {
+                                transform: scale(0.54);
+                                margin: -80px 0;
+                            }
+                        }
+                    }
                 }    
             }
 
@@ -52,8 +97,7 @@
             }
         }
     
-        &.opened {
-            z-index: 8;
+        &.state-expanded {
 
             .stack {
                 .mask {
@@ -72,7 +116,12 @@
                 }
 
             }
+        }
 
+        z-index: 0;
+
+        &.state-opened {
+            z-index: 8;
         }
 
     }

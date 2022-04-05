@@ -1,11 +1,11 @@
 - name: geo-insights
   steps:
     - switch:
-        arg: מיקום
+        arg: topics.geo_insights
         cases:
         - undefined: true
           steps:
-            - pop: default
+            - goto: return
         - default: true
     - say: >
         אני רוצה עכשיו להציע לך כמה

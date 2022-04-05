@@ -43,8 +43,10 @@ export class StateService {
     return [...this._current.filter((i) => i.indexOf(kind + ':') !== 0)].join('|');
   }
 
-  popState(kind) {
-    this.router.navigate([], {fragment: this.removeState(kind)});
+  popState(kind, x) {
+    if (this.inState(this._current, kind, x)) {
+      this.router.navigate([], {fragment: this.removeState(kind)});
+    }
   }
 
   inState(state: string[], kind, x) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, ReplaySubject, Subject } from 'rxjs';
-import * as stringify from 'json-stable-stringify';
+import stringify from 'quick-stable-stringify';
 import { switchMap } from 'rxjs/operators';
 import { SCRIPT_VERSION } from './version';
 import { ConfigService } from './config.service';
@@ -51,12 +51,14 @@ export class BackendService {
       .subscribe((doc) => {
         if (doc.exists) {
           this.state = (doc.data() as any).data;
-          console.log('Document was retrieved with content', this.state.length);
+          console.log('Document was retrieved with content', this.state);
           const record = JSON.parse(this.state);
           record.self_link = location;
           record.script_version = record.script_version || script_version;
           script_version = record.script_version;
           this.record.next(record);
+        } else {
+          this.router.navigate([''], {replaceUrl: true});
         }
       });
     }
@@ -82,6 +84,7 @@ export class BackendService {
     if (!record.email_address || questions.length === 0) {
       return;
     }
+    const business_name = record.סוג_עסק || '-';
     const item = {
       to: owner.email,
       cc: [record.email_address, 'diklas@br7.org.il', 'rsv@br7.org.il'],
@@ -90,7 +93,7 @@ export class BackendService {
         name: 'direct-question',
         data: {
           job_title: owner.title,
-          business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
+          business_kind: business_name,
           location: (record.location ? record.location.שם : null) || '-',
           questions: questions,
         }
@@ -112,16 +115,18 @@ export class BackendService {
       for (const name of Object.keys(record.questions).sort()) {
         questions.push({name, questions: record.questions[name]})
       }
-    }    
+    }
+    const recipient_email_address = record.email_address || 'diklas@br7.org.il';
+    const business_name = record.סוג_עסק || '-';
     const item = {
-      to: record.email_address,
+      to: recipient_email_address,
       cc: ['diklas@br7.org.il', 'rsv@br7.org.il'],
       bcc: 'emrib@br7.org.il',
       template: {
         name: 'crm',
         data: {
           self_link: record.self_link,
-          business_kind: (record._business_record ? record._business_record.business_kind_name : null) || '-',
+          business_kind: business_name,
           location: (record.location ? record.location.שם : null) || '-',
           phone_number: record.phone_number || '',
           email_address: record.email_address,

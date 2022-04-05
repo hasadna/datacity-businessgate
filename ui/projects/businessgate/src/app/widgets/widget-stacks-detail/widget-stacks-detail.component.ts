@@ -25,6 +25,7 @@ export class WidgetStacksDetailComponent implements OnInit {
       }),
       delay(1),
       tap(() => {
+        // console.log('OPENING STACK 2');
         this.cardStack.openState.next(true);
       })
     ).subscribe((stack_name) => {});
@@ -35,6 +36,7 @@ export class WidgetStacksDetailComponent implements OnInit {
 
   close() {
     if (this.cardStack) {
+      // console.log('CLOSING STACK 5');
       this.cardStack.openState.next(false);
     }
     this.stack_name = '';

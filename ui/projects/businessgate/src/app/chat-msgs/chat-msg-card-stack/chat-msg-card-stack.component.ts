@@ -1,12 +1,13 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ContentManager, ScriptRunnerImpl } from 'hatool';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subscription, timer } from 'rxjs';
 import { delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
 import { DataService } from '../../data.service';
 import { BackendService } from '../../backend.service';
 import { StacksService } from '../../stacks.service';
 import { CardStackComponent } from '../../card-stack/card-stack.component';
 import { MainScrollService } from '../../main-scroll.service';
+import { StateService } from '../../state.service';
 
 @Component({
   selector: 'app-chat-msg-card-stack',
@@ -17,6 +18,7 @@ export class ChatMsgCardStackComponent implements OnInit {
 
   @Input() params;
   @Input() content: ContentManager;
+  @Input() small = true;
   @ViewChild(CardStackComponent, {static: true}) stackEl: CardStackComponent;
 
   runner: ScriptRunnerImpl;
@@ -26,6 +28,8 @@ export class ChatMsgCardStackComponent implements OnInit {
   variable2: string;
   stacks: any[] = [];
   stack: any = null;
+  stateName = '';
+  opened = false;
   
   vScrollSub: Subscription = null;
   mainScrollPosition: number = null;
@@ -34,14 +38,15 @@ export class ChatMsgCardStackComponent implements OnInit {
   selectorsSlidden = false;
   mapVisible = false;
     
-  returned = new ReplaySubject<string>();
+  returned = new ReplaySubject<string|null>();
   init = new ReplaySubject<void>(1);
 
   constructor(private data: DataService, 
               private backend: BackendService, 
               public stacksSvc: StacksService,
               private hostElement: ElementRef,
-              private mainScroll: MainScrollService) {
+              private mainScroll: MainScrollService,
+              ) {
     this.slideSelectors(false);
     this.initStackListener();
   }
@@ -72,6 +77,8 @@ export class ChatMsgCardStackComponent implements OnInit {
         this.stack = result[0];
       }
       if (this.params.__runFast) {
+        this.stacksSvc.discoveryRequested = false;
+        this.stacksSvc.updateVisibleCount();
         if (this.variable) {
           if (this.record[this.variable]) {
             this.returnValue(this.record[this.variable]);
@@ -84,8 +91,14 @@ export class ChatMsgCardStackComponent implements OnInit {
   }
 
   selectStack(stack) {
+    // console.log('SELECT STACK CLOSING');
+    this.stackEl.openState.next(false);
     this.stack = stack;
-    this.stackEl.openState.next(true);
+    // console.log('SELECT STACK OPENING');
+    timer(1200).subscribe(() => {
+      console.log('opening....');
+      this.stackEl.openState.next(true);
+    });
   }
 
   returnValue(value?) {
@@ -96,14 +109,16 @@ export class ChatMsgCardStackComponent implements OnInit {
     if (this.variable2) {
       this.record[this.variable2] = value;
     }
+    // console.log('CLOSING STACK 3');
     this.stackEl.openState.next(false);
-    this.returned.next();
+    this.returned.next(null);
   }
 
   wait() {
     return this.returned.pipe(
       first(),
       tap(() => {
+        // console.log('CLOSING STACK 2');
         this.stackEl.openState.next(false);
         return this.backend.update(this.record);
       }),
@@ -143,6 +158,7 @@ export class ChatMsgCardStackComponent implements OnInit {
       }
     } else if (state === 'open') {
       this.mainScrollPosition = null;
+      this.opened = true;
       this.vScrollSub = this.mainScroll.scrollPosition.pipe(
         filter((pos) => {
           if (this.mainScrollPosition !== null) {
@@ -155,6 +171,7 @@ export class ChatMsgCardStackComponent implements OnInit {
         first()
       ).subscribe(() => {
         this.vScrollSub = null;
+        // console.log('CLOSING STACK 1');
         this.stackEl.openState.next(false);
       });
     } else if (state === 'closing') {
@@ -163,6 +180,9 @@ export class ChatMsgCardStackComponent implements OnInit {
         this.vScrollSub = null;
         this.mainScrollPosition = null;
       }
+    } else if (state === 'closed') {
+      this.opened = false;
+      this.stacksSvc.closeStack();
       // this.content.setScrollLock(false);
     } else if (state === 'map-opened') {
       this.mapVisible = true;

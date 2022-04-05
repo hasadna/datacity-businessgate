@@ -1,5 +1,5 @@
-<div class='stack-container' [class.open]='open'>
-    <app-chat-msg-card-stack *ngIf='content && params' [params]='params' [content]='content'></app-chat-msg-card-stack>
+<div class='stack-container' [class.open]='open' [attr.data-name]='name'>
+    <app-chat-msg-card-stack *ngIf='!!content && !!params' [params]='params' [content]='content' [small]='false' #stack></app-chat-msg-card-stack>
     <div class='close' (click)='closeRequest.next(null)'>
         <img src='assets/img/close.svg'>
     </div>

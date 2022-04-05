@@ -3,8 +3,9 @@
     - goto: introduction
     - goto: select-business-kind
     - goto: select-location
-    - do:
-        cmd: stacks_button_visible
+    - goto: choose-property-size
+    - goto: topic-selection
+    - goto: first-contact
 
 - name: introduction
   steps:
@@ -15,28 +16,27 @@
           width: '40%'
     - say: קוראים לי BR7, אני בוט קטן שמתמחה בעסקים קטנים בעיריית באר שבע
     - say: >
-        עשרות מומחים בעירייה עבדו איתי במשך חודשים
-        ויצרנו יחד מאות כרטיסים שונים שנוגעים בכל היבט של פתיחת עסק:
-        רישוי, ארנונה, שילוט, תכנון, חניה, ביקושים, מה לא…
+        עשרות מומחים בעירייה כתבו עבורי 
+        מאות כרטיסי תוכן בנוגע לכל ההיבטים של פתיחת עסק:
+        רישוי, ארנונה, שילוט, תכנון, חניה, מה לא...
     - say: >
-        אני אשאל אותך כמה שאלות בסיסיות ואציג לך
-        כרטיסים שממוקדים במיוחד בסיפור הפתיחה של העסק שלך	
-    - say: אז שנתחיל?
+        תיכף אשאל אותך 3 שאלות קצרות לגבי העסק שברצונך לפתוח,
+        בעזרתן אוכל לתת לך את המידע הרלוונטי עבורך.
+    - html-say: >
+        חשוב לציין:<br/>
+        לפי <a href='javascript:;' onclick='document.location.hash="menu:eula";'>תנאי השימוש שלי</a>, 
+        המידע שאתן לך כאן הוא ראשוני וכללי. מומלץ להמשיך את התהליך עם אנשי המקצוע של העירייה, שיוכלו להנחות אותך בניואנסים הקטנים.
+    - say:
+        בהמשך השיחה אוכל לקשר אותך אל דקלה מיעדים (החברה העירונית לפיתוח עסקי), שתוכל ללוות אותך בכל התהליך.
+    - say: נשמע טוב?
     - wait:
         options:
-          - show: בטח
-    - say: >
-        תוך 10 דקות בערך כל התהליך של פתיחת עסק יהפוך לברור הרבה יותר	&#9889;
-    - html-say: >
-        אתן לך כאן מידע ראשוני (לפי <a href='javascript:;' onclick='document.location.hash="menu:eula";'>תנאי השימוש שלי</a>)
-         - את התהליך המלא מומלץ להמשיך אחר כך עם אנשי מקצוע שינחו אותך בניואנסים הקטנים
-    - say:
-        בהמשך גם אכיר לך את דקלה מיעדים שתוכל ללוות אותך הלאה
+          - show: נשמע טוב.
 
 - name: select-business-kind
   steps:
-    - say:
-        אבל קודם כל אצטרך שנזהה יחד את סוג העסק שלך מתוך הרשימה
+    - say: >
+        יופי, אז נתחיל בשאלות: בתור התחלה אצטרך שנזהה יחד את סוג העסק שלך מתוך הרשימה.
     - wait:
         options:
           - show: יאללה
@@ -48,20 +48,7 @@
                   variable2: סוג_עסק
                   placeholder: חיפוש (מסעדה, מוסך, משרד…)
                   response: בחרתי {{סוג_עסק}}
-              - say: נהדר!
-              - do:
-                  cmd: check_for_opportunity
-                  variable: _has_opportunity
-              - switch:
-                  arg: _has_opportunity
-                  cases:
-                    - match: true
-                      steps:
-                        - say: למעשה יש כרגע כמה מקומות בעיר שבהם כדאי במיוחד להקים {{סוג_עסק}} וגם כמה הזדמנויות שהעירייה מקדמת
-                        - say: האם יעניין אותך לשמוע על הזדמנויות או שכבר בחרת מיקום?
-                    - default: true
-                      steps:
-                        - say: האם יעניין אותך לשמוע על מתחמים עסקיים או שכבר בחרת מיקום?
+              - say: מצויין!
 
           - show: עוד לא החלטתי מה לפתוח
             class: grayed
@@ -69,10 +56,11 @@
               - say: בסדר גמור
               - say: יש לי כבר לא מעט מה לספר לך גם ככה
               - say: ואם ישארו לך שאלות בסוף, דקלה תשמח לעזור
-              - say: האם יעניין אותך לשמוע על מתחמים עסקיים או שכבר בחרת מיקום?
 
 - name: select-location
   steps:
+    - say: >
+        לשאלה הבאה: יעניין אותך לשמוע על מתחמים עסקיים בעיר, או שכבר בחרת מיקום?
     - wait:
         options:
           - show: אשמח לשמוע
@@ -103,3 +91,132 @@
         cmd: calculate_locations
         params:
           - record
+
+- name: choose-property-size
+  steps:
+    - html-say: >
+        ושאלה אחרונה:<br/>
+        ידוע לך כבר שטח הנכס? זה יעזור לי לדייק את המידע שאציג בנוגע לרישוי העסק ולארנונה.
+    - wait:
+        options:
+        - show: כן, יש לי שטח מדוייק
+          echo: no
+          steps:
+            - wait:
+                variable: גודל_נכס
+                input-kind: number
+                input-min: 1
+                input-max: 100000
+                placeholder: גודל הנכס במ״ר
+                response: >
+                  {{גודל_נכס}} מטר
+        - show: לא, אבל אתן שטח משוער
+          echo: no
+          steps:
+            - wait:
+                variable: גודל_נכס
+                input-kind: number
+                input-min: 1
+                input-max: 100000
+                placeholder: גודל הנכס המשוער במ״ר
+                response: >
+                  פחות או יותר {{גודל_נכס}} מטר
+        - show: אין לי מושג
+          class: grayed
+          steps:
+            - say: אין בעיה :) 
+    - say: מעולה! עכשיו אני יכול להתאים לך מידע רלוונטי 🤖.
+
+- name: topic-selection
+  steps:
+    - say: הנה כמה נושאים שלדעתי כדאי שנעבור עליהם ביחד.
+    - say: אפשר להסיר את ה-✓ מנושאים שלא מעניינים אותך, ואני אדלג עליהם.
+    - topic-selection:
+        id: intro
+        choices:
+          - id: licensing
+            show: רישוי העסק
+            default: true
+            requires:
+              - business_kind
+          - id: geo_insights
+            show: אזור הנכס
+            default: true
+            requires:
+              - location
+          - id: arnona
+            show: ארנונה
+            default: true
+            requires:
+              - business_kind
+              - location
+          - id: business-operation
+            show: ניהול העסק והפיקוח העירוני 
+            default: true
+            requires: []
+          - id: signage
+            show: שילוט
+            default: false
+            requires:
+              - business_kind
+          - id: tips
+            show: טיפים כלליים לבעלי עסקים 
+            default: true
+            requires: []
+          - id: demand
+            show: סקר הביקושים שנערך ב-2019
+            default: false
+            requires: []
+        responses:
+          some:
+            show: בוא נתחיל!
+          all:
+            show: אני רוצה לשמוע הכל
+          none:
+            show: אעדיף פשוט לדבר עם מישהו
+
+    - switch:
+        arg: _skipped_topic_selection
+        cases:
+          - match: true
+            steps:
+              - say: אני מבין
+          - default: true
+            steps:
+              - say: נהדר!
+              - say: אני אחראי לסכם עבורך את כל נושאי השיחה שלנו. מעכשיו והלאה הם יופיעו תמיד בפינה הימנית העליונה של המסך.
+
+- name: first-contact
+  steps:
+    - say: >
+        לפני שאנחנו מתחילים: הכנתי לך קישור אישי כדי שכל השיחה שלנו תהיה זמינה עבורך גם אם היא תיפסק באמצע.
+    - copy-link:
+    - say: >
+        אם זה עוזר, אני אוכל לשלוח את הלינק הזה ואת סיכום השיחה שלנו לאימייל שלך. רוצה?
+    - wait:
+        options:
+          - show: כן, זה יהיה נוח
+            steps:
+              - goto: get-email
+              - say: מעולה, אני אשלח בסוף השיחה שלנו סיכום עם כל הקישורים הרלוונטיים, שיהיו לך בהישג יד.
+          - show: לא תודה
+            class: grayed
+            steps:
+              - say: אין בעיה. יותר נוח לך בטלפון במקום אימייל?
+              - wait:
+                  options:
+                    - show: כן, תודה
+                      steps:
+                        - goto: get-phone-number
+                        - say: מעולה, יצרו איתך קשר תוך כמה ימים.
+                    - show: לא תודה
+                      class: grayed
+                      steps:
+                        - say: >
+                            בסדר גמור :) הלינק הזה יישמר עבורך בכל אופן, ונציגי העירייה ויעדים ישמחו לשמוע ממך בכל עת.
+    - say: אז, שנתחיל?
+    - wait:
+        options:
+          - show: בטח
+
+

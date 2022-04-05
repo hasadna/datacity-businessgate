@@ -1,26 +1,44 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { ScriptRunnerImpl } from 'hatool';
 
 import * as mapboxgl from 'mapbox-gl';
 import { FeatureCollection } from 'geojson';
 import { MapService } from '../map.service';
-import { from, fromEvent, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { from, fromEvent, Observable, ReplaySubject, Subject, Subscription, timer } from 'rxjs';
 import { WidgetsService } from '../widgets.service';
 import { debounceTime, delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
 import { StateService } from '../state.service';
+import { ObservableQueue } from '../observable-queue';
 
+
+export enum CardStackState {
+  Created = 'created',
+  Initial = 'initial',
+  Opening = 'opening',
+  Open = 'open',
+  Closing = 'closing',
+  Closed = 'closed',
+};
+
+export enum StackExpansionState {
+  Collapsed = 'collapsed',
+  Expanded = 'expanded',
+  Expanding = 'expanding',
+  Collapsing = 'collapsing',
+};
 
 @Component({
   selector: 'app-card-stack',
   templateUrl: './card-stack.component.html',
   styleUrls: ['./card-stack.component.less']
 })
-export class CardStackComponent implements OnInit, OnChanges {
+export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
   
   // Inputs
   @Input() stack;
   @Input() params;
   @Input() goodbye = false;
+  @Input() small = true;
 
   // Outputs
   @Output() activeCard = new EventEmitter<{index: number, card: any}>();
@@ -61,17 +79,24 @@ export class CardStackComponent implements OnInit, OnChanges {
   fullBounds: mapboxgl.LngLatBounds;
   mapFitParams = new Subject<any[]>();
 
+  // Horizontal scroll
+  currentIndex = -1;
+  scrollSub: Subscription = null;
+
+  // Expand/Collapse
+  expandState: StackExpansionState = StackExpansionState.Collapsed;
+  expandQueue = new ObservableQueue<void>('EXPAND Q');
+
   // State
+  innerState: CardStackState = CardStackState.Created;
+  openQueue = new ObservableQueue<void>('OPEN Q');
+
   runner: ScriptRunnerImpl;
   record: any;
-  currentIndex = -1;
-  open = false;
-  opened = false;
   cards = [];
   init = new ReplaySubject<boolean>();
   openState = new Subject<boolean>();
-  openStateHandling: Subject<void> = null;
-  scrollSub: Subscription = null;
+  // openStateHandling: Subject<void> = null;
   mapCloseRequestedSub: Subscription = null;
   _stack = null;
 
@@ -86,7 +111,7 @@ export class CardStackComponent implements OnInit, OnChanges {
     });
     this.init.pipe(
       filter((x) => !!x),
-      delay(1),
+      delay(0),
       tap(() => {
         const el = this.el.nativeElement as HTMLDivElement;
         this.fullWidth = el.offsetWidth;
@@ -97,7 +122,12 @@ export class CardStackComponent implements OnInit, OnChanges {
           this.scrollPadding = this.fullWidth - this.width;
         }
         this.scrollPadding = this.scrollPadding / 2;
-      })
+      }),
+      delay(1000),
+      tap(() => {
+        this.innerState = CardStackState.Initial;
+        this.expand();
+      }),
     ).subscribe((v) => {});
     this.initStateListener();
   }
@@ -106,154 +136,258 @@ export class CardStackComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.init.next(!!this.stack && !!this.el.nativeElement);
+  }
+
   ngOnChanges(): void {
+    // let obs: Observable<any> = from([true]);
+    // if (this.innerState === CardStackState.Open) {
+    //   obs = this.collapse();
+    // }
+    if (!this._stack) {
+      this.updateStack();
+      this.init.next(!!this.stack && !!this.el.nativeElement);
+    }
+  }
+
+  updateStack() {
+    // console.log('REPLACING STACK', this._stack?.name, '->', this.stack?.name);
     this.runner = this.params.__runner;
     this.record = this.runner.record;
     if (this.stack !== this._stack) {
       this._stack = this.stack;
       this.cards = this.processCards();
     }
-    this.init.next(!!this.stack);
   }
 
   // State Management
   initStateListener() {
-    this.openState.pipe(
-      switchMap((state) => {
-        console.log(this.stackName, 'OPEN STATE', state);
-        if (this.openStateHandling) {
-          return this.openStateHandling.pipe(map(() => state));
-        } else {
-          return from([state]);
-        }
-      }),
-      switchMap((state) => {
-        this.openStateHandling = new Subject<void>();
-        if (this.open) {
-          return this.closeStack().pipe(
-            map(() => state)
-          );
-        } else {
-          return from([state]);
-        }
-      }),
-      delay(100),
-      switchMap((state) => {
-        if (state) {
-          console.log(this.stackName, 'OPENING STACK', state);
-          return this.openStack();
-        } else {
-          return from([state]);
-        }
-      })
-    ).subscribe((state) => {
-      const obs = this.openStateHandling;
-      this.openStateHandling = null;
-      obs.next();
+    this.openState.pipe(delay(0)).subscribe((state) => {
+      if (state) {
+        // console.log('HANDLING REQUEST FOR OPENING STACK', this.stackName);
+        this.openQueue.add(this.openStack());
+      } else {
+        // console.log('HANDLING REQUEST FOR CLOSING STACK', this.stackName);
+        this.openQueue.add(this.closeStack());
+      }
     });
   }
 
-  openStack() {
-    return from([true]).pipe(
-      delay(0),
-      tap(() => {
-        this.open = true;
-        this.state.pushState('stack', this.stackName);
-        this.state.state.pipe(
-          filter((state) => this.state.inState(state, 'stack', this.stackName)),
-          first(),
-          switchMap((state) => {
-            console.log('CARDSTACK STATE', state);
-            return this.state.state;
-          }),
-          filter((state) => !this.state.inState(state, 'stack', this.stackName)),
-          first()
-        ).subscribe(() => {
-          if (this.open) {
-            this.openState.next(false);
+  get open() {
+    return this.innerState === CardStackState.Opening || this.innerState === CardStackState.Open;
+  }
+
+  startScrollListening() {
+    const el = this.stackEl.nativeElement as HTMLDivElement;
+    this.fullWidth = el.offsetWidth;
+    this.scrollSub = fromEvent(el, 'scroll').subscribe((event) => {
+      let ticking = false;
+      let scrollPosition = (event.target as HTMLDivElement).scrollLeft;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          scrollPosition = -scrollPosition;
+          let fromCard = Math.floor(scrollPosition / this.width);
+          let interpolate = (scrollPosition % this.width) / this.width;
+          if (interpolate === 0 && fromCard !== 0) {
+            interpolate = 1;
+            fromCard -= 1;
           }
+          this.fitMap(fromCard, fromCard + 1, interpolate);
+          ticking = false;
         });
+        ticking = true;
+      }
+    });
+  }
+
+  expand() {
+    const el = this.stackEl.nativeElement as HTMLDivElement;
+    const obs = from([true]).pipe(
+      tap(() => {
+        // console.log(this.stackName, 'EXPANDING');
+        this.expandState = StackExpansionState.Expanding;
+        if (this.scrollSub) {
+          this.scrollSub.unsubscribe();
+          this.scrollSub = null;  
+        }
+      }),
+      delay(600), //TODO wait for animation to finish
+      tap(() => {
+        el.scroll({top: 0, left: 0, behavior: 'auto'});
+      }),
+      delay(0), // Wait for layouting
+      tap(() => {
+        this.calcPositionTransform(); // Position vertically
+        this.startScrollListening();
+      }),
+      delay(250), //TODO wait for end of scrolling
+      map(() => {
+        const el = this.stackEl.nativeElement as HTMLDivElement;
+        if (this.innerState === CardStackState.Opening) {
+          el.scroll(-this.width, 0); // Scroll to the first card
+        }
+        this.expandState = StackExpansionState.Expanded;
+      }),
+      delay(1000), //wait for end of scrolling
+      tap(() => {
+        // console.log(this.stackName, 'EXPANDED');
+      })
+    );
+    const done = new ReplaySubject<void>();
+    const checker = from([true]).pipe(
+      switchMap(() => {
+        // console.log(this.stackName, 'CHECKING IF EXPANDED', this.expandState);
+        if (this.expandState === StackExpansionState.Expanded || this.expandState === StackExpansionState.Expanding) {
+          return from([void 0]).pipe(
+            tap(() => {
+              if (this.innerState === CardStackState.Opening || this.innerState === CardStackState.Open) {
+                const el = this.stackEl.nativeElement as HTMLDivElement;
+                el.scroll(-this.width, 0); // Scroll to the first card
+              }
+            }),
+            delay(1000),
+            tap(() => {
+              if (this.innerState === CardStackState.Opening || this.innerState === CardStackState.Open) {
+                const el = this.stackEl.nativeElement as HTMLDivElement;
+                el.scroll(-this.width, 0); // Scroll to the first card
+              }
+            })
+          );
+        } else {
+          return obs;
+        }
+      }),
+      tap(() => {
+        done.next();
+      })
+    );
+    // console.log('REQUESTING EXPAND', this.stackName);
+    this.expandQueue.add(checker);
+    return done;
+  }
+
+  collapse() {
+    const r = Math.random();
+    const obs = from([true]).pipe(
+      tap(() => {
+        // console.log(this.stackName, 'COLLAPSING', r);
+        this.expandState = StackExpansionState.Collapsing;
+      }),
+      delay(500), // Wait for other scrolling to end so that this one works
+      tap(() => {
+        const el = this.stackEl.nativeElement as HTMLDivElement;
+        console.log('SCROLLING TO 0');
+        el.scroll(0, 0);
+      }),
+      // delay(600), //TODO Wait for animation to finish
+      delay(1000), //wait for end of scrolling
+      map(() => {
+        console.log('SCROLLED TO 0');
+        this.expandState = StackExpansionState.Collapsed;
+        // console.log(this.stackName, 'COLLAPSED', r);
+      })
+    );
+    const done = new ReplaySubject<void>();  
+    const checker = from([r]).pipe(
+      switchMap(() => {
+        // console.log(this.stackName, 'CHECKING IF COLLAPSED', r, this.expandState);
+        if (this.expandState === StackExpansionState.Collapsed || this.expandState === StackExpansionState.Collapsing) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
+      }),
+      tap(() => {
+        done.next();
+      })
+    );
+    // console.log('REQUESTING COLLAPSE', r, this.stackName);
+    this.expandQueue.add(checker);
+    return done;
+  }
+
+  openStack() {
+    const obs = from([true]).pipe(
+      tap(() => {
+        // console.log(this.stackName, 'OPENING');
+        this.innerState = CardStackState.Opening;
+        this.widgets.openStack = this;
+        this.updateStack();    
+      }),
+      switchMap(() => {
+        this.state.pushState('stack', this.stackName);
         this.stackState.emit('opening');
         this.fitMap(0, 1, 0);
+        // console.log('WAITING FOR EXPAND');
+        return this.expand();
       }),
-      delay(600),
       tap(() => {
-        const el = this.stackEl.nativeElement as HTMLDivElement;
-        el.scroll(0, 0);
-        this.opened = true;
+        // console.log('EXPANDED');
+        this.calcPositionTransform(); // Position vertically
+        this.innerState = CardStackState.Open;
       }),
-      delay(0),
       switchMap(() => {
-        const el = this.stackEl.nativeElement as HTMLDivElement;
-        this.fullWidth = el.offsetWidth;
-        this.scrollSub = fromEvent(el, 'scroll').subscribe((event) => {
-          let ticking = false;
-          let scrollPosition = (event.target as HTMLDivElement).scrollLeft;
-          if (!ticking) {
-            requestAnimationFrame(() => {
-              // if (scrollPosition !== 0) {
-              //   scrollPosition = -scrollPosition - 20 + (this.fullWidth - this.width) / 2;
-              // }
-              scrollPosition = -scrollPosition;
-              let fromCard = Math.floor(scrollPosition / this.width);
-              let interpolate = (scrollPosition % this.width) / this.width;
-              if (interpolate === 0 && fromCard !== 0) {
-                interpolate = 1;
-                fromCard -= 1;
-              }
-              this.fitMap(fromCard, fromCard + 1, interpolate);
-              ticking = false;
-            });
-            ticking = true;
-          }
-        });
-        if (this.stack.map) {
+         if (this._stack.map) {
           return this.showMap();
         } else {
           return from([true]);
-        }
+        }    
       }),
-      delay(250),
-      tap(() => {
-        this.calcPositionTransform();
-        const el = this.stackEl.nativeElement as HTMLDivElement;
-        el.scroll(-this.width, 0);
-        this.stackState.next('open');
-        console.log(this.stackName, 'STACK IS OPEN');
+      delay(250), /// Wait for repositioning to avoid closing by scroll detection
+      map(() => {
+        this.stackState.next('open'); // Mark as open
+        // console.log(this.stackName, 'STACK IS OPEN');
+      }),
+    );
+    return from([true]).pipe(
+      switchMap(() => {
+        // console.log('CHECKING IF STACK IS OPEN', this.stackName, this.innerState);
+        if (this.innerState === CardStackState.Open || this.innerState === CardStackState.Opening) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
       })
     );
   }
 
   closeStack() {
-    return from([true]).pipe(
-      delay(0),
+    const obs = from([true]).pipe(
       tap(() => {
-        console.log(this.stackName, 'CLOSING');
-        this.open = false;
-        this.state.popState('stack');
+        // console.log(this.stackName, 'CLOSING');
+        this.innerState = CardStackState.Closing;
+        this.state.popState('stack', this.stackName);
         this.map = null;
         this.stackState.next('closing');
-        if (this.scrollSub) {
-          this.scrollSub.unsubscribe();
-          this.scrollSub = null;  
-        }
-        const el = this.stackEl.nativeElement as HTMLDivElement;
-        el.scroll(0, 0);
+        this.widgets.openStack = null;
       }),
       switchMap(() => {
-        console.log(this.stackName, 'CLOSING MAP');
+        // console.log(this.stackName, 'CLOSING MAP');
         return this.closeMap();
       }),
-      delay(600),
+      switchMap(() => {
+        return this.collapse();
+      }),
       tap(() => {
-        console.log(this.stackName, 'CLOSING DONE');
-        this.opened = false;
+        // console.log(this.stackName, 'CLOSING DONE');
+        this.innerState = CardStackState.Closed;
         this.calcPositionTransform();  
       }),
-      delay(1),
-      tap(() => {
+      delay(0),
+      map(() => {
         this.stackState.next('closed');
       })
+    );
+    return from([true]).pipe(
+      switchMap(() => {
+        // console.log('CHECKING IF STACK IS CLOSED', this.stackName, this.innerState);
+        if (this.innerState !== CardStackState.Open && this.innerState !== CardStackState.Opening && this.innerState !== CardStackState.Initial) {
+          return from([void 0]);
+        } else {
+          return obs;
+        }
+      }),
     );
   }
 
@@ -262,14 +396,15 @@ export class CardStackComponent implements OnInit, OnChanges {
     return from([true]).pipe(
       switchMap(() => {
         this.processGeometries();
-        if (this.stack.scheme === 'green') {
+        if (this._stack.scheme === 'green') {
           this.PREFIX = 'green_';
         }
         this.cards.forEach((card) => {
           card.bounds = card.bounds || this.fullBounds;
         });
         this.widgets.mapActive.next(key);
-        this.mapCloseRequestedSub = this.widgets.mapCloseRequested.pipe(first()).subscribe(() => {
+        this.mapCloseRequestedSub = this.widgets.mapCloseRequested.pipe(delay(0), first()).subscribe(() => {
+          console.log('MAP CLOSE REQUESTED');
           this.openState.next(false);
           this.mapCloseRequestedSub = null;
         });
@@ -281,13 +416,13 @@ export class CardStackComponent implements OnInit, OnChanges {
         }
         this.map = map;
         map.addSource(
-          'data',  {type: 'geojson', data: this.stack.geometry}
+          'data',  {type: 'geojson', data: this._stack.geometry}
         );
         map.addSource(
-          'pointData',  {type: 'geojson', data: this.stack.pointGeometry}
+          'pointData',  {type: 'geojson', data: this._stack.pointGeometry}
         );
         map.addSource(
-          'isochronesData',  {type: 'geojson', data: this.stack.isochronesGeometry}
+          'isochronesData',  {type: 'geojson', data: this._stack.isochronesGeometry}
         );
         const style = map.getStyle();
         for (const layer_id of this.POLYGON_LAYERS) {
@@ -302,6 +437,7 @@ export class CardStackComponent implements OnInit, OnChanges {
           if (layer.filter) {
             newLayer.filter = layer.filter;
           }
+          // console.log('SHOWING LAYER', layer_id, newLayer, 'WITH GEOM', this._stack.geometry);
           map.addLayer(newLayer, this.PREFIX + layer_id);
         }
         for (const layer_id of this.ISO_LAYERS) {
@@ -386,14 +522,17 @@ export class CardStackComponent implements OnInit, OnChanges {
 
   closeMap() {
     this.widgets.mapActive.next(0);
-    return this.widgets.mapLoaded.pipe(
+    const ret = this.widgets.mapLoaded.pipe(
       filter((x) => x === null),
       first(),
       tap(() => {
         this.calcPositionTransform();
         this.stackState.next('map-closed');
+        console.log('CLOSED MAP', this.stackName);
       })
     );
+    console.log('CLOSE MAP', this.widgets.mapLoaded, 'ret=', ret);
+    return ret;
   }
 
   returnValue(value) {
@@ -402,22 +541,26 @@ export class CardStackComponent implements OnInit, OnChanges {
 
   // Utilities
   layout(card) {
-    return card.layout || this.stack.layout || 'simple';
+    return card.layout || this._stack.layout || 'simple';
   }
 
   current() {
-    if (this.stack.currentField && this.record && this.record.location) {
-      return this.record.location[this.stack.currentField];
+    if (this._stack.currentField && this.record && this.record.location) {
+      return this.record.location[this._stack.currentField];
     }
   }
 
   get stackName() {
-    return this.stack ? this.stack.name : '<noname>';
+    return this._stack ? this._stack.name : '<noname>';
+  }
+
+  get stateName() {
+    return this._stack?.state_name || this.stackName;
   }
 
   // Position calculation
   transform(i) {
-    if (this.open) {
+    if (this.expandState === StackExpansionState.Expanded || this.expandState === StackExpansionState.Expanding) {
       return 'translateX(0px) translateY(0px) rotate(0deg)';
     } else {
       const rotation = i > 0 ? (i*777 % 10) - 5 : 0;
@@ -427,14 +570,20 @@ export class CardStackComponent implements OnInit, OnChanges {
   }
 
   calcPositionTransform() {
-    if (this.open && this.stack && this.stack.map) {
+    if (this.open && this._stack) {
       const el = this.el.nativeElement as HTMLDivElement;
       const bbox = el.getBoundingClientRect();
       const bottom = bbox.top + bbox.height;
       const height = window.innerHeight;
-      this.positionTransform = 'translateY(' + (height - bottom) + 'px)';
+      let target = 0;
+      if (this._stack.map) {
+        target = height;
+      } else {
+        target = height/2 + bbox.height/2;
+      }
+      this.positionTransform = 'translateY(' + (target - bottom) + 'px)';
       return true;
-    } else {
+  } else {
       this.positionTransform = 'translateY(0px)';
       return false;
     }
@@ -443,8 +592,9 @@ export class CardStackComponent implements OnInit, OnChanges {
   // Data Processing
   processCards() {
     const ret = [];
-    for (const card of this.stack.cards) {
-      card.selectButtonText = card.selectButtonText || this.stack.selectButtonText;
+    const business_name = this.record.סוג_עסק || '';
+    for (const card of this._stack.cards) {
+      card.selectButtonText = card.selectButtonText || this._stack.selectButtonText;
       if (card.test) {
         if (!this.runner.get(this.record, card.test)) {
           continue;
@@ -457,13 +607,15 @@ export class CardStackComponent implements OnInit, OnChanges {
             found = true;
           }
           if (this.record._business_record) {
-            if (bk === this.record._business_record.business_kind_name) {
+            if (bk === business_name) {
               found = true;
             }
-            for (const dm of this.record._business_record.demand_category) {
-              if (bk === dm[0]) {
-                found = true;
-              }
+            if (this.record._business_record.demand_category) {
+              for (const dm of this.record._business_record.demand_category) {
+                if (bk === dm[0]) {
+                  found = true;
+                }
+              }  
             }
             const licensable = this.record._business_record.license_item && this.record._business_record.license_item.length > 0;
             if (bk === 'טעוני רישוי' && licensable) {
@@ -523,7 +675,7 @@ export class CardStackComponent implements OnInit, OnChanges {
 
   processGeometries() {
     this.fullBounds = new mapboxgl.LngLatBounds();
-    this.stack.bounds = [this.fullBounds];
+    this._stack.bounds = [this.fullBounds];
     const geometry: FeatureCollection = {
       type: 'FeatureCollection',
       features: []
@@ -544,7 +696,7 @@ export class CardStackComponent implements OnInit, OnChanges {
         card.geometry.properties.selected = card.geometry.properties.selected || false;
         const cardBounds = this.calculateGeometryBounds(card.geometry);
         this.fullBounds.extend(cardBounds);
-        this.stack.bounds.push(cardBounds);
+        this._stack.bounds.push(cardBounds);
         geometry.features.push(card.geometry);
 
         if (!card.pointGeometry) {
@@ -553,39 +705,39 @@ export class CardStackComponent implements OnInit, OnChanges {
         card.pointGeometry.properties = card.geometry.properties;
         pointGeometry.features.push(card.pointGeometry);
       } else {
-        this.stack.bounds.push(this.fullBounds);
+        this._stack.bounds.push(this.fullBounds);
       }
     });
 
-    if (!this.stack.geometry) {
-      this.stack.geometry = geometry;
+    if (!this._stack.geometry) {
+      this._stack.geometry = geometry;
     } else {
-      this.fullBounds.extend(this.calculateGeometryBounds(this.stack.geometry));
-      (this.stack.geometry.features || []).forEach((geometry) => {
+      this.fullBounds.extend(this.calculateGeometryBounds(this._stack.geometry));
+      (this._stack.geometry.features || []).forEach((geometry) => {
         geometry.properties.x = geometry.properties.x || 2;
-        if (this.stack.currentField) {
-          geometry.properties.selected = this.record.location && (geometry.properties.title === this.record.location[this.stack.currentField]);
+        if (this._stack.currentField) {
+          geometry.properties.selected = this.record.location && (geometry.properties.title === this.record.location[this._stack.currentField]);
         } else {
           geometry.properties.selected = geometry.properties.selected || false;
         }
       });
     }
 
-    if (!this.stack.isochronesGeometry) {
-      this.stack.isochronesGeometry = isochronesGeometry;
+    if (!this._stack.isochronesGeometry) {
+      this._stack.isochronesGeometry = isochronesGeometry;
     } else {
-      this.fullBounds.extend(this.calculateGeometryBounds(this.stack.isochronesGeometry));
+      this.fullBounds.extend(this.calculateGeometryBounds(this._stack.isochronesGeometry));
     }
 
-    if (!this.stack.pointGeometry) {
-      this.stack.pointGeometry = pointGeometry;
+    if (!this._stack.pointGeometry) {
+      this._stack.pointGeometry = pointGeometry;
     }
-    this.stack.bounds.push(this.fullBounds);
+    this._stack.bounds.push(this.fullBounds);
   }
 
   fitMap(boundsIdx1, boundsIdx2, t) {
     this.currentIndex = Math.round(boundsIdx1 + t) - 1;
-    if (this.stack.map) {
+    if (this._stack.map) {
       this.mapFitParams.next([boundsIdx1, boundsIdx2, t]);
     }
   }
@@ -606,13 +758,13 @@ export class CardStackComponent implements OnInit, OnChanges {
           for (const score of card.scores) {
             scores[score.title] = score.geometry_score;
           }
-          for (const feature of this.stack.geometry.features) {
+          for (const feature of this._stack.geometry.features) {
             if (feature.properties) {
               feature.properties.x = scores[feature.properties.title];
             }
           }
         }
-        (this.map.getSource('data') as mapboxgl.GeoJSONSource).setData(this.stack.geometry);
+        (this.map.getSource('data') as mapboxgl.GeoJSONSource).setData(this._stack.geometry);
       }
       let pointGeometry: GeoJSON.FeatureCollection = {
         type: 'FeatureCollection',
@@ -620,13 +772,13 @@ export class CardStackComponent implements OnInit, OnChanges {
       };
       if (card && card.pointGeometry) {
         pointGeometry = card.pointGeometry;
-      } else if (this.stack.pointGeometry) {
-        pointGeometry = this.stack.pointGeometry;
+      } else if (this._stack.pointGeometry) {
+        pointGeometry = this._stack.pointGeometry;
       } 
       (this.map.getSource('pointData') as mapboxgl.GeoJSONSource).setData(pointGeometry);
     }
-    const bounds1: mapboxgl.LngLatBounds = this.stack.bounds[boundsIdx1];
-    const bounds2: mapboxgl.LngLatBounds = this.stack.bounds[boundsIdx2];
+    const bounds1: mapboxgl.LngLatBounds = this._stack.bounds[boundsIdx1];
+    const bounds2: mapboxgl.LngLatBounds = this._stack.bounds[boundsIdx2];
     let bounds = bounds2;
     if (bounds1 !== bounds2) {
       bounds = new mapboxgl.LngLatBounds(

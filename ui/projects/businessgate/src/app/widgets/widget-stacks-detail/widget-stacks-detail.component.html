@@ -1,9 +1,12 @@
-<div class='page-container' *ngIf='open' [class.map]='stacks.stack_cache[stack_name] && stacks.stack_cache[stack_name].map'>
-
+<div class='page-container' *ngIf='open' 
+    [class.map]='stacks.stack_cache[stack_name] && stacks.stack_cache[stack_name].map'
+    (click)='$event.stopPropagation()'
+>
     <app-card-stack
         [params]='params'
         [stack]='stacks.stack_cache[stack_name]'
         [goodbye]='false'
+        [small]='false'
         [class]='stacks.colorSchemeClass(stacks.stack_cache[stack_name])'
     >
     </app-card-stack>

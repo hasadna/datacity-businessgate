@@ -1,0 +1,58 @@
+@import url(../../../common.less);
+
+:host {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    animation: disappear 0.5s forwards;
+    pointer-events: none;
+    
+    &.visible {
+        animation: appear 0.5s forwards;
+    }
+
+    .backdrop {
+        width: 100%;
+        height: 100%;    
+        background-color: rgba(0,0,0,0.7);
+        pointer-events: none;    
+    }
+
+    .button {
+        .topleft-button;
+    }
+
+}
+
+@keyframes appear {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    1% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+        display: block;
+    }
+    99% {
+        opacity: 0;
+        display: block;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}

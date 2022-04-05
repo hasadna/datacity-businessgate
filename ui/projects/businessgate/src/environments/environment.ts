@@ -14,6 +14,7 @@ export const environment = {
     appId: '1:292108806732:web:1b2df43212b5e0202ae2e9',
     measurementId: 'G-MCEC1ECFK6'
   },
+  base: '/',
   timeout: 10
 };
 
@@ -24,4 +25,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

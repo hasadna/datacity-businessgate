@@ -2,7 +2,6 @@
 
 /* container */
 @background-image: url(assets/img/background.png);
-@background-color: #fafafa;
 @container-padding: 20px;
 @chat-width: 600px;
 
@@ -17,9 +16,12 @@
 @black-100: #E5E5E5;
 @gray-f6: #f6f6f6;
 @white: #ffffff;
+@off-white: #fafafa;
 @accent-100: #F9F7F7;
 @orange-700: #9F0909;
 @demographics-700: #0F8042;
+
+@background-color: @off-white;
 
 /* fonts */
 .font1 {
@@ -30,56 +32,30 @@
 
 @font-face {
     font-family: Narkiss;
-    font-weight: 100;
-    src: url("assets/fonts/NarkissBlockCondensed-Thin-TRIAL.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Narkiss;
-    font-weight: 200;
-    src: url("assets/fonts/NarkissBlockCondensed-Extralight-TRIAL.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Narkiss;
     font-weight: 300;
-    src: url("assets/fonts/NarkissBlockCondensed-Light-TRIAL.otf") format("opentype");
+    src: url("assets/fonts/NarkissBlockCondensed-Light.woff2") format("woff2"),
+         url("assets/fonts/NarkissBlockCondensed-Light.woff") format("woff");
 }
 
 @font-face {
     font-family: Narkiss;
     font-weight: 400;
-    src: url("assets/fonts/NarkissBlockCondensed-Regular-TRIAL.otf") format("opentype");
+    src: url("assets/fonts/NarkissBlockCondensed-Regular.woff2") format("woff2"),
+         url("assets/fonts/NarkissBlockCondensed-Regular.woff") format("woff");
 }
 
 @font-face {
     font-family: Narkiss;
     font-weight: 500;
-    src: url("assets/fonts/NarkissBlockCondensed-Medium-TRIAL.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Narkiss;
-    font-weight: 600;
-    src: url("assets/fonts/NarkissBlockCondensed-Semibold-TRIAL.otf") format("opentype");
+    src: url("assets/fonts/NarkissBlockCondensed-Medium.woff2") format("woff2"),
+         url("assets/fonts/NarkissBlockCondensed-Medium.woff") format("woff");
 }
 
 @font-face {
     font-family: Narkiss;
     font-weight: 700;
-    src: url("assets/fonts/NarkissBlockCondensed-Bold-TRIAL.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Narkiss;
-    font-weight: 800;
-    src: url("assets/fonts/NarkissBlockCondensed-Heavy-TRIAL.otf") format("opentype");
-}
-
-@font-face {
-    font-family: Narkiss;
-    font-weight: 900;
-    src: url("assets/fonts/NarkissBlockCondensed-Black-TRIAL.otf") format("opentype");
+    src: url("assets/fonts/NarkissBlockCondensed-Bold.woff2") format("woff2"),
+         url("assets/fonts/NarkissBlockCondensed-Bold.woff") format("woff");
 }
 
 .font2 {

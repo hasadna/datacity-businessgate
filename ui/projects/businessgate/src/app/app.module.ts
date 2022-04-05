@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { environment } from '../environments/environment';
 
@@ -41,6 +41,8 @@ import { ChatMsgCopyLinkComponent } from './chat-msgs/chat-msg-copy-link/chat-ms
 import { ChatMsgHtmlSayComponent } from './chat-msgs/html-say/chat-msg-html-say.component';
 import { OwnerProfilePhotoComponent } from './owner-profile-photo/owner-profile-photo.component';
 import { CopyLinkComponent } from './copy-link/copy-link.component';
+import { ChatMsgTopicSelectionComponent } from './chat-msgs/chat-msg-topic-selection/chat-msg-topic-selection.component';
+import { WidgetStackBackdropComponent } from './widgets/widget-stack-backdrop/widget-stack-backdrop.component';
 
 const appRoutes: Routes = [
   { path: 'r/:id', component: MainPageComponent },
@@ -80,15 +82,15 @@ const appRoutes: Routes = [
     ChatMsgCopyLinkComponent,
     OwnerProfilePhotoComponent,
     ChatMsgHtmlSayComponent,
-    CopyLinkComponent
+    CopyLinkComponent,
+    ChatMsgTopicSelectionComponent,
+    WidgetStackBackdropComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HatoolLibModule,
-    RouterModule.forRoot(
-      appRoutes
-    ),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],

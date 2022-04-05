@@ -3,7 +3,8 @@ git checkout master && \
 export VERSION=`git show --pretty="format:%aI.%h" -s` && \
 echo VERSION: $VERSION && \
 hatool content/script.yaml script.$VERSION.json && \
-export SCRIPT_VERSION=`md5sum script.$VERSION.json |cut -f 1 -d ' '` && \
+md5 script.$VERSION.json || md5sum script.$VERSION.json && \
+export SCRIPT_VERSION=`(md5 script.$VERSION.json || md5sum script.$VERSION.json) |cut -f 1 -d ' '` && \
 mv script.$VERSION.json ui/projects/businessgate/src/assets/script.$SCRIPT_VERSION.json && \
 echo "export const VERSION='$VERSION';" > ui/projects/businessgate/src/app/version.ts && \
 echo "export const SCRIPT_VERSION='$SCRIPT_VERSION';" >> ui/projects/businessgate/src/app/version.ts && \
@@ -16,7 +17,7 @@ git checkout -b dist && \
 rm ui/.gitignore && \
 (cd ui && npm run prod) && \
 cp ui/dist/businessgate/index.html ui/dist/businessgate/404.html && \
-cp CNAME ui/dist/businessgate/ && \
+cp CNAME ui/dist/businessgate/no-cname && \
 git add ui/dist/businessgate && \
 git commit -m dist && \
 (git branch -D gh-pages || true) && \

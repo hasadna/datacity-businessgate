@@ -1,0 +1,10 @@
+<div class='options'>
+    <div class='option' *ngFor='let choice of state.choices' [class.enabled]='enabled(choice)' (click)='toggle(choice)'>
+        <span>{{choice.show}}</span>
+    </div>
+</div>
+<button class='submit'(click)='submit()'>
+    <span *ngIf='selectedSome()'>{{responses.some.show}}</span>
+    <span *ngIf='selectedAll()'>{{responses.all.show}}</span>
+    <span *ngIf='selectedNone()'>{{responses.none.show}}</span>
+</button>

@@ -26,7 +26,6 @@
             "main": "projects/businessgate/src/main.ts",
             "polyfills": "projects/businessgate/src/polyfills.ts",
             "tsConfig": "projects/businessgate/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/businessgate/src/assets",
               "projects/businessgate/src/favicons",
@@ -37,7 +36,13 @@
               "projects/businessgate/src/styles.less",
               "projects/businessgate/src/theme.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -50,10 +55,8 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -68,7 +71,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -103,19 +107,6 @@
               "projects/businessgate/src/theme.less"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/businessgate/tsconfig.app.json",
-              "projects/businessgate/tsconfig.spec.json",
-              "projects/businessgate/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {

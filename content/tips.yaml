@@ -1,15 +1,18 @@
 - name: tips
   steps:
-    - say: כל עוד הם מתניידים ברכב פרטי, גם הלקוחות וגם העובדים בעסק שלך מושפעים מהנגישות לחניה
-    - say: הכנו כרטיס כדי לבחון את סוגיית החניה באיזור {{מיקום.שם}}
-    - cards:
-        stack: business_tips.חנייה
+    - switch:
+        arg: topics.tips
+        cases:
+        - undefined: true
+          steps:
+            - goto: return
+        - default: true
     - say: אספתי כמה טיפים נוספים שיוכלו אולי לעניין אותך
     - cards:
         stacks:
-          - business_tips.פתיחת_העסק 
-          - business_tips.שיווק_דיגיטלי
-          - business_tips.טיפים_כלליים
-          - bzm.הוצאות_לא_צפויות
-          - ICT.מערכות_מידע
-          - business-operation
+        - business_tips.חנייה
+        - business_tips.פתיחת_העסק 
+        - business_tips.שיווק_דיגיטלי
+        - bzm.הוצאות_לא_צפויות
+        - ICT.מערכות_מידע
+        - business_tips.טיפים_כלליים

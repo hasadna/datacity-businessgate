@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ContentManager } from 'hatool';
 import { merge, ReplaySubject, Subject } from 'rxjs';
 import { tap, switchMap, filter, delay, first } from 'rxjs/operators';
@@ -12,15 +12,18 @@ import { WidgetsService } from '../../widgets.service';
 })
 export class WidgetStackComponent implements OnInit, AfterContentInit {
 
-  @ViewChild(ChatMsgCardStackComponent, {static: false}) stackEl: ChatMsgCardStackComponent;
+  @ViewChild(ChatMsgCardStackComponent) stackEl: ChatMsgCardStackComponent;
 
   open = false;
   stackObs: ReplaySubject<any> = null;
   params = null;
   content: ContentManager = null;
   closeRequest = new Subject<any>();
+
+  name = 'app-widget-stack';
   
-  constructor(private widgets: WidgetsService) {
+  constructor(private widgets: WidgetsService, private changeDetector : ChangeDetectorRef) {
+    this.name += '-' + Math.random();
   }
 
   ngOnInit(): void {
@@ -37,14 +40,15 @@ export class WidgetStackComponent implements OnInit, AfterContentInit {
         this.content = stack.content;
         this.params = stack.params;
         this.open = true;
+        this.changeDetector.detectChanges();
       }),
-      filter((stack) => !!stack),
-      delay(1),
+      delay(0),
       switchMap(() => {
         return this.stackEl.stackEl.init;
       }),
       filter((x) => x),
       switchMap(() => {
+        // console.log('OPENING STACK 1', this.stackEl, this.stackEl?.stackEl);
         this.stackEl.stackEl.openState.next(true);
         return merge(
           this.closeRequest,
@@ -54,6 +58,7 @@ export class WidgetStackComponent implements OnInit, AfterContentInit {
       }),
       first(),
       tap(() => {
+        // console.log('CLOSING STACK 4');
         this.stackEl.stackEl.openState.next(false);
         this.content = null;
         this.params = null;

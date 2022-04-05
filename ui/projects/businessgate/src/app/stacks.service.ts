@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,12 @@ export class StacksService {
   stack_cache = {};
   stack_modules = [];
   stack_count = 0;
+  stack_visible_count = 0;
   width = 0;
-  visible = false;
   runner = null;
-  discovery = true;
+  discoveryRequested = true;
+  discovery = false;
+  closedStack = new Subject<void>();
 
   constructor() { }
 
@@ -40,6 +43,21 @@ export class StacksService {
     });
   }
 
+  closeStack() {
+    this.closedStack.next();
+  }
+
+  updateVisibleCount() {
+    this.stack_visible_count = this.stack_count;
+  }
+
+  updateDiscovery() {
+    const ret = this.discoveryRequested;
+    this.discovery = ret;
+    this.discoveryRequested = false;
+    return ret;
+  }
+
   colorSchemeClass(stack) {
     if (stack) {
       return 'scheme-' + stack.scheme;
@@ -51,8 +69,12 @@ export class StacksService {
   clear() {
     this.stack_cache = {};
     this.stack_count = 0;
-    this.visible = false;
+    this.stack_visible_count = 0;
     this.stack_modules = [];
+  }
+
+  get visible() {
+    return this.stack_visible_count !== 0;
   }
 
 }

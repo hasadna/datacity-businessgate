@@ -4,6 +4,7 @@ import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
 import * as mapboxgl from 'mapbox-gl';
 import { ContentManager } from 'hatool';
 import { StateService } from './state.service';
+import { CardStackComponent } from './card-stack/card-stack.component';
 
 
 @Injectable({
@@ -19,6 +20,8 @@ export class WidgetsService {
   public stackActive = new Subject<{content: ContentManager, params: any}>();
   public stackResult = new Subject<any>();
 
+  public openStack: CardStackComponent | null = null;
+  
   public moreInfoChat = new Subject<any>();
   public moreInfoChatDone = new Subject<any>();
 

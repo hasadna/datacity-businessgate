@@ -7,6 +7,7 @@
     - include: signage.yaml
     - include: demand.yaml
     - include: geo-insights.yaml
+    - include: business-operation.yaml
     - include: tips.yaml
     - include: outro.yaml
 
@@ -14,21 +15,28 @@
     - name: default
       steps:
       - goto: intro
+      - goto: run-all              
+      - goto: outro
+
+    - name: run-all
+      steps:
       - goto: business-licensing
       - goto: demand
       - goto: geo-insights
       - goto: arnona
       - goto: signage
+      - goto: business-operation
       - goto: tips
-      - goto: outro
-
 
 - description: More Info Script
   name: more-info
   snippets:
     - name: default
       steps:
-        - say: בשמחה, במה אוכל לעזור?
+        - say: אין בעיה! אני יכול להעביר בשמך שאלה אל {{owner_name}}, ותוכלו להמשיך את השיחה בלעדי.
+        - goto: question
+    - name: question
+      steps:
         - wait:
             long: true
             placeholder: אפשר לכתוב כאן בכמה מילים…
@@ -37,44 +45,41 @@
             cmd: process_question
             params:
               - record
-        - say: >
-            אוקיי. אשמח לברר ולחזור אליך
-            לגבי זה באימייל.
         - switch:
-            arg: email_address
+            arg: _selected_method
             cases:
               - default: true
               - undefined: true
                 steps:
-                  - goto: get-email
-        - say: >
-            מצויין, תודה. אני אהיה איתך בקשר
-            באימייל לגבי זה תוך כמה ימים, 
-            בכתובת {{email_address}}.
-        - goto: finalize
-    
-    - name: finalize
-      steps:
+                  - say: איך הכי נוח לך שנחזור אליך?
+                  - wait:
+                      variable: _selected_method
+                      options:
+                        - show: באימייל
+                          value: email
+                          steps:
+                            - wait:
+                                variable: email_address
+                                placeholder: כתובת האימייל שלך
+                                input-kind: email
+                            - say: >
+                                מצוין. אני אפנה ל{{owner_name}} וניצור איתך קשר לגבי זה תוך כמה ימים, בכתובת {{email_address}}.
+                        - show: בשיחת טלפון
+                          value: phone
+                          steps:
+                            - wait:
+                                variable: phone_number
+                                placeholder: מספר הטלפון שלך
+                                validation: '[-+0-9]+'
+                            - say: >
+                                מצוין. אני אפנה ל{{owner_name}} וניצור איתך קשר לגבי זה תוך כמה ימים, בטלפון {{phone_number}}.
         - say: יש עוד משהו שרצית לשאול בנושא?
         - wait:
             options:
               - show: לא, זהו בינתיים
               - show: אה, כן… יש לי עוד שאלה
                 steps:
-                  - goto: default
-              - show: תיקון כתובת האימייל
-                steps:
-                  - goto: get-email
-                  - goto: finalize
-
-    - name: get-email
-      steps:
-        - say: באיזו כתובת אוכל ליצור איתך קשר?
-        - wait:
-            variable: email_address
-            placeholder: כתובת האימייל שלך
-            input-kind: email
-        - say: אוקיי, אשלח ל-{{email_address}}
+                  - goto: question
   
 - name: config
   keys:
