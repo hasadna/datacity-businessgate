@@ -335,6 +335,25 @@ def process_institutions(stack):
                 row['kind'] = translations[row['kind']]
             return func
 
+        def translate_kind_singular():
+            translations = {
+                'מרפאה': 'מרפאה',
+                'איצטדיון': 'איצטדיון',
+                'ספרייה': 'ספרייה',
+                'בית ספר': 'בית ספר',
+                'מועדון קהילתי כולל מרכז צעירים': 'מועדון קהילתי',
+                'בית כנסת': 'בית כנסת',
+                'מועדון נוער': 'מועדון נוער',
+                'אולם מופעים, היכל תרבות': 'אולם',
+                'מועדון קשישים, מרכז לאזרחים ותיקים,מרכז יום לקשישים': 'מרכז לקשישים',
+            }
+            def func(row):
+                row['kind_singular'] = translations[row['kind']]
+            return DF.Flow(
+                DF.add_field('kind_singular', 'string'),
+                func,
+            )
+
         institutions_cards = DF.Flow(
             *[
                 DF.load(f)
@@ -346,14 +365,17 @@ def process_institutions(stack):
                 address=['כתובת'],
                 X=[], Y=[]
             )),
+            translate_kind_singular(),
             translate_kind(),
             proj(),
+            DF.add_field('geometry', 'geojson', lambda r: geojson.Point(coordinates=[float(r['lon']), float(r['lat'])])),
+            DF.dump_to_path('institutions_geo', format='geojson'),
             DF.add_field('feature', 'object', 
                         lambda r: geojson.Feature(
                             properties=dict(title=r['title'], address=r['address']),
-                            geometry=geojson.Point(coordinates=[float(r['lon']), float(r['lat'])])
+                            geometry=r['geometry']
                         )),
-            DF.delete_fields(['title', 'lon', 'lat', 'address']),
+            DF.delete_fields(['title', 'lon', 'lat', 'address', 'geometry', 'name', 'kind_singular']),
             DF.join_with_self('concat', ['kind'], dict(
                 title=dict(name='kind'),
                 features=dict(name='feature', aggregate='array')
