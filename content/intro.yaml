@@ -141,7 +141,7 @@
               - business_kind
           - id: geo_insights
             show: אזור הנכס
-            default: true
+            default: false
             requires:
               - location
           - id: arnona
