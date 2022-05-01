@@ -297,7 +297,7 @@
                     "show": "רישוי העסק"
                   },
                   {
-                    "default": true,
+                    "default": false,
                     "id": "geo_insights",
                     "requires": [
                       "location"
