@@ -617,7 +617,7 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
                 }
               }  
             }
-            const licensable = this.record._business_record.license_item && this.record._business_record.license_item.length > 0;
+            const licensable = this.record._business_record.licensing && this.record._business_record.licensing.length > 0;
             if (bk === 'טעוני רישוי' && licensable) {
               found = true;
             }
