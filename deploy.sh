@@ -17,7 +17,7 @@ git checkout -b dist && \
 rm ui/.gitignore && \
 (cd ui && npm run prod) && \
 cp ui/dist/businessgate/index.html ui/dist/businessgate/404.html && \
-cp CNAME ui/dist/businessgate/no-cname && \
+cp CNAME ui/dist/businessgate/ && \
 git add ui/dist/businessgate && \
 git commit -m dist && \
 (git branch -D gh-pages || true) && \
