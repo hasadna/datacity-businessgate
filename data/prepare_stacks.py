@@ -38,7 +38,7 @@ def process_stack_commercial_areas(stack):
     try:
         cards = _cache.get(key)
     except KeyError:
-        g = geojson.load(fetch_ckan('businesscenters', 'GeoJSON'))
+        g = geojson.load(fetch_ckan('businesscenters-br7', 'GeoJSON'))
         geo_features = dict((f.properties['Name'].replace('\xa0', ''), f) for f in g.features)
 
         commercial_areas = fetch_airtable('commercial-areas')

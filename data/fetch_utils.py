@@ -40,15 +40,15 @@ def fetch_airtable(kind, rid=None, view='Grid%20view'):
         return ret
 
 def fetch_ckan(dataset, resource_name):
-    API_KEY = os.environ.get('CKAN_API_KEY')
-    CKAN_BASE = 'https://opendataprod.br7.org.il' + '/api/3/action'
-    headers = {'Authorization': API_KEY}
-    dataset = requests.get(f'{CKAN_BASE}/package_show?id={dataset}', headers=headers).json()
+    # API_KEY = os.environ.get('CKAN_API_KEY')
+    CKAN_BASE = 'https://data.gov.il' + '/api/3/action'
+    # headers = {'Authorization': API_KEY}
+    dataset = requests.get(f'{CKAN_BASE}/package_show?id={dataset}').json()
     assert dataset['success']
     dataset = dataset['result']
     for resource in dataset['resources']:
         if resource['name'] == resource_name:
-            return requests.get(resource['url'], headers=headers, stream=True).raw
+            return requests.get(resource['url'], stream=True).raw
     print('Failed to find resource', resource)
 
 def to_data_url(url, width=96):

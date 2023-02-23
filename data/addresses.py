@@ -8,9 +8,9 @@ from fetch_utils import fetch_ckan
 from geo_utils import contains, to_point
 
 arnona = {
-    'משרד, שירותים ומסחר': geojson.load(fetch_ckan('arnona_zone_mishar', 'GeoJSON')),
-    'תעשיה': geojson.load(fetch_ckan('arnona_zone_taasia', 'GeoJSON')),
-    'מבני מגורים': geojson.load(fetch_ckan('arnona_zone_megurim', 'GeoJSON')),
+    'משרד, שירותים ומסחר': geojson.load(open('./arnona/arnona_zone_mishar')),
+    'תעשיה': geojson.load(open('./arnona/arnona_zone_taasia')),
+    'מבני מגורים': geojson.load(open('./arnona/arnona_zone_megurim')),
 }
 
 def match_arnona():
@@ -34,7 +34,7 @@ def match_arnona():
 
 def prepare_addresses():
     with tempfile.NamedTemporaryFile(suffix='.csv', mode='wb') as source:
-        shutil.copyfileobj(fetch_ckan('addresses', 'CSV'), source)
+        shutil.copyfileobj(fetch_ckan('addresses-br7', 'CSV'), source)
         source.flush()
         DF.Flow(
             DF.load(source.name),
