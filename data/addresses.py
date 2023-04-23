@@ -8,9 +8,9 @@ from fetch_utils import fetch_ckan
 from geo_utils import contains, to_point
 
 arnona = {
-    'משרד, שירותים ומסחר': geojson.load(open('./arnona/arnona_zone_mishar')),
-    'תעשיה': geojson.load(open('./arnona/arnona_zone_taasia')),
-    'מבני מגורים': geojson.load(open('./arnona/arnona_zone_megurim')),
+    'משרד, שירותים ומסחר': geojson.load(open('./data/arnona/arnona_zone_mishar')),
+    'תעשיה': geojson.load(open('./data/arnona/arnona_zone_taasia')),
+    'מבני מגורים': geojson.load(open('./data/arnona/arnona_zone_megurim')),
 }
 
 def match_arnona():
