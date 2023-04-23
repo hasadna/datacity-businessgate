@@ -1,3 +1,4 @@
+import functools
 import os
 import requests
 import base64
@@ -41,14 +42,17 @@ def fetch_airtable(kind, rid=None, view='Grid%20view'):
 
 def fetch_ckan(dataset, resource_name):
     # API_KEY = os.environ.get('CKAN_API_KEY')
-    CKAN_BASE = 'https://data.gov.il' + '/api/3/action'
+    CKAN_BASE = 'https://data.gov.il/api/3/action'
+    headers = {'User-Agent': 'datagov-external-client'}
     # headers = {'Authorization': API_KEY}
-    dataset = requests.get(f'{CKAN_BASE}/package_show?id={dataset}').json()
+    dataset = requests.get(f'{CKAN_BASE}/package_show?id={dataset}', headers=headers).json()
     assert dataset['success']
     dataset = dataset['result']
     for resource in dataset['resources']:
         if resource['name'] == resource_name:
-            return requests.get(resource['url'], stream=True).raw
+            response = requests.get(resource['url'], stream=True, headers=headers).raw
+            response.read = functools.partial(response.read, decode_content=True)
+            return response
     print('Failed to find resource', resource)
 
 def to_data_url(url, width=96):
