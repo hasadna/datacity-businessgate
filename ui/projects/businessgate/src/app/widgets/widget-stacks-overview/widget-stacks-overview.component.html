@@ -20,16 +20,18 @@
                     <app-stack-header-card *ngFor='let stack of module.stacks'
                         [class]='stacks.colorSchemeClass(stacks.stack_cache[stack])'
                         [params]='params()' [stack]='stacks.stack_cache[stack]'
-                        (click)='selectStack(stack)'
+                        (activated)='selectStack(stack)'
+                        clickOnReturn
+                        [attr.aria-label]='"פתיחת חפיסת כרטיסים בנושא " + stack.name'
                     ></app-stack-header-card>
                     <div class='filler'></div>
                 </div>
-                <img src='assets/img/card-counter.svg' (click)='scroll($event)' *ngIf='module.stacks.length > 4'>
+                <img src='assets/img/card-counter.svg' (click)='scroll($event)' *ngIf='module.stacks.length > 4' aria-hidden="true" role='presentation'>
             </div>
         </ng-container>
 
     </ng-container>
 </div>
-<div class='close' (click)='open=false' [class.open]='open'>
+<div class='close' (activated)='open=false' [class.open]='open' clickOnReturn>
     <img src='assets/img/close.svg'>
 </div>

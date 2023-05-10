@@ -43,6 +43,7 @@ import { OwnerProfilePhotoComponent } from './owner-profile-photo/owner-profile-
 import { CopyLinkComponent } from './copy-link/copy-link.component';
 import { ChatMsgTopicSelectionComponent } from './chat-msgs/chat-msg-topic-selection/chat-msg-topic-selection.component';
 import { WidgetStackBackdropComponent } from './widgets/widget-stack-backdrop/widget-stack-backdrop.component';
+import { ClickOnReturnDirective } from './click-on-return.directive';
 
 const appRoutes: Routes = [
   { path: 'r/:id', component: MainPageComponent },
@@ -84,7 +85,8 @@ const appRoutes: Routes = [
     ChatMsgHtmlSayComponent,
     CopyLinkComponent,
     ChatMsgTopicSelectionComponent,
-    WidgetStackBackdropComponent
+    WidgetStackBackdropComponent,
+    ClickOnReturnDirective
   ],
   imports: [
     BrowserModule,

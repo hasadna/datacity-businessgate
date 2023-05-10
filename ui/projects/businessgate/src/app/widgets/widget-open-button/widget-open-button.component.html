@@ -1,3 +1,4 @@
-<a class='button' (click)='click()' *ngIf='visible'>
-    <img class='close' [src]='imgSrc'>
+<a class='button' (activated)='click()' *ngIf='visible' clickOnReturn 
+    [attr.aria-label]='openStack ? "סגירת חלון הצד" : "פתיחת התפריט"'>
+    <img class='close' [src]='imgSrc' [alt]='openStack ? "אייקון סגירה" : "אייקון תפריט"'>
 </a>

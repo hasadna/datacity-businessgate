@@ -1,6 +1,6 @@
-<div class='message' (click)='clipboardCopy()'>
+<div class='message' (activated)='clipboardCopy()' clickOnReturn aria-label='העתקת הלינק לשיחה ללוח'>
     <span>{{link}}</span>
     <ng-container *ngIf='clipboardSupported'>
-        <img src='assets/img/copy-icon.svg' [class.copied]='copied'>
+        <img src='assets/img/copy-icon.svg' [class.copied]='copied' alt='אייקון העתקה'>
     </ng-container>
 </div>

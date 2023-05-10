@@ -1,10 +1,10 @@
 <ng-container *ngIf='params.img.mobile'>
     <div class='container layout-mobile' [style.justify-content]='params.img.mobile.justify_content || "center"'>
-        <img [src]='params.img.mobile.asset' [style.width]='params.img.mobile.width || "80%"'>
+        <img [src]='params.img.mobile.asset' [style.width]='params.img.mobile.width || "80%"' [alt]='params.img.alt'>
     </div>
 </ng-container>
 <ng-container *ngIf='params.img.desktop'>
     <div class='container layout-desktop' [style.justify-content]='params.img.desktop.justify_content || "center"'>
-        <img [src]='params.img.desktop.asset' [style.width]='params.img.desktop.width || "80%"'>
+        <img [src]='params.img.desktop.asset' [style.width]='params.img.desktop.width || "80%"' [alt]='params.img.alt'>
     </div>    
 </ng-container>

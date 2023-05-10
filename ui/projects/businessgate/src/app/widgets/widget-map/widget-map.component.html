@@ -1,5 +1,5 @@
-<div class='map' [class.open]='open' #mapEl>
+<div class='map' [class.open]='open' #mapEl role='presentation' aria-label='תמונת מפה המציגה את האלמנט הנבחר' aria-hidden="true">
 </div>
-<div class='topleft-button' (click)='close()' [class.open]='open'>
+<div class='topleft-button' (activated)='close()' [class.open]='open' clickOnReturn aria-label='סגירת תצוגת המפה'>
     <img src='assets/img/close.svg'>
 </div>

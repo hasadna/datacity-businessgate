@@ -1,4 +1,4 @@
-<div class='button' (click)='openOverview()' [class.active]='active'>
+<div class='button' (activated)='openOverview()' [class.active]='active' clickOnReturn [attr.aria-label]='"צפיה ב-" + stacks.stack_visible_count + " חפיסות הכרטיסים שנאספו"'>
     <div class='minicards'>
         <div class='minicard bg'></div>
         <div class='minicard fg'>{{ stacks.stack_visible_count }}</div>
@@ -15,6 +15,6 @@
 </div>
 
 <ng-container *ngIf='stacks.discovery && stacks.visible'>
-    <img class='discovery' src='assets/img/cart-discovery.svg' (click)='removeDiscovery()'>
+    <img class='discovery' src='assets/img/cart-discovery.svg' (activated)='removeDiscovery()' clickOnReturn role='presentation' aria-hidden='true'>
     <span class='discovery-text'>החפיסות שאספת מחכות לך כאן</span>
 </ng-container>

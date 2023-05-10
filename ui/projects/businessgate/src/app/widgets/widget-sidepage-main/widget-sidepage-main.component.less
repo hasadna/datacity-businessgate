@@ -19,11 +19,15 @@ app-widget-sidepage-base {
         }
         .page-container {
             transform: translateX(-100%);
-            transition-property: transform;
-            transition-duration: 500ms;
-            display: flex !important;
+            // transition-property: transform;
+            // transition-duration: 500ms;
+            // display: flex !important;
             &.open {
-                transform: translateX(0);
+                // transform: translateX(0);
+                animation: reveal 500ms ease-in-out 1 normal both;
+            }
+            &:not(.open) {
+                animation: reveal 500ms ease-in-out 1 reverse both;
             }
         }
     }
@@ -94,4 +98,19 @@ img.logo-full {
     100% {
         transform: translateX(50%);
     }
+}
+
+@keyframes reveal {
+    0% {
+        display: none;
+        transform: translateX(-100%);
+    }
+    1% {
+        display: flex !important;
+        transform: translateX(-100%);
+    }
+    100% {
+        display: flex !important;
+        transform: translateX(0);
+    }   
 }

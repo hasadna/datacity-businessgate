@@ -11,8 +11,8 @@
             <span [innerHtml]='stack.goodbye'></span>
         </div>
         <div class='buttons'>
-            <span class='button' (click)='close()'>הכל ברור, תודה!</span>
-            <span class='button' (click)='openChat()'>יש לי עוד שאלה</span>
+            <span class='button' (activated)='close()' clickOnReturn>הכל ברור, תודה!</span>
+            <span class='button' (activated)='openChat()' clickOnReturn>יש לי עוד שאלה</span>
         </div>
     </div>
 </app-base-card>

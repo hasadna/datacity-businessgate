@@ -146,6 +146,7 @@
     - say: אשמח מאוד שנשמור על קשר
     - say: והכי חשוב, שיהיה המון בהצלחה!
     - img:
+        alt: ציור של הבוט אומר ביי
         mobile:
           asset: assets/img/bot-bye.png
           justify_content: flex-start

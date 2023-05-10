@@ -10,6 +10,7 @@
 - name: introduction
   steps:
     - img:
+        alt: ציור של הבוט אומר שלום
         mobile:
           asset: assets/img/bot-hi.png
           justify_content: flex-start

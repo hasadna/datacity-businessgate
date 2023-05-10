@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
+import { Subject, timer } from 'rxjs';
 import { BackendService } from '../../backend.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { BackendService } from '../../backend.service';
   templateUrl: './chat-msg-topic-selection.component.html',
   styleUrls: ['./chat-msg-topic-selection.component.less']
 })
-export class ChatMsgTopicSelectionComponent implements OnInit {
+export class ChatMsgTopicSelectionComponent implements OnInit, AfterViewInit {
 
   @Input() params;
   @Input() content;
@@ -19,13 +19,13 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
   id = '';
   state: any = {choices: [], topics: {}, init: false};
 
-  constructor(private backend: BackendService) { }
+  constructor(private backend: BackendService, private el: ElementRef) { }
 
   ngOnInit(): void {
     this.id = this.params['topic-selection']['id'];
     this.record = this.params['__runner']['record'];
     this.responses = this.params['topic-selection']['responses'];
-    
+
     // Get or set state
     this.record._topic_selection_state = this.record._topic_selection_state || {};
     this.record._topic_selection_state[this.id] = this.record._topic_selection_state[this.id] || this.state;
@@ -44,6 +44,13 @@ export class ChatMsgTopicSelectionComponent implements OnInit {
     }
     if (this.params.__runFast) {
       this.submit();
+    }
+  }
+
+  ngAfterViewInit() {
+    if (!this.submitted) {
+      // console.log('FOCUSING SELECTION');
+      // this.el.nativeElement.querySelector('.option').focus();
     }
   }
 

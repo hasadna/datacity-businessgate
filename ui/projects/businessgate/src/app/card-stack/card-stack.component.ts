@@ -231,6 +231,8 @@ export class CardStackComponent implements OnInit, OnChanges, AfterViewInit {
       }),
       delay(1000), //wait for end of scrolling
       tap(() => {
+        // console.log('FOCUSING ON TITLE', this.stackEl.nativeElement.querySelector('app-title-card'));
+        this.stackEl.nativeElement.querySelector('app-title-card').focus();
         // console.log(this.stackName, 'EXPANDED');
       })
     );

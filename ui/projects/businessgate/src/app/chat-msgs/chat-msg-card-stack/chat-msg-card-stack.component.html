@@ -16,15 +16,19 @@
                 <app-stack-header-card *ngFor='let _stack of stacks'
                     [class]='stacksSvc.colorSchemeClass(_stack)'
                     [params]='params' [stack]='_stack'
-                    (click)='selectStack(_stack)'
+                    (activated)='selectStack(_stack)'
+                    clickOnReturn
+                    [attr.aria-label]='"פתיחת חפיסת כרטיסים בנושא " + _stack.title'
                 ></app-stack-header-card>
             </div>       
         </div>
         <div class='post-content'>
-            <div class='bot-option'  [class.open]='opened' (click)='returnValue()' 
-            *ngIf='!mapVisible && closeVisible && (stacks.length > 1 || (stack && !stack.disableClose))'>
+            <div class='bot-option'  [class.open]='opened' (activated)='returnValue()' 
+                 *ngIf='!mapVisible && closeVisible && (stacks.length > 1 || (stack && !stack.disableClose))'
+                 clickOnReturn aria-label='סגירת חפיסת הכרטיסים והמשך השיחה'
+            >
                 <img src='assets/img/down-arrow.png'/>
-            </div>        
+            </div>
         </div>
     </app-card-stack>
 </div>

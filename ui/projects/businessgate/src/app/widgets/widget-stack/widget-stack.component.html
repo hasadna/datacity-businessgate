@@ -1,6 +1,8 @@
 <div class='stack-container' [class.open]='open' [attr.data-name]='name'>
-    <app-chat-msg-card-stack *ngIf='!!content && !!params' [params]='params' [content]='content' [small]='false' #stack></app-chat-msg-card-stack>
-    <div class='close' (click)='closeRequest.next(null)'>
+    <app-chat-msg-card-stack *ngIf='!!content && !!params' [params]='params' [content]='content' [small]='false' #stack>
+
+    </app-chat-msg-card-stack>
+    <div class='close' (activated)='closeRequest.next(null)' clickOnReturn aria-label='סגירת חפיסת הכרטיסים'>
         <img src='assets/img/close.svg'>
     </div>
 </div>

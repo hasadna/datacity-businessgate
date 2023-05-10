@@ -1,18 +1,18 @@
 <app-widget-sidepage-base page='main' [limitWidth]='true'>
     <h1>שער לעסקים</h1>
-    <img class='logo-full' src='assets/img/bot-say.png'>
-    <h2><a [routerLink]='[]' fragment='menu:about'>אודות</a></h2>
-    <h2><a [routerLink]='[]' fragment='menu:contact'>צרו קשר</a></h2>
-    <h2><a [routerLink]='[]' fragment='menu:privacy'>מדיניות פרטיות</a></h2>
-    <h2><a [routerLink]='[]' fragment='menu:eula'>תנאי שימוש</a></h2>
+    <img class='logo-full' src='assets/img/bot-say.png' alt='לוגו שער לעסקים'>
+    <h2><a [routerLink]='[]' fragment='menu:about' role='navigation' aria-label='פתיחת עמוד אודות'>אודות</a></h2>
+    <h2><a [routerLink]='[]' fragment='menu:contact' role='navigation' aria-label='פתיחת עמוד צרו קשר'>צרו קשר</a></h2>
+    <h2><a [routerLink]='[]' fragment='menu:privacy' role='navigation' aria-label='פתיחת עמוד מדיניות פרטיות'>מדיניות פרטיות</a></h2>
+    <h2><a [routerLink]='[]' fragment='menu:eula' role='navigation' aria-label='פתיחת עמוד תנאי שימוש'>תנאי שימוש</a></h2>
     <div class='logos'>
         <div class='logos-inner'>
             <ng-container *ngFor='let _ of [1,2]'>
-                <img src='assets/img/beersheba.svg'>
-                <img src='assets/img/yeadim.svg'>
-                <img src='assets/img/movilim.png'>
-                <img src='assets/img/smba.svg'>
-                <img src='assets/img/pkw.svg'>    
+                <img src='assets/img/beersheba.svg' alt='לוגו עיריית באר שבע'>
+                <img src='assets/img/yeadim.svg' alt='לוגו חברת יעדים'>
+                <img src='assets/img/movilim.png' alt='לוגו מובילים דיגיטליים'>
+                <img src='assets/img/smba.svg' alt='לוגו הסוכנות לעסקים קטנים ובינוניים'>
+                <img src='assets/img/pkw.svg' alt='לוגו הסדנא לידע ציבורי'>
             </ng-container>    
         </div>
     </div>

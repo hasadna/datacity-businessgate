@@ -14,26 +14,30 @@ export class WidgetOpenButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get openStack(): boolean {
+    return !!this.widgets.openStack;
+  }
+
   get visible(): boolean {
     return !this.widgets.selecting;
   }
 
   get fragment(): string | null {
-    if (!!this.widgets.openStack) {
+    if (this.openStack) {
       return null;
     }
     return 'menu:main';
   }
 
   get imgSrc(): string {
-    if (!!this.widgets.openStack) {
+    if (this.openStack) {
       return 'assets/img/close.svg';
     }
     return 'assets/img/hamburger.svg';
   }
 
   click() {
-    if (!!this.widgets.openStack) {
+    if (this.openStack) {
       this.widgets.openStack.openState.next(false);
     } else {
       this.router.navigate([], { fragment: this.fragment });

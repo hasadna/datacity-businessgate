@@ -1,10 +1,10 @@
-<div class='selector' *ngIf='!done'>
+<div class='selector' *ngIf='!done' aria-modal="true" role="dialog" aria-label="בחירה מרשימה">
     <div class='input'>
-        <input type='text' (keyup)='search($event.target.value)' [placeholder]='args.placeholder' #input>
+        <input type='text' (keyup)='search($event.target.value)' [placeholder]='args.placeholder' #input [attr.aria-label]='args.placeholder + " אפשר גם לעבור על האפשרויות השונות באמצעות טאב"'>
     </div>
     <div class='options'>
         <ng-container *ngFor='let item of items' >
-            <div class='option' (click)='selected(item)' *ngIf='visible(item.display)'>
+            <div class='option' (activated)='selected(item)' *ngIf='visible(item.display)' clickOnReturn [attr.aria-label]='"בחירת " + item.display'>
                 <span [innerHtml]='highlight(item.display)'></span>
             </div>   
         </ng-container>

@@ -2,7 +2,7 @@
     [class.state-expanded]='expandState !== "collapsed"'
     [class.state-opened]='innerState === "open" || innerState === "opening"'
 >
-    <div class='stack' *ngIf='_stack' (click)='open ? null : openState.next(true)'>
+    <div class='stack' *ngIf='_stack' (click)='open ? null : openState.next(true)' [attr.aria-label]='"פתיחת חפיסת מידע בנושא " + _stack.title'>
         <div class='mask'>
             <div class='cards' #stackEl>
                 <div class='cards-scroller'
@@ -14,18 +14,27 @@
                     <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
                     <app-title-card [params]='params'
                                     [stack]='_stack' [width]='width' [style.transform]='transform(0)'
-                                    (click)='openState.next(true)'
+                                    (activated)='openState.next(true)'
+                                    clickOnReturn
+                                    [attr.aria-label]='"פתיחת חפיסת מידע בנושא " + _stack.title'>
                     ></app-title-card>
                     <ng-container *ngFor='let card of cards; let i = index'>                
                         <ng-container *ngIf='layout(card) === "simple"'>
                             <app-simple-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
                                 [card]='card' [width]='width' [style.transform]='transform(i+1)'
+                                (focus)='$event.target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"})'
+                                clickOnReturn
+                                [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
                             ></app-simple-card>
                             </ng-container>
                             <ng-container *ngIf='layout(card) === "gallery"'>
                             <app-gallery-card [params]='params' [active]='i === currentIndex || currentIndex === -1'
                                 [card]='card' [width]='width' [style.transform]='transform(i+1)'
                                 (selected)='returnValue($event)'
+                                (activated)='returnValue(card)'
+                                (focus)='$event.target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"})'
+                                clickOnReturn
+                                [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
                             ></app-gallery-card>
                             </ng-container>
                             <ng-container *ngIf='layout(card) === "scores"'>
@@ -33,19 +42,22 @@
                                 [card]='card' [width]='width' [style.transform]='transform(i+1)'
                                 [scheme]='_stack.scheme'
                                 [current]='current()'
+                                [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
                             ></app-scores-card>
                         </ng-container>
                     </ng-container>
                     <app-chatlike-ending-card [params]='params' (closed)='returnValue()'
                             [stack]='_stack' [width]='width'
                             *ngIf='goodbye && _stack.goodbye'
-                            [style.transform]='transform(cards.length+1)'></app-chatlike-ending-card>
+                            [style.transform]='transform(cards.length+1)'
+                            [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
+                    ></app-chatlike-ending-card>
                     <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
                 </div>       
             </div>
         </div>
-        <img src='assets/img/card-counter.svg' (click)='scroll($event, true)' class='scroller layout-desktop'>
-        <img src='assets/img/card-counter.svg' (click)='scroll($event, false)' class='back-scroller layout-desktop'>
+        <img src='assets/img/card-counter.svg' (click)='scroll($event, true)' class='scroller layout-desktop' role='presentation' aria-hidden="true">
+        <img src='assets/img/card-counter.svg' (click)='scroll($event, false)' class='back-scroller layout-desktop' role='presentation' aria-hidden="true">
     </div>
     <ng-content select='.pre-content'></ng-content>
     <ng-content select='.post-content'></ng-content>

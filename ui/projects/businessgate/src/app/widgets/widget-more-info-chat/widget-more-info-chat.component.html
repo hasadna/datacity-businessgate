@@ -1,6 +1,6 @@
 <div class='chat-container' [class.open]='open'>
     <div class='header'>
-        <img class='back' src='assets/img/chevron-right.svg' (click)='close()'>
+        <img class='back' src='assets/img/chevron-right.svg' (activated)='close()' clickOnReturn aria-label='סגירת התצוגה ללא משלוח שאלה נוספת'>
         <app-owner-profile-photo [owner]='owner' [size]='32' [borderWidth]='2' borderColor='#360627'></app-owner-profile-photo>
         <div class='name'>{{ owner.name }}</div>
         <div class='title'>{{ owner.title }}</div>
