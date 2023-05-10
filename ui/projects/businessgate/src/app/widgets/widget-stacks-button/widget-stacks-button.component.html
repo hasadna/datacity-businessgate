@@ -1,4 +1,6 @@
-<div class='button' (activated)='openOverview()' [class.active]='active' clickOnReturn [attr.aria-label]='"צפיה ב-" + stacks.stack_visible_count + " חפיסות הכרטיסים שנאספו"'>
+<div class='button' (activated)='openOverview()' [class.active]='active' clickOnReturn
+     [attr.aria-label]='"צפיה ב-" + stacks.stack_visible_count + " חפיסות הכרטיסים שנאספו"'
+     [attr.aria-hidden]='stacks.stack_visible_count ? "false" : "true"'>
     <div class='minicards'>
         <div class='minicard bg'></div>
         <div class='minicard fg'>{{ stacks.stack_visible_count }}</div>

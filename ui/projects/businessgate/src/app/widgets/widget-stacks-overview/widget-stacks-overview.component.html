@@ -1,6 +1,6 @@
-<div class='page-container' [class.open]='open'>
+<div class='page-container' [class.open]='open' [attr.aria-modal]='open ? "true" : "false"' role='dialog'>
     <ng-container *ngIf='open'>
-        <h1>{{ stacks.stack_count }} החפיסות שלך</h1>
+        <h1 tabindex="0">{{ stacks.stack_count }} החפיסות שלך</h1>
 
         <h2>
             סיפרת לנו שברצונך לפתוח
@@ -22,7 +22,7 @@
                         [params]='params()' [stack]='stacks.stack_cache[stack]'
                         (activated)='selectStack(stack)'
                         clickOnReturn
-                        [attr.aria-label]='"פתיחת חפיסת כרטיסים בנושא " + stack.name'
+                        [attr.aria-label]='"פתיחת חפיסת כרטיסים בנושא " + stacks.stack_cache[stack].title'
                     ></app-stack-header-card>
                     <div class='filler'></div>
                 </div>
@@ -31,7 +31,7 @@
         </ng-container>
 
     </ng-container>
-</div>
-<div class='close' (activated)='open=false' [class.open]='open' clickOnReturn>
-    <img src='assets/img/close.svg'>
+    <div class='close' (activated)='open=false' [class.open]='open' clickOnReturn aria-label='סגירת חלונית חפיסות הכרטיסים' *ngIf='open'>
+        <img src='assets/img/close.svg' alt='אייקון סגירת חפיסות הכרטיסים'>
+    </div>
 </div>
