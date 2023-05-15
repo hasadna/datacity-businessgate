@@ -32,6 +32,7 @@ import { WidgetSidepageAboutComponent } from './widgets/widget-sidepage-about/wi
 import { WidgetSidepageContactComponent } from './widgets/widget-sidepage-contact/widget-sidepage-contact.component';
 import { WidgetSidepagePrivacyComponent } from './widgets/widget-sidepage-privacy/widget-sidepage-privacy.component';
 import { WidgetSidepageEulaComponent } from './widgets/widget-sidepage-eula/widget-sidepage-eula.component';
+import { WidgetSidepageA11yComponent } from './widgets/widget-sidepage-a11y/widget-sidepage-a11y.component';
 import { WidgetStacksButtonComponent } from './widgets/widget-stacks-button/widget-stacks-button.component';
 import { WidgetStacksOverviewComponent } from './widgets/widget-stacks-overview/widget-stacks-overview.component';
 import { CardStackComponent } from './card-stack/card-stack.component';
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
     WidgetSidepageContactComponent,
     WidgetSidepagePrivacyComponent,
     WidgetSidepageEulaComponent,
+    WidgetSidepageA11yComponent,
     WidgetStacksButtonComponent,
     WidgetStacksOverviewComponent,
     CardStackComponent,

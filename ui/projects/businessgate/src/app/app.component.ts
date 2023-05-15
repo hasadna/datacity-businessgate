@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     renderer.link = (href, title, text) => {
       const localLink = href.startsWith(`${location.protocol}//${location.hostname}`);
       const html = linkRenderer.call(renderer, href, title, text);
-      return localLink ? html : html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" aria-label="פתיחת קישור בטאב חדש"`);
+      return localLink ? html : html.replace(/^<a /, `<a target="_blank" rel="noreferrer noopener nofollow" aria-label="${text} מעבר לאתר חיצוני"`);
     };
     marked.use({renderer});
   }

@@ -1,11 +1,14 @@
 <app-widget-sidepage-base page='main' [limitWidth]='true'>
     <h1>שער לעסקים</h1>
-    <img class='logo-full' src='assets/img/bot-say.png' alt='לוגו שער לעסקים'>
-    <h2><a [routerLink]='[]' fragment='menu:about' role='navigation' aria-label='פתיחת עמוד אודות'>אודות</a></h2>
-    <h2><a [routerLink]='[]' fragment='menu:contact' role='navigation' aria-label='פתיחת עמוד צרו קשר'>צרו קשר</a></h2>
-    <h2><a [routerLink]='[]' fragment='menu:privacy' role='navigation' aria-label='פתיחת עמוד מדיניות פרטיות'>מדיניות פרטיות</a></h2>
-    <h2><a [routerLink]='[]' fragment='menu:eula' role='navigation' aria-label='פתיחת עמוד תנאי שימוש'>תנאי שימוש</a></h2>
-    <div class='logos'>
+    <img class='logo-full' src='assets/img/bot-say.png' alt='לוגו שער לעסקים' role='presentation'>
+    <section role='menu'>
+        <h2 [routerLink]='[]' fragment='menu:about' role='menuitem' aria-label='פתיחת עמוד אודות' clickOnReturn>אודות</h2>
+        <h2 [routerLink]='[]' fragment='menu:contact' role='menuitem' aria-label='פתיחת עמוד צרו קשר' clickOnReturn>צרו קשר</h2>
+        <h2 [routerLink]='[]' fragment='menu:privacy' role='menuitem' aria-label='פתיחת עמוד מדיניות פרטיות' clickOnReturn>מדיניות פרטיות</h2>
+        <h2 [routerLink]='[]' fragment='menu:eula' role='menuitem' aria-label='פתיחת עמוד תנאי שימוש' clickOnReturn>תנאי שימוש</h2>
+        <h2 [routerLink]='[]' fragment='menu:a11y' role='menuitem' aria-label='פתיחת הצהרת נגישות' clickOnReturn>הצהרת נגישות</h2>    
+    </section>
+    <div class='logos' role='presentation'>
         <div class='logos-inner'>
             <ng-container *ngFor='let _ of [1,2]'>
                 <img src='assets/img/beersheba.svg' alt='לוגו עיריית באר שבע'>

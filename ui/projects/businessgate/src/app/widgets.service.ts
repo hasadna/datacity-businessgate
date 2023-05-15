@@ -33,7 +33,7 @@ export class WidgetsService {
   constructor(private state: StateService) {
     this.state.state.subscribe((state) => {
       for (const sidepage of [
-        'main', 'about', 'contact', 'eula', 'privacy', 'no-menu'
+        'main', 'about', 'contact', 'eula', 'a11y', 'privacy', 'no-menu'
       ]) {
         if (this.state.inState(state, 'menu', sidepage)) {
           this.sidePage.next(sidepage);

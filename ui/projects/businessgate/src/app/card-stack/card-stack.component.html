@@ -10,13 +10,17 @@
                     [class.state-created]='innerState === "created"'
                     [class.state-initial]='innerState === "initial"'
                     [class.state-closed]='innerState === "closed" || innerState === "closing"'
+                    role='list'
+                    [attr.aria-label]='"חפיסת כרטיסים בנושא " + _stack.title + " עם " + ((goodbye && _stack.goodbye ? 2 : 1) + cards.length) + " כרטיסים"'
                     >
                     <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
                     <app-title-card [params]='params'
                                     [stack]='_stack' [width]='width' [style.transform]='transform(0)'
                                     (activated)='openState.next(true)'
                                     clickOnReturn
-                                    [attr.aria-label]='"פתיחת חפיסת מידע בנושא " + _stack.title'>
+                                    [attr.aria-label]='"פתיחת חפיסת מידע בנושא " + _stack.title'
+                                    role='listitem'
+                    >
                     ></app-title-card>
                     <ng-container *ngFor='let card of cards; let i = index'>                
                         <ng-container *ngIf='layout(card) === "simple"'>
@@ -25,6 +29,7 @@
                                 (focus)='$event.target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"})'
                                 clickOnReturn
                                 [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
+                                role='listitem'
                             ></app-simple-card>
                             </ng-container>
                             <ng-container *ngIf='layout(card) === "gallery"'>
@@ -35,6 +40,7 @@
                                 (focus)='$event.target.scrollIntoView({behavior: "smooth", block: "center", inline: "center"})'
                                 clickOnReturn
                                 [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
+                                role='listitem'
                             ></app-gallery-card>
                             </ng-container>
                             <ng-container *ngIf='layout(card) === "scores"'>
@@ -43,6 +49,7 @@
                                 [scheme]='_stack.scheme'
                                 [current]='current()'
                                 [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
+                                role='listitem'
                             ></app-scores-card>
                         </ng-container>
                     </ng-container>
@@ -51,6 +58,7 @@
                             *ngIf='goodbye && _stack.goodbye'
                             [style.transform]='transform(cards.length+1)'
                             [attr.aria-hidden]='innerState === "open" || innerState === "opening" ? "false" : "true"'
+                            role='listitem'
                     ></app-chatlike-ending-card>
                     <div class='filler' [style.min-width]='scrollPadding + "px"'></div>
                 </div>       
