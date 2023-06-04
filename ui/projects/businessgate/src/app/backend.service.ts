@@ -129,7 +129,7 @@ export class BackendService {
           business_kind: business_name,
           location: (record.location ? record.location.שם : null) || '-',
           phone_number: record.phone_number || '',
-          email_address: record.email_address,
+          email_address: record.email_address || '',
           questions: questions,
           stack_modules: this.stacks.stack_modules,
         }
