@@ -113,22 +113,16 @@
               - say: בסדר גמור
 
     - switch:
-        arg: email_address
+        arg: _crm_email_receipt
         cases:
-          - default: true
-            steps:
-              - switch:
-                  arg: _crm_email_receipt
-                  cases:
-                    - undefined: true
-                      steps:
-                        - do:
-                            cmd: send_crm_email
-                            variable: _crm_email_receipt
-                            params:
-                              - record
-                    - default: true
           - undefined: true
+            steps:
+              - do:
+                  cmd: send_crm_email
+                  variable: _crm_email_receipt
+                  params:
+                    - record
+          - default: true
 
     - say: דבר אחרון, אנחנו נשמח לעזור לעוד אנשים שרוצים לפתוח עסקים בעיר שלנו
     - say: אפשר אולי לבקש איזה שיתוף קטן של האתר עם איזו מילה טובה?
