@@ -50,7 +50,8 @@ def fetch_ckan(dataset, resource_name):
     dataset = dataset['result']
     for resource in dataset['resources']:
         if resource['name'] == resource_name:
-            response = requests.get(resource['url'], stream=True, headers=headers).raw
+            url = resource['url'].replace('e.data.gov.il', 'data.gov.il')
+            response = requests.get(url, stream=True, headers=headers).raw
             response.read = functools.partial(response.read, decode_content=True)
             return response
     print('Failed to find resource', resource)
