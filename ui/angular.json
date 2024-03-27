@@ -131,6 +131,5 @@
   },
   "cli": {
     "analytics": false
-  },
-  "defaultProject": "businessgate"
+  }
 }
