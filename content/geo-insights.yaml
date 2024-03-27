@@ -7,6 +7,11 @@
           steps:
             - goto: return
         - default: true
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-geo-insights
     - say: >
         אני רוצה עכשיו להציע לך כמה
         תובנות שמבוססות על המידע

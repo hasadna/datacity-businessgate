@@ -4,11 +4,29 @@
     - goto: select-business-kind
     - goto: select-location
     - goto: choose-property-size
+    - switch:
+        arg: _crm_email_receipt_initial
+        cases:
+          - undefined: true
+            steps:
+              - do:
+                  cmd: send_crm_email_initial
+                  variable: _crm_email_receipt_initial
+                  params:
+                    - record
+              - do:
+                  cmd: save
+          - default: true
     - goto: topic-selection
     - goto: first-contact
 
 - name: introduction
   steps:
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - initial
     - img:
         alt: ציור של הבוט אומר שלום
         mobile:
@@ -33,6 +51,12 @@
     - wait:
         options:
           - show: נשמע טוב.
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - first-interaction
+
 
 - name: select-business-kind
   steps:
@@ -57,6 +81,11 @@
               - say: בסדר גמור
               - say: יש לי לא מעט מה לספר לך גם ככה
               - say: ואם ישארו לך שאלות בסוף, דקלה תשמח לעזור
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - business-kind-selected
 
 - name: select-location
   steps:
@@ -92,6 +121,11 @@
         cmd: calculate_locations
         params:
           - record
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - location-selected
 
 - name: choose-property-size
   steps:
@@ -127,6 +161,11 @@
           steps:
             - say: אין בעיה :) 
     - say: מעולה! עכשיו אני יכול להתאים לך מידע רלוונטי 🤖.
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - property-size-selected
 
 - name: topic-selection
   steps:
@@ -164,10 +203,10 @@
             show: טיפים כלליים לבעלי עסקים 
             default: true
             requires: []
-          - id: demand
-            show: סקר הביקושים שנערך ב-2019
-            default: false
-            requires: []
+          # - id: demand
+          #   show: סקר הביקושים שנערך ב-2019
+          #   default: false
+          #   requires: []
         responses:
           some:
             show: בוא נתחיל!
@@ -186,6 +225,11 @@
             steps:
               - say: נהדר!
               - say: אני אחראי לסכם עבורך את כל נושאי השיחה שלנו. מעכשיו והלאה הם יופיעו תמיד בפינה הימנית העליונה של המסך.
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - topics-selected
 
 - name: first-contact
   steps:
@@ -200,6 +244,11 @@
             steps:
               - goto: get-email
               - say: מעולה, אני אשלח בסוף השיחה שלנו סיכום עם כל הקישורים הרלוונטיים, שיהיו לך בהישג יד.
+              - do:
+                  cmd: mark_phase
+                  params:
+                    - record
+                    - got-email
           - show: לא תודה
             class: grayed
             steps:
@@ -210,6 +259,11 @@
                       steps:
                         - goto: get-phone-number
                         - say: מעולה, יצרו איתך קשר תוך כמה ימים.
+                        - do:
+                            cmd: mark_phase
+                            params:
+                              - record
+                              - got-phone-number
                     - show: לא תודה
                       class: grayed
                       steps:
@@ -219,5 +273,10 @@
     - wait:
         options:
           - show: בטח
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start
 
 

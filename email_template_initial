@@ -1,0 +1,26 @@
+פתיחת שיחה על {{business_kind}} באיזור {{location}}
+
+
+<html>
+<body style='direction:rtl'>
+הי!<br/><br/>
+
+נפתחה שיחה חדשה ב-br7biz!<br/>
+
+<u><b>הפרטים שנמסרו:</b></u>
+<p><b>סוג העסק: </b>{{business_kind}}</p>
+<p><b>איזור: </b>{{location}}</p>
+{{#if email_address}}
+<p><b>כתובת מייל: </b>{{email_address}}</p>
+{{/if}}
+{{#if phone_number}}
+    <p><b>מספר טלפון: </b>{{phone_number}}</p>
+{{/if}}
+
+<br/><br/>
+<a href='{{self_link}}'>{{self_link}}</a>
+
+<br/><br/>
+<b>בהצלחה!</b>
+</body>
+</html>

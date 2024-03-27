@@ -7,6 +7,11 @@
           steps:
             - goto: return
         - default: true
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-arnona
     - say: ועכשיו, כדאי שנדבר על ארנונה.
     - say: אנחנו יודעים שבכוונתך לפתוח {{סוג_עסק}} באזור {{מיקום.שם}}.
     - switch:

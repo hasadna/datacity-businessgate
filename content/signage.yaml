@@ -8,6 +8,11 @@
             - goto: return
         - default: true
     - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-signage
+    - do:
         variable: _needs_signage
         cmd: check_needs_signage
         params:

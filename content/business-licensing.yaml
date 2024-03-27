@@ -16,6 +16,11 @@
         cmd: check_needs_licensing
         params:
           - record
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-business-licensing
     - say: >
         אז, לגבי רישוי העסק:
     - switch:

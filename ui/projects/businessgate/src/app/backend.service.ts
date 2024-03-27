@@ -18,6 +18,10 @@ export class BackendService {
   private state = '';
   public updateQueue = new Subject<any>();
 
+  EMAIL_TO = 'diklas@br7.org.il';
+  EMAIL_CC = ['diklas@br7.org.il', 'rsv@br7.org.il'];
+  EMAIL_BCC = 'emri@hasadna.org.il';
+
   constructor(private firestore: AngularFirestore, private router: Router, private config: ConfigService, private stacks: StacksService) {
     this.updateQueue.pipe(
       switchMap((item) => {
@@ -87,8 +91,8 @@ export class BackendService {
     const business_name = record.סוג_עסק || '-';
     const item = {
       to: owner.email,
-      cc: [record.email_address, 'diklas@br7.org.il', 'rsv@br7.org.il'],
-      bcc: 'emri@hasadna.org.il',
+      cc: [record.email_address, ...this.EMAIL_CC],
+      bcc: this.EMAIL_BCC,
       template: {
         name: 'direct-question',
         data: {
@@ -103,7 +107,7 @@ export class BackendService {
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
   }
 
-  async sendCRMEmail(record) {
+  async _sendCRMEmail(record, template, to_user) {
     const questions = [];
     if (record._feedback && record._feedback.length) {
       questions.push({
@@ -116,14 +120,14 @@ export class BackendService {
         questions.push({name, questions: record.questions[name]})
       }
     }
-    const recipient_email_address = record.email_address || 'diklas@br7.org.il';
+    const recipient_email_address = record.email_address || this.EMAIL_TO;
     const business_name = record.סוג_עסק || '-';
     const item = {
-      to: recipient_email_address,
-      cc: ['diklas@br7.org.il', 'rsv@br7.org.il'],
-      bcc: 'emri@hasadna.org.il',
+      to: to_user ? recipient_email_address : this.EMAIL_TO,
+      cc: this.EMAIL_CC,
+      bcc: this.EMAIL_BCC,
       template: {
-        name: 'crm',
+        name: template,
         data: {
           self_link: record.self_link,
           business_kind: business_name,
@@ -135,7 +139,15 @@ export class BackendService {
         }
       }
     };
-    console.log('Send CRM email', item);
+    console.log('Send CRM email', template, item);
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
+  }
+
+  async sendCRMEmail(record) {
+    return await this._sendCRMEmail(record, 'crm', true);
+  }
+
+  async sendCRMEmailInitial(record) {
+    return await this._sendCRMEmail(record, 'crm-open', false);
   }
 }

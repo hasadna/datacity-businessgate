@@ -7,6 +7,11 @@
           steps:
             - goto: return
         - default: true
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-tips
     - say: אספתי כמה טיפים נוספים שיוכלו אולי לעניין אותך
     - cards:
         stacks:

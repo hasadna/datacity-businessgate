@@ -329,6 +329,10 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
     return this.backend.sendCRMEmail(record);
   }
 
+  async send_crm_email_initial(record) {
+    return this.backend.sendCRMEmailInitial(record);
+  }
+
   async select_commercial_area() {
     const responseTemplate = 'בחרתי {{location.title}}';
     if (this.runner.runFast) {
@@ -356,6 +360,38 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         return response ? 'אשמח לשמוע' : null;
       })
     ).toPromise();
+  }
+
+  async mark_phase(record, phase) {
+    if (!record._reported_phases) {
+      record._reported_phases = {};
+    }
+    if (record._reported_phases[phase]) {
+      return;
+    }
+    const business_kind = record.סוג_עסק || null;
+    const location = (record.location ? record.location.שם : null) || null;
+    const event: any = {
+      phase_name: phase,
+    };
+    const topics = record.topics || {};
+    record._event_topics = record._event_topics || {};
+    for (const k of Object.keys(topics)) {
+      if (topics[k]) {
+        record._event_topics['selected_topic_' + k] = 'yes';
+      }
+    }
+    if (business_kind) {
+      event.selected_business_kind = business_kind;
+    }
+    if (location) {
+      event.selected_location = location;
+    }
+    Object.assign(event, record._event_topics);
+    if (window['gtag']) {
+      window['gtag']('event', 'phase', event);
+    }
+    record._reported_phases[phase] = true;
   }
 
   restart() {
@@ -409,9 +445,11 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
         prepare_geo_insights: async (record) => { return await this.prepare_geo_insights(record); },
         prepare_business_record: async (record) => { return await this.prepare_business_record(record); },
         send_crm_email: async (record) => { return await this.send_crm_email(record); },
+        send_crm_email_initial: async (record) => { return await this.send_crm_email_initial(record); },
         select_commercial_area: async () => { return await this.select_commercial_area(); },
         new_chat: async () => { return await this.new_chat(); },
         save: async () => { return await this.save(); },
+        mark_phase: async (record, phase) => { return await this.mark_phase(record, phase); },
       },
       async (key, value, record) => {
         await this.backend.update(record);

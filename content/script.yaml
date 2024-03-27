@@ -5,7 +5,7 @@
     - include: business-licensing.yaml
     - include: arnona.yaml
     - include: signage.yaml
-    - include: demand.yaml
+    # - include: demand.yaml
     - include: geo-insights.yaml
     - include: business-operation.yaml
     - include: tips.yaml
@@ -21,7 +21,7 @@
     - name: run-all
       steps:
       - goto: business-licensing
-      - goto: demand
+      # - goto: demand
       - goto: geo-insights
       - goto: arnona
       - goto: signage

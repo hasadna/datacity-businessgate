@@ -12,6 +12,11 @@
         cmd: check_needs_demand
         params:
           - record
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-demand
     - say: רצית שנדבר על סקר הביקושים?
     - say: >
         אחת לכמה זמן, העירייה עורכת סקר ממנו ניתן ללמוד על רצונות וצרכי התושבים בשכונות השונות.

@@ -43,9 +43,9 @@
                               - id: tips
                                 show: טיפים כלליים לבעלי עסקים 
                                 requires: []
-                              - id: demand
-                                show: סקר הביקושים שנערך ב-2019
-                                requires: []
+                              # - id: demand
+                              #   show: סקר הביקושים שנערך ב-2019
+                              #   requires: []
                             responses:
                               some:
                                 show: ספר לי עוד
@@ -60,6 +60,11 @@
               
               - say: >
                   את כל הקישורים שהזכרנו בשיחה אפשר למצוא כאן:
+              - do:
+                  cmd: mark_phase
+                  params:
+                    - record
+                    - content-start-links
               - cards:
                   stack: links.קישורים
               - switch:
@@ -73,6 +78,11 @@
                             - show: האמת שכן
                               steps:
                               - goto: get-email
+                              - do:
+                                  cmd: mark_phase
+                                  params:
+                                    - record
+                                    - got-email-outro
                             - show: לא תודה, שמרתי את הלינק בעצמי
                               steps:
                               - say: אין בעיה
@@ -102,6 +112,11 @@
                   long: true
                   placeholder: מה להעביר לדקלה? נשמח לשמוע גם ביקורת בונה…
               - say: תודה, אני אעביר את זה הלאה.
+              - do:
+                  cmd: mark_phase
+                  params:
+                    - record
+                    - got-feedback
               - goto: get-contact-if-needed
           - show: פשוט שתהיה איתי בקשר
             steps:
@@ -133,6 +148,11 @@
             steps:
               - share-dialog:
               - say: תודה ענקית מכולנו וממני במיוחד!
+              - do:
+                  cmd: mark_phase
+                  params:
+                    - record
+                    - accepted-share
           - show: לא כרגע
             class: grayed
             steps:
@@ -151,6 +171,11 @@
           width: '40%'
     - do:
         cmd: save
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - completed
     - wait:
         options:
           - show: שיחה חדשה
@@ -190,6 +215,11 @@
                   - undefined: true
                     steps:
                       - say: דקלה מיעדים תיצור איתך קשר תוך כמה ימים, בכתובת {{email_address}}
+                      - do:
+                          cmd: mark_phase
+                          params:
+                            - record
+                            - got-email-for-feedback
                       - goto: return
                   - default: true
           - show: בשיחת טלפון
@@ -201,6 +231,11 @@
                   - undefined: true
                     steps:
                       - say: דקלה מיעדים תיצור איתך קשר תוך כמה ימים, בטלפון {{phone_number}}
+                      - do:
+                          cmd: mark_phase
+                          params:
+                            - record
+                            - got-phone-number-for-feedback
                       - goto: return
                   - default: true
 

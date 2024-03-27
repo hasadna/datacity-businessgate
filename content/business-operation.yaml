@@ -7,6 +7,11 @@
           steps:
             - goto: return
         - default: true
+    - do:
+        cmd: mark_phase
+        params:
+          - record
+          - content-start-business-operation
     - say: >
         ועכשיו: צריך לדבר על הרגע שאחרי שהעסק שלך יוקם...
     - say: >
