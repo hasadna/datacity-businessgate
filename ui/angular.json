@@ -78,18 +78,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "businessgate:build"
+            "buildTarget": "businessgate:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "businessgate:build:production"
+              "buildTarget": "businessgate:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "businessgate:build"
+            "buildTarget": "businessgate:build"
           }
         },
         "test": {

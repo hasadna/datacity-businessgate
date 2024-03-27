@@ -1,5 +1,5 @@
 <app-widget-sidepage-base page='about'>
-    <div [innerHtml]='marked(content.content)'></div>
+    <div [innerHtml]='safeContent'></div>
     <div class='credit' *ngFor='let credit of content.credits'>
         <app-owner-profile-photo [owner]='credit' [size]='48' [borderWidth]='2' borderColor='#360627'></app-owner-profile-photo>
         <div class='identity'>

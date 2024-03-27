@@ -3,6 +3,7 @@ import { DataService } from '../../data.service';
 import { first } from 'rxjs/operators';
 
 import * as marked from 'marked';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-sidepage-eula',
@@ -12,12 +13,13 @@ import * as marked from 'marked';
 export class WidgetSidepageEulaComponent implements OnInit {
 
   content: any = {content: ''};
-  marked = marked;
+  safeContent: SafeHtml;
 
-  constructor(private data: DataService) {
+  constructor(private data: DataService, private sanitizer: DomSanitizer) {
     this.data.content.pipe(first())
     .subscribe((content) => {
       this.content = content.eula;
+      this.safeContent = sanitizer.bypassSecurityTrustHtml(marked(this.content.content));
     });
   }
 

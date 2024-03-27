@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -45,6 +45,7 @@ import { CopyLinkComponent } from './copy-link/copy-link.component';
 import { ChatMsgTopicSelectionComponent } from './chat-msgs/chat-msg-topic-selection/chat-msg-topic-selection.component';
 import { WidgetStackBackdropComponent } from './widgets/widget-stack-backdrop/widget-stack-backdrop.component';
 import { ClickOnReturnDirective } from './click-on-return.directive';
+import * as Sentry from "@sentry/angular-ivy";
 
 const appRoutes: Routes = [
   { path: 'r/:id', component: MainPageComponent },
@@ -99,6 +100,12 @@ const appRoutes: Routes = [
     AngularFirestoreModule
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: true,
+      }),
+    },
   ],
   bootstrap: [AppComponent]
 })
