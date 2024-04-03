@@ -20,8 +20,8 @@ jobs:
           python-version: '3.12'
       - name: Python Requirements
         run: |
-          pip install -U setuptools
           python -m ensurepip --upgrade
+          pip install -U setuptools
           pip install -r requirements.txt
       - name: npm requirements
         run: (cd ui && npm install)
