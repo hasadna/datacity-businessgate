@@ -1,5 +1,5 @@
 dataflows
-shapely<2
+shapely
 geojson
 requests
 Pillow
