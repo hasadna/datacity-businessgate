@@ -14,10 +14,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: '14'
+          node-version: '20'
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
+          python-version: '3.12'
       - name: Python Requirements
         run: pip install -r requirements.txt
       - name: npm requirements
