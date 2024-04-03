@@ -8,7 +8,7 @@ from io import BytesIO
 from PIL import Image
 from kvfile import KVFile
 
-_cache = KVFile(filename='_cache_airtable')
+_cache = KVFile(location='_cache_airtable')
 override = set([])
 for key in override:
     try:

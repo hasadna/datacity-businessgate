@@ -4,22 +4,12 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
-
 jobs:
-  semaphore:
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    steps:
-      - name: 'Block Concurrent Executions'
-        uses: softprops/turnstyle@v1
-        with:
-          poll-interval-seconds: 10
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   build:
     runs-on: ubuntu-latest
-    needs: semaphore
+    concurrency:
+      group: example-group
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
