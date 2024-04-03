@@ -19,7 +19,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Python Requirements
-        run: pip install -r requirements.txt
+        run: |
+          pip install setuptools
+          pip install -r requirements.txt
       - name: npm requirements
         run: (cd ui && npm install)
       - name: git identity
