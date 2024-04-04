@@ -25,10 +25,9 @@ export class StateService {
 
   addState(kind, x) {
     if (!this.inState(this._current, kind, x)) {
-      if (window['gtag']) {
-        window['gtag']('event', 'nav', {
-          'event_category': kind,
-          'event_label': x
+      if (window['gtag'] && kind === 'stack') {
+        window['gtag']('event', 'stack', {
+          'stack_name': x
         });
       }
       return [...this._current.filter((i) => i.indexOf(kind + ':') !== 0), kind + ':' + x].join('|');
