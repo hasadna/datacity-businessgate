@@ -11,8 +11,8 @@ export class DataService {
   CONTENT_DATA_URL = 'assets/content.json';
 
   BUSINESSES_DATA_URL = 'assets/businesses.json';
-  BUSINESS_LICENSING_DATA_URL = 'https://opendata.hasadna.org.il/dataset/d854bea1-69af-4763-a2b7-8b193bba2ca3/resource/3830d521-c9b3-46fe-9ba4-2d90483f79a2/download/business_kind_licensing_rules.json';
-  BUSINESS_PROPERTY_TAX_DATA_URL = 'https://opendata.hasadna.org.il/dataset/d854bea1-69af-4763-a2b7-8b193bba2ca3/resource/371dad70-c782-4568-a3c1-8013d460521d/download/business_kind_property_tax_rules.json';
+  BUSINESS_LICENSING_DATA_URL = 'assets/business_kind_licensing_rules.json';
+  BUSINESS_PROPERTY_TAX_DATA_URL = 'assets/business_kind_property_tax_rules.json';
   LOCATIONS_DATA_URL = 'assets/locations.json';
   
   STACKS_DATA_URL = 'assets/all_stacks.json';
