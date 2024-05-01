@@ -472,7 +472,7 @@ if __name__ == "__main__":
         locations = prepare_locations()
         json.dump(locations, f, ensure_ascii=False, indent=2)
 
-    with open('../ui/projects/businessgate/src/assets/neighborhoods.geojson', 'w') as f:
+    with open('../ui/projects/businessgate/src/assets/neighborhoods.json', 'w') as f:
         neighborhoods_geojson = prepare_neighborhoods_geojson()
         f.write(neighborhoods_geojson)
 

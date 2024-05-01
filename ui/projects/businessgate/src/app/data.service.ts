@@ -18,7 +18,7 @@ export class DataService {
   STACKS_DATA_URL = 'assets/all_stacks.json';
   
   DEMAND_CATEGORIES = 'assets/demand_categories.json';
-  NEIGHBORHOODS_GEOJSON = 'assets/neighborhoods.geojson';
+  NEIGHBORHOODS_GEOJSON = 'assets/neighborhoods.json';
 
   public businesses = new ReplaySubject<any>(1);
   public businesses_licensing = new ReplaySubject<any>(1);
