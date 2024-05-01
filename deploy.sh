@@ -9,8 +9,8 @@ mv script.$VERSION.json ui/projects/businessgate/src/assets/script.$SCRIPT_VERSI
 echo "export const VERSION='$VERSION';" > ui/projects/businessgate/src/app/version.ts && \
 echo "export const SCRIPT_VERSION='$SCRIPT_VERSION';" >> ui/projects/businessgate/src/app/version.ts && \
 git add ui/projects/businessgate/src/assets/script.$SCRIPT_VERSION.json || true && \
-curl 'https://opendata.hasadna.org.il/dataset/d854bea1-69af-4763-a2b7-8b193bba2ca3/resource/3830d521-c9b3-46fe-9ba4-2d90483f79a2/download/business_kind_licensing_rules.json' > ui/projects/businessgate/src/assets/business_kind_licensing_rules.json && \
-curl 'https://opendata.hasadna.org.il/dataset/d854bea1-69af-4763-a2b7-8b193bba2ca3/resource/371dad70-c782-4568-a3c1-8013d460521d/download/business_kind_property_tax_rules.json' > ui/projects/businessgate/src/assets/business_kind_property_tax_rules.json && \
+curl -L 'https://opendata.hasadna.org.il/dataset/d854bea1-69af-4763-a2b7-8b193bba2ca3/resource/3830d521-c9b3-46fe-9ba4-2d90483f79a2/download/business_kind_licensing_rules.json' > ui/projects/businessgate/src/assets/business_kind_licensing_rules.json && \
+curl -L 'https://opendata.hasadna.org.il/dataset/d854bea1-69af-4763-a2b7-8b193bba2ca3/resource/371dad70-c782-4568-a3c1-8013d460521d/download/business_kind_property_tax_rules.json' > ui/projects/businessgate/src/assets/business_kind_property_tax_rules.json && \
 git add ui/projects/businessgate/src/assets/business_kind_licensing_rules.json || true && \
 git add ui/projects/businessgate/src/assets/business_kind_property_tax_rules.json || true && \
 git commit -m "Automatic update of script for version $SCRIPT_VERSION" || true && \
