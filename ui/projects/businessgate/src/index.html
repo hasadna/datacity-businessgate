@@ -40,7 +40,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){
       console.log('GTAG', arguments);
-      dataLayer.push(arguments);
+      window.dataLayer.push(arguments);
     }
   </script>
   <!-- End Google Tag Manager -->
