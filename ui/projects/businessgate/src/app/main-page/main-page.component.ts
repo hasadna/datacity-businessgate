@@ -388,8 +388,9 @@ export class MainPageComponent implements OnInit, AfterViewInit, AfterContentChe
       event.selected_location = location;
     }
     Object.assign(event, record._event_topics);
+    event['event'] = 'phase';
     if (window['gtag']) {
-      window['gtag']('event', 'phase', event);
+      window['gtag'](event);
     }
     record._reported_phases[phase] = true;
   }
