@@ -38,7 +38,10 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-P448WZ2N');
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){
+      console.log('GTAG', arguments);
+      dataLayer.push(arguments);
+    }
   </script>
   <!-- End Google Tag Manager -->
 
