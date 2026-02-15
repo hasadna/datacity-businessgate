@@ -18,8 +18,8 @@ export class BackendService {
   private state = '';
   public updateQueue = new Subject<any>();
 
-  EMAIL_TO = 'diklas@br7.org.il';
-  EMAIL_CC = ['diklas@br7.org.il', 'rsv@br7.org.il'];
+  EMAIL_TO = 'arielagc@br7.org.il';
+  EMAIL_CC = ['arielagc@br7.org.il', 'rsv@br7.org.il'];
   EMAIL_BCC = 'emri@hasadna.org.il';
 
   constructor(private firestore: AngularFirestore, private router: Router, private config: ConfigService, private stacks: StacksService) {
