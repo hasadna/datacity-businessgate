@@ -225,7 +225,7 @@ def process_demographics(stack):
 
         demographics_cards = DF.Flow(
             *[
-                DF.load(f, headers=4)
+                DF.load(f, headers=4, encoding='iso-8859-8')
                 for f in glob.glob('demographics/*.csv')
             ],
             DF.add_field('stat_id', 'string', lambda r: r["אג''ס"]),
