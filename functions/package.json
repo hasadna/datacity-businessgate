@@ -9,7 +9,10 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "npm run build && node test/checks.js",
+    "test": "npm run build && npm run test:unit && npm run test:integration",
+    "test:unit": "node --test test/unit/*.test.js",
+    "test:integration": "firebase emulators:exec --only firestore --project businessgate-test \"npm run test:integration:run\"",
+    "test:integration:run": "node --test --test-concurrency=1 test/integration/*.test.js",
     "serve": "npm run build && firebase emulators:start --only functions,firestore",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
@@ -27,6 +30,7 @@
     "@types/node": "^22.10.0",
     "@types/nodemailer": "^6.4.17",
     "firebase-tools": "^14.0.0",
+    "smtp-server": "^3.19.3",
     "typescript": "^5.7.2"
   }
 }

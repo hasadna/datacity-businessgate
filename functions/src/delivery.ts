@@ -5,6 +5,7 @@ import {
   LEASE_MS,
   MAX_ATTEMPTS,
   MAX_ERROR_CHARS,
+  MIN_SWEEP_AGE_MS,
 } from './config';
 
 export type DeliveryState = 'PENDING' | 'PROCESSING' | 'RETRY' | 'SUCCESS' | 'ERROR';
@@ -89,6 +90,29 @@ export function claimability(delivery: unknown, nowMs: number): 'claim' | 'skip'
     default:
       return 'skip'; // SUCCESS, ERROR, or anything unrecognised
   }
+}
+
+/**
+ * Whether sweepMail should pick a document up. Beyond claimability, this holds
+ * the sweeper back from a document the trigger is probably about to handle: a
+ * PENDING document only seconds old is almost certainly already in flight, and
+ * racing it just burns a transaction.
+ */
+export function isSweepDue(delivery: unknown, createTimeMs: number, nowMs: number): boolean {
+  if (claimability(delivery, nowMs) === 'skip') return false;
+  const state = (delivery as Partial<Delivery> | undefined)?.state;
+  if (state === 'PENDING' && nowMs - createTimeMs < MIN_SWEEP_AGE_MS) return false;
+  return true;
+}
+
+/**
+ * Whether sweepMailOrphans should requeue a document. Firestore cannot query
+ * for a missing field, so this is the only way to find the documents that the
+ * uninstalled extension left with no `delivery` map at all.
+ */
+export function isOrphan(delivery: unknown, createTimeMs: number, nowMs: number): boolean {
+  if (delivery !== undefined) return false;
+  return nowMs - createTimeMs >= MIN_SWEEP_AGE_MS;
 }
 
 export function clampAttempts(v: unknown): number {
