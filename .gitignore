@@ -5,3 +5,12 @@ _cache*/
 .vscode/
 secrets.sh
 .checkpoints
+# firebase functions
+functions/node_modules/
+functions/lib/
+*.local
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log
+pubsub-debug.log
