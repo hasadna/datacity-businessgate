@@ -8,14 +8,8 @@ import { logger } from 'firebase-functions';
 import { setGlobalOptions } from 'firebase-functions/v2';
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import { onSchedule } from 'firebase-functions/v2/scheduler';
-import {
-  MAIL_COLLECTION,
-  MIN_SWEEP_AGE_MS,
-  ORPHAN_SCAN_ENABLED,
-  REGION,
-  SECRETS,
-} from './config';
-import { claimability, type Delivery } from './delivery';
+import { MAIL_COLLECTION, ORPHAN_SCAN_ENABLED, REGION, SECRETS } from './config';
+import { claimability, isOrphan, isSweepDue } from './delivery';
 import { processMail } from './process';
 
 initializeApp();
@@ -85,15 +79,9 @@ export const sweepMail = onSchedule(
       .limit(100)
       .get();
 
-    const due = snap.docs.filter((d) => {
-      const delivery = d.get('delivery') as Partial<Delivery> | undefined;
-      if (claimability(delivery, nowMs) === 'skip') return false;
-      // Give the trigger first refusal on a document that was just created.
-      if (delivery?.state === 'PENDING' && nowMs - d.createTime.toMillis() < MIN_SWEEP_AGE_MS) {
-        return false;
-      }
-      return true;
-    });
+    const due = snap.docs.filter((d) =>
+      isSweepDue(d.get('delivery'), d.createTime.toMillis(), nowMs),
+    );
 
     logger.info('sweep', { scanned: snap.size, due: due.length });
     for (const d of due) {
@@ -147,8 +135,7 @@ export const sweepMailOrphans = onSchedule(
       scanned += snap.size;
 
       for (const d of snap.docs) {
-        if (d.get('delivery') !== undefined) continue;
-        if (Date.now() - d.createTime.toMillis() < MIN_SWEEP_AGE_MS) continue;
+        if (!isOrphan(d.get('delivery'), d.createTime.toMillis(), Date.now())) continue;
         await d.ref.update({ delivery: { state: 'PENDING', attempts: 0 } });
         requeued++;
       }

@@ -1,0 +1,61 @@
+name: Functions
+
+# The mail-sending function is the only thing standing between a lead being
+# submitted and someone actually receiving it, so its tests gate every PR.
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+concurrency:
+  group: functions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: functions
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches the functions runtime declared in functions/package.json.
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Set up Java for the Firestore emulator
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Cache the Firestore emulator
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firebase-emulators-${{ runner.os }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      # Pure logic: the delivery state machine, the loop guard, and the
+      # validation that keeps a world-writable collection from becoming an
+      # open relay. No emulator, no network.
+      - name: Unit tests
+        run: npm run test:unit
+
+      # The full pipeline against the Firestore emulator and a real SMTP
+      # server: claiming, leases, retries, and the rendered message on the wire.
+      - name: Integration tests
+        run: npm run test:integration
