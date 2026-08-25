@@ -101,7 +101,12 @@ export class BackendService {
           location: (record.location ? record.location.שם : null) || '-',
           questions: questions,
         }
-      }
+      },
+      // Marks the message as awaiting delivery. The mail-sending cloud function
+      // overwrites this map wholesale when it claims the document; its only job
+      // here is to make the document findable by the sweeper, since Firestore
+      // cannot query for a *missing* field.
+      delivery: {state: 'PENDING', attempts: 0},
     };
     console.log('Send Direct email', item);
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);
@@ -137,7 +142,8 @@ export class BackendService {
           questions: questions,
           stack_modules: this.stacks.stack_modules,
         }
-      }
+      },
+      delivery: {state: 'PENDING', attempts: 0},
     };
     console.log('Send CRM email', template, item);
     return this.firestore.collection('mail').add(item).then((docref) => docref.id);

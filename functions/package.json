@@ -1,0 +1,32 @@
+{
+  "name": "businessgate-functions",
+  "private": true,
+  "main": "lib/index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node test/checks.js",
+    "serve": "npm run build && firebase emulators:start --only functions,firestore",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "backfill": "npm run build && node lib/tools/backfill.js",
+    "smoke": "npm run build && node lib/tools/smoke.js",
+    "sync-templates": "npm run build && node lib/tools/sync-templates.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.2",
+    "firebase-functions": "^6.3.0",
+    "handlebars": "^4.7.8",
+    "nodemailer": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/nodemailer": "^6.4.17",
+    "firebase-tools": "^14.0.0",
+    "typescript": "^5.7.2"
+  }
+}
