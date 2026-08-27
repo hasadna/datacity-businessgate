@@ -50,7 +50,9 @@ def fetch_ckan(dataset, resource_name):
     dataset = dataset['result']
     for resource in dataset['resources']:
         if resource['name'] == resource_name:
-            url = resource['url'].replace('e.data.gov.il', 'data.gov.il')
+            url = resource['url']\
+                .replace('aws-e.data.gov.il', 'data.gov.il')\
+                .replace('e.data.gov.il', 'data.gov.il')
             response = requests.get(url, stream=True, headers=headers).raw
             response.read = functools.partial(response.read, decode_content=True)
             return response
